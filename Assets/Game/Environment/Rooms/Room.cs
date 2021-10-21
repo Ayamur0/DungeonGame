@@ -2,9 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum RoomType
+{
+    Default,
+    Spawn,
+    End
+}
+
 public class Room : MonoBehaviour
 {
     public int Size = 20;
+    public RoomType Type = RoomType.Default;
+
+    public List<GameObject> Gates = new List<GameObject>();
 
     // Start is called before the first frame update
     private void Start()
@@ -14,5 +24,16 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        /*
+        var player = other.GetComponent<Player>();
+        if (player)
+        {
+            // player in room
+        }
+        */
     }
 }
