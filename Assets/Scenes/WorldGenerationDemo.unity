@@ -553,11 +553,12 @@ MonoBehaviour:
   MapHeight: 20
   Rooms: 40
   WallPrefab: {fileID: 3763388036122977116, guid: 769e765e4bb2d9c47b9d536d91e31831, type: 3}
+  TwoGateRoomPrefab: {fileID: 4378946936474958776, guid: 15ec30d011b68b0428dac7c601da18cc, type: 3}
   ShowSpeed: 0.01
   RoomContainers:
-  - RoomType: 0
+  - Direction: 0
     GameObjects:
     - {fileID: 2845490477502294647, guid: 1d1bca02fb1e7fe4096603ddb0c7bb70, type: 3}
-  - RoomType: 1
+  - Direction: 0
     GameObjects:
     - {fileID: 4616524287787864040, guid: 6bd1c94a9a75e984a8c5d757507a916e, type: 3}
