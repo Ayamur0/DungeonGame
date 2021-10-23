@@ -10,7 +10,7 @@ public class LevelGenerator : MonoBehaviour
     [Serializable]
     public struct RoomContainer
     {
-        public RoomType RoomType;
+        public Maze.Direction Direction;
         public List<GameObject> GameObjects;
     }
 
@@ -18,6 +18,7 @@ public class LevelGenerator : MonoBehaviour
     public int MapHeight;
     public int Rooms;
     public GameObject WallPrefab;
+    public GameObject TwoGateRoomPrefab;
     public float ShowSpeed = 0.25f;
 
     public List<RoomContainer> RoomContainers = new List<RoomContainer>();
@@ -40,7 +41,7 @@ public class LevelGenerator : MonoBehaviour
     /// </summary>
     private void ShowRooms()
     {
-        Queue<Cell> cells = this.maze.Generate();
+        var cells = this.maze.Generate().ToArray();
         coroutine = StartCoroutine(SlowShow(cells));
     }
 
@@ -48,57 +49,78 @@ public class LevelGenerator : MonoBehaviour
     ///  Delay display
     /// </summary>
     /// <returns></returns>
-    private IEnumerator SlowShow(Queue<Cell> queue)
+    private IEnumerator SlowShow(Cell[] cells)
     {
         GameObject roomsContainer = new GameObject("Rooms");
-        while (queue.Count > 0)
+
+        for (int i = 0; i < cells.Length; i++)
         {
             yield return new WaitForSecondsRealtime(ShowSpeed);
 
-            Cell cell = queue.Dequeue();
-            var roomObject = Instantiate(WallPrefab, roomsContainer.transform);
-            var room = roomObject.GetComponent<Room>();
+            GameObject roomObject = null;
+            // var roomObject = Instantiate(WallPrefab, roomsContainer.transform);
+            // var room = roomObject.GetComponent<Room>();
 
-            rooms[cell.X, cell.Y] = roomObject;
-            rooms[cell.X, cell.Y].transform.position = new Vector3(cell.X * room.Size, 0, cell.Y * room.Size);
+            // rooms[cell.X, cell.Y] = roomObject;
+            // rooms[cell.X, cell.Y].transform.position = new Vector3(cell.X * room.Size, 0, cell.Y * room.Size);
 
             // start room
-            if (cell.IsFirstGeneratedCell)
+            if (i == 0)
             {
-                // set spawn object
+                roomObject = Instantiate(WallPrefab, roomsContainer.transform);
+                // var room = roomObject.GetComponent<Room>();
                 roomObject.name = "Spawn";
-                room.Type = RoomType.Spawn;
+                //room.Type = RoomType.Spawn;
 
                 //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(0, 255, 0);
             }
 
-            if (cell.Direction == Maze.Direction.Up)
+            if (roomObject == null)
             {
-                //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(0, 0, 255);
-            }
-            else if (cell.Direction == Maze.Direction.Left)
-            {
-                //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(255, 255, 0);
-            }
-            else if (cell.Direction == Maze.Direction.Right)
-            {
-                //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(0, 255, 255);
-            }
-            else if (cell.Direction == Maze.Direction.Down)
-            {
-                //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(255, 0, 255);
+                if (cells[i].Direction == Maze.Direction.Up)
+                {
+                    //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(0, 0, 255);
+                    roomObject = Instantiate(TwoGateRoomPrefab, roomsContainer.transform);
+                    roomObject.transform.Rotate(0, 90, 0);
+                }
+                else if (cells[i].Direction == Maze.Direction.Left)
+                {
+                    roomObject = Instantiate(TwoGateRoomPrefab, roomsContainer.transform);
+                }
+                else
+                {
+                    // check neighours
+
+                    roomObject = Instantiate(WallPrefab, roomsContainer.transform);
+                }
+                /* else if (cell.Direction == Maze.Direction.Left)
+                {
+
+                }
+                else if (cell.Direction == Maze.Direction.Right)
+                {
+                    //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(0, 255, 255);
+                }
+                else if (cell.Direction == Maze.Direction.Down)
+                {
+                    //rooms[cell.X, cell.Y].GetComponent<Renderer>().material.color = new Color(255, 0, 255);
+                }*/
+
+                // last room
+                if (i == cells.Length - 1)
+                {
+                    roomObject.name = "End";
+
+                    var lastCell = this.maze.GetCell(cells[i].X, cells[i].Y);
+                    lastCell.IsLastGeneratedCell = true;
+                    this.maze.SetCell(cells[i].X, cells[i].Y, lastCell);
+                }
             }
 
-            // last room
-            if (queue.Count == 0)
-            {
-                roomObject.name = "End";
-                room.Type = RoomType.End;
-
-                var lastCell = this.maze.GetCell(cell.X, cell.Y);
-                lastCell.IsLastGeneratedCell = true;
-                this.maze.SetCell(cell.X, cell.Y, lastCell);
-            }
+            var room = roomObject.GetComponent<Room>();
+            room.Direction = cells[i].Direction;
+            rooms[cells[i].X, cells[i].Y] = roomObject;
+            rooms[cells[i].X, cells[i].Y].transform.position = new Vector3(cells[i].X * room.Size, 0, cells[i].Y * room.Size);
         }
 
         roomsContainer.transform.position = new Vector3(roomsContainer.transform.position.x - 42f * MapWidth / 2, 0, roomsContainer.transform.position.y - 42f * MapHeight / 2);

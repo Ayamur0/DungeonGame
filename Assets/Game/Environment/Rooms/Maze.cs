@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using Random = UnityEngine.Random;
+using UnityEngine;
 
 namespace Assets.Game.Environment.Rooms
 {
     public class Maze
     {
         // https://www.programmerall.com/article/2152455253/
-
         public enum Direction
         {
             Uninitialized = -1,
@@ -55,6 +55,8 @@ namespace Assets.Game.Environment.Rooms
                     cells[i, j].IsLastGeneratedCell = false;
                 }
             }
+
+            Debug.Log(cells.Length);
         }
 
         public Cell GetCell(int x, int y)
@@ -65,6 +67,11 @@ namespace Assets.Game.Environment.Rooms
         public void SetCell(int x, int y, Cell cell)
         {
             this.cells[x, y] = cell;
+        }
+
+        public Cell[] GetCells()
+        {
+            return this.cellQueue.ToArray();
         }
 
         public Queue<Cell> Generate()

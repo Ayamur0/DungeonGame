@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Assets.Game.Environment.Rooms.Maze;
 
 public enum RoomType
 {
@@ -13,6 +14,7 @@ public class Room : MonoBehaviour
 {
     public int Size = 20;
     public RoomType Type = RoomType.Default;
+    public Direction Direction;
 
     public List<GameObject> Gates = new List<GameObject>();
 
