@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Random = UnityEngine.Random;
 using UnityEngine;
 
@@ -11,21 +12,34 @@ namespace Assets.Game.Environment.Rooms
         public enum Direction
         {
             Uninitialized = -1,
-            Up = 0,
-            Down = 1,
+            Down = 0,
+            Up = 1,
             Left = 2,
             Right = 3,
         }
 
+        [Serializable]
+        public struct CellNeighborInfo
+        {
+            public bool Up;
+            public bool Right;
+            public bool Down;
+            public bool Left;
+        }
+
+        [Serializable]
         public struct Cell
         {
             public int X;
             public int Y;
             public Direction Direction;
             public bool IsVisited;
-            public bool IsFirstGeneratedCell;
-            public bool IsLastGeneratedCell;
+            public bool IsUsed;
+            public CellNeighborInfo NeighborInfo;
         }
+
+        public int Width => this.width;
+        public int Height => this.height;
 
         private readonly int width;
         private readonly int height;
@@ -33,7 +47,7 @@ namespace Assets.Game.Environment.Rooms
         private readonly Cell[,] cells;
 
         private readonly List<Cell> cellList = new List<Cell>();
-        private readonly Queue<Cell> cellQueue = new Queue<Cell>();
+        private readonly List<Cell> usedCells = new List<Cell>();
 
         public Maze(int width, int height, int rooms)
         {
@@ -51,12 +65,10 @@ namespace Assets.Game.Environment.Rooms
                     cells[i, j].Y = j;
                     cells[i, j].Direction = Direction.Uninitialized;
                     cells[i, j].IsVisited = false;
-                    cells[i, j].IsFirstGeneratedCell = false;
-                    cells[i, j].IsLastGeneratedCell = false;
+                    cells[i, j].IsUsed = false;
+                    cells[i, j].NeighborInfo = new CellNeighborInfo();
                 }
             }
-
-            Debug.Log(cells.Length);
         }
 
         public Cell GetCell(int x, int y)
@@ -64,28 +76,18 @@ namespace Assets.Game.Environment.Rooms
             return this.cells[x, y];
         }
 
-        public void SetCell(int x, int y, Cell cell)
-        {
-            this.cells[x, y] = cell;
-        }
-
-        public Cell[] GetCells()
-        {
-            return this.cellQueue.ToArray();
-        }
-
-        public Queue<Cell> Generate()
+        public Cell[] Generate()
         {
             // always spawn in center of the map
             int x = this.width / 2;
             int y = this.height / 2;
 
             cells[x, y].IsVisited = true;
-            cells[x, y].IsFirstGeneratedCell = true;
+            cells[x, y].IsUsed = true;
 
             AddNewCellsToList(x, y);
 
-            cellQueue.Enqueue(cells[x, y]);
+            usedCells.Add(cells[x, y]);
 
             while (cellList.Count > 0)
             {
@@ -94,7 +96,7 @@ namespace Assets.Game.Environment.Rooms
                 int newX = -1, newY = -1;
                 switch (cellList[listIndex].Direction)
                 {
-                    case Direction.Up:
+                    case Direction.Down:
                         if (cellList[listIndex].Y + 1 < this.height && !cells[cellList[listIndex].X, cellList[listIndex].Y + 1].IsVisited)
                         {
                             newX = cellList[listIndex].X;
@@ -102,7 +104,7 @@ namespace Assets.Game.Environment.Rooms
                         }
                         break;
 
-                    case Direction.Down:
+                    case Direction.Up:
                         if (cellList[listIndex].Y - 1 >= 0 && !cells[cellList[listIndex].X, cellList[listIndex].Y - 1].IsVisited)
                         {
                             newX = cellList[listIndex].X;
@@ -130,12 +132,15 @@ namespace Assets.Game.Environment.Rooms
                         throw new Exception(cellList[listIndex].X + "_" + cellList[listIndex].Y + " Fail");
                 }
 
-                if (newX != -1 && newY != -1 && cellQueue.Count < this.rooms)
+                if (newX != -1 && newY != -1 && usedCells.Count < this.rooms)
                 {
                     AddNewCellsToList(newX, newY);
 
-                    cellQueue.Enqueue(cells[cellList[listIndex].X, cellList[listIndex].Y]);
-                    cellQueue.Enqueue(cells[newX, newY]);
+                    cells[cellList[listIndex].X, cellList[listIndex].Y].IsUsed = true;
+                    cells[newX, newY].IsUsed = true;
+
+                    usedCells.Add(cells[cellList[listIndex].X, cellList[listIndex].Y]);
+                    usedCells.Add(cells[newX, newY]);
 
                     cells[cellList[listIndex].X, cellList[listIndex].Y].IsVisited = true;
                     cells[newX, newY].IsVisited = true;
@@ -144,7 +149,48 @@ namespace Assets.Game.Environment.Rooms
                 cellList.RemoveAt(listIndex);
             }
 
-            return this.cellQueue;
+            SetCellNeighborInfo();
+
+            return this.usedCells.ToArray();
+        }
+
+        public void SetCellNeighborInfo()
+        {
+            for (int i = 0; i < usedCells.Count; i++)
+            {
+                var y = usedCells[i].Y;
+                var x = usedCells[i].X;
+                var cell = usedCells[i];
+
+                if (y + 1 < this.height && this.cells[x, y + 1].IsUsed)
+                {
+                    cells[x, y].NeighborInfo.Up = true;
+
+                    cell.NeighborInfo.Up = true;
+                    usedCells[i] = cell;
+                }
+
+                if (y - 1 >= 0 && this.cells[x, y - 1].IsUsed)
+                {
+                    cells[x, y].NeighborInfo.Down = true;
+                    cell.NeighborInfo.Down = true;
+                    usedCells[i] = cell;
+                }
+
+                if (x - 1 >= 0 && this.cells[x - 1, y].IsUsed)
+                {
+                    cells[x, y].NeighborInfo.Left = true;
+                    cell.NeighborInfo.Left = true;
+                    usedCells[i] = cell;
+                }
+
+                if (x + 1 < this.width && this.cells[x + 1, y].IsUsed)
+                {
+                    cells[x, y].NeighborInfo.Right = true;
+                    cell.NeighborInfo.Right = true;
+                    usedCells[i] = cell;
+                }
+            }
         }
 
         /// <summary>
@@ -156,13 +202,13 @@ namespace Assets.Game.Environment.Rooms
         {
             if (y + 1 < this.height && !cells[x, y + 1].IsVisited)
             {
-                cells[x, y + 1].Direction = Direction.Up;
+                cells[x, y + 1].Direction = Direction.Down;
                 cellList.Add(cells[x, y + 1]);
             }
 
             if (y - 1 >= 0 && !cells[x, y - 1].IsVisited)
             {
-                cells[x, y - 1].Direction = Direction.Down;
+                cells[x, y - 1].Direction = Direction.Up;
                 cellList.Add(cells[x, y - 1]);
             }
 

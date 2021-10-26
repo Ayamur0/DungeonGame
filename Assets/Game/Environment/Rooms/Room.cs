@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,8 +16,9 @@ public class Room : MonoBehaviour
     public int Size = 20;
     public RoomType Type = RoomType.Default;
     public Direction Direction;
-
+    public CellNeighborInfo NeighborInfos;
     public List<GameObject> Gates = new List<GameObject>();
+    public Vector2 CellPosition = Vector2.zero;
 
     // Start is called before the first frame update
     private void Start()
