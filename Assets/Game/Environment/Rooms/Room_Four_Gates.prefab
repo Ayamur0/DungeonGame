@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 1234713667}
   - component: {fileID: 7624815660468766458}
   m_Layer: 0
-  m_Name: Room
+  m_Name: Room_Four_Gates
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -343,11 +343,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Size: 42
   Type: 0
+  NeighborInfos:
+    Up: 0
+    Right: 0
+    Down: 0
+    Left: 0
   Gates:
   - {fileID: 7564064648847153913}
   - {fileID: 7051556565498613837}
   - {fileID: 2561301995873437546}
   - {fileID: 4974770682237234689}
+  CellPosition: {x: 0, y: 0}
 --- !u!65 &7624815660468766458
 BoxCollider:
   m_ObjectHideFlags: 0

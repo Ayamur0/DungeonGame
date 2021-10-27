@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Random = UnityEngine.Random;
-using UnityEngine;
 
 namespace Assets.Game.Environment.Rooms
 {
+    [Serializable]
+    public struct CellNeighborInfo
+    {
+        public bool Up;
+        public bool Right;
+        public bool Down;
+        public bool Left;
+    }
+
     public class Maze
     {
-        // https://www.programmerall.com/article/2152455253/
+        /*
+         * Using Randomized Prim's algorithm
+         * Ref: https://en.wikipedia.org/wiki/Maze_generation_algorithm
+         * Source inspired by: https://www.programmerall.com/article/2152455253/
+         */
+
         public enum Direction
         {
             Uninitialized = -1,
@@ -16,15 +28,6 @@ namespace Assets.Game.Environment.Rooms
             Up = 1,
             Left = 2,
             Right = 3,
-        }
-
-        [Serializable]
-        public struct CellNeighborInfo
-        {
-            public bool Up;
-            public bool Right;
-            public bool Down;
-            public bool Left;
         }
 
         [Serializable]
@@ -37,9 +40,6 @@ namespace Assets.Game.Environment.Rooms
             public bool IsUsed;
             public CellNeighborInfo NeighborInfo;
         }
-
-        public int Width => this.width;
-        public int Height => this.height;
 
         private readonly int width;
         private readonly int height;
