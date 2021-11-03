@@ -3572,7 +3572,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   fireball: {fileID: 5901348858978309909, guid: 6e8c4c0b9ce9c7449992764d4493a43d, type: 3}
-  speed: 0.1
+  speed: 0.05
   attackCooldown: 0.5
 --- !u!114 &7446563065057868608
 MonoBehaviour:
