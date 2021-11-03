@@ -85,7 +85,7 @@ namespace Assets.Game.Environment.Rooms
             cells[x, y].IsVisited = true;
             cells[x, y].IsUsed = true;
 
-            AddNewCellsToList(x, y);
+            AddCell(x, y);
 
             usedCells.Add(cells[x, y]);
 
@@ -134,7 +134,7 @@ namespace Assets.Game.Environment.Rooms
 
                 if (newX != -1 && newY != -1 && usedCells.Count < this.rooms)
                 {
-                    AddNewCellsToList(newX, newY);
+                    AddCell(newX, newY);
 
                     cells[cellList[listIndex].X, cellList[listIndex].Y].IsUsed = true;
                     cells[newX, newY].IsUsed = true;
@@ -165,7 +165,6 @@ namespace Assets.Game.Environment.Rooms
                 if (y + 1 < this.height && this.cells[x, y + 1].IsUsed)
                 {
                     cells[x, y].NeighborInfo.Up = true;
-
                     cell.NeighborInfo.Up = true;
                     usedCells[i] = cell;
                 }
@@ -193,12 +192,7 @@ namespace Assets.Game.Environment.Rooms
             }
         }
 
-        /// <summary>
-        ///  Add new cell to the list
-        /// </summary>
-        /// <param name="x"></param>
-        /// <param name="y"></param>
-        private void AddNewCellsToList(int x, int y)
+        private void AddCell(int x, int y)
         {
             if (y + 1 < this.height && !cells[x, y + 1].IsVisited)
             {

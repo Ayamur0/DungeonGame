@@ -1,6 +1,8 @@
+using System;
 using Assets.Game.Environment.Rooms;
 using UnityEngine;
 using Cell = Assets.Game.Environment.Rooms.Maze.Cell;
+using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
@@ -24,20 +26,13 @@ public class LevelGenerator : MonoBehaviour
         ShowRooms();
     }
 
-    /// <summary>
-    /// Randomized Prim
-    /// </summary>
     private void ShowRooms()
     {
         var cells = this.maze.Generate();
-        SlowShow(cells);
+        CreateCells(cells);
     }
 
-    /// <summary>
-    ///  Delay display
-    /// </summary>
-    /// <returns></returns>
-    private void SlowShow(Cell[] cells)
+    private void CreateCells(Cell[] cells)
     {
         GameObject roomsContainer = new GameObject("Rooms");
 
@@ -58,16 +53,24 @@ public class LevelGenerator : MonoBehaviour
             if (i == 0)
             {
                 roomObject.name = "Spawn";
+                roomObject.tag = "Spawn";
                 room.Type = RoomType.Spawn;
+
+                // open room doors
+                room.OpenGates();
             }
             else if (i == cells.Length - 1)
             {
                 roomObject.name = "Exit";
+                roomObject.tag = "Exit";
                 room.Type = RoomType.Exit;
             }
             else
             {
                 // set random object type
+                var roomTypes = Enum.GetValues(typeof(RoomType));
+                var rndRoomType = (RoomType)roomTypes.GetValue(Random.Range(2, roomTypes.Length));
+                Debug.Log(rndRoomType);
             }
         }
 

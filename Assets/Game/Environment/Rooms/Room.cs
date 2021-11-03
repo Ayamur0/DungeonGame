@@ -4,7 +4,6 @@ using UnityEngine;
 
 public enum RoomType
 {
-    Default,
     Spawn,
     Exit,
     Shop,
@@ -15,10 +14,11 @@ public enum RoomType
 public class Room : MonoBehaviour
 {
     public int Size = 20;
-    public RoomType Type = RoomType.Default;
+    public RoomType Type = RoomType.Battle;
     public CellNeighborInfo NeighborInfos;
     public List<GameObject> Gates = new List<GameObject>();
     public Vector2 CellPosition = Vector2.zero;
+    public float GateSize = 2.6f;
 
     // Start is called before the first frame update
     private void Start()
@@ -28,13 +28,26 @@ public class Room : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OpenGates();
+            Debug.Log("OPEN GATES");
+        }
     }
 
     public void OpenGates()
     {
         foreach (var gate in Gates)
         {
-            gate.transform.position -= new Vector3(0, -1.5f, 0);
+            gate.transform.position -= new Vector3(0, GateSize, 0);
+        }
+    }
+
+    public void CloseGates()
+    {
+        foreach (var gate in Gates)
+        {
+            gate.transform.position += new Vector3(0, GateSize, 0);
         }
     }
 

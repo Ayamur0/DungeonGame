@@ -604,7 +604,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Size: 42
   Type: 0
-  Direction: 0
   NeighborInfos:
     Up: 0
     Right: 0
@@ -612,10 +611,10 @@ MonoBehaviour:
     Left: 0
   Gates:
   - {fileID: 1800943029697321595}
-  - {fileID: 0}
-  - {fileID: 6020567251563169768}
   - {fileID: 3823317557873208963}
+  - {fileID: 6020567251563169768}
   CellPosition: {x: 0, y: 0}
+  GatesOpen: 0
 --- !u!65 &1861677617231382136
 BoxCollider:
   m_ObjectHideFlags: 0
