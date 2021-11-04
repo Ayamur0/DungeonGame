@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456842359}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0, y: 17.28, z: 0}
+  m_LocalPosition: {x: 15.27, y: 12.5, z: 1.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -335,7 +335,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!102 &1436013669
 TextMesh:
   serializedVersion: 3
@@ -557,3 +557,13 @@ MonoBehaviour:
   OneGateRoomPrefab: {fileID: 3825264829198593201, guid: 9d6feffa0125a5341b180160e7f55e82, type: 3}
   TwoGateLRoomPrefab: {fileID: 7340849087717286238, guid: 79b9151ecfb50f04f9f7b5ca0c92dfda, type: 3}
   ThreeGateRoomPrefab: {fileID: 4917075265002955742, guid: e095f3e1fafb1044b80d28458cb26194, type: 3}
+  RoomList:
+  - Type: 1
+    Prefabs:
+    - {fileID: 8670726608676479523, guid: 1e8c31a46a6d7c542b11b93a3118dbbc, type: 3}
+  - Type: 0
+    Prefabs:
+    - {fileID: 1885464899623854680, guid: 14cc4a666bdcf144d86e320d97e720ee, type: 3}
+  - Type: 3
+    Prefabs:
+    - {fileID: 7287242800714077123, guid: b111a0f7c63f56d4eb366daca98d168b, type: 3}

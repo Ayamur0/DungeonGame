@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Assets.Game.Environment.Rooms;
 using UnityEngine;
 using Cell = Assets.Game.Environment.Rooms.Maze.Cell;
@@ -14,6 +16,14 @@ public class LevelGenerator : MonoBehaviour
     public GameObject OneGateRoomPrefab;
     public GameObject TwoGateLRoomPrefab;
     public GameObject ThreeGateRoomPrefab;
+    public List<RoomDictionary> RoomList = new List<RoomDictionary>();
+
+    [Serializable]
+    public struct RoomDictionary
+    {
+        public RoomType Type;
+        public List<GameObject> Prefabs;
+    }
 
     private Maze maze;
     private GameObject[,] rooms;
@@ -67,10 +77,10 @@ public class LevelGenerator : MonoBehaviour
             }
             else
             {
-                // set random object type
-                var roomTypes = Enum.GetValues(typeof(RoomType));
-                var rndRoomType = (RoomType)roomTypes.GetValue(Random.Range(2, roomTypes.Length));
-                Debug.Log(rndRoomType);
+                // set random object type (not spawn and exit)
+                //var roomTypes = Enum.GetValues(typeof(RoomType));
+                //var rndRoomType = (RoomType)roomTypes.GetValue(Random.Range(2, roomTypes.Length));
+                room.Type = PickRandomRoomType();
             }
         }
 
@@ -80,6 +90,8 @@ public class LevelGenerator : MonoBehaviour
             {
                 var room = roomObject.GetComponent<Room>();
                 room.NeighborInfos = maze.GetCell((int)room.CellPosition.x, (int)room.CellPosition.y).NeighborInfo;
+                Debug.Log(room.Type);
+                CreateRoomContent(roomObject, room.Type);
             }
         }
 
@@ -87,6 +99,21 @@ public class LevelGenerator : MonoBehaviour
         var containerPos = roomsContainer.transform.position;
         var pos = new Vector3(containerPos.x - roomSize * MapWidth / 2, 0, containerPos.y - roomSize * MapHeight / 2);
         roomsContainer.transform.position = pos;
+    }
+
+    private RoomType PickRandomRoomType()
+    {
+        var probability = Random.Range(0, 100);
+        if (probability < 15)
+        {
+            return RoomType.Shop;
+        }
+        else if (probability >= 15 && probability <= 30)
+        {
+            return RoomType.Explore;
+        }
+
+        return RoomType.Battle;
     }
 
     private GameObject CreateRoomObject(GameObject roomsContainer, CellNeighborInfo neighborInfo)
@@ -184,5 +211,24 @@ public class LevelGenerator : MonoBehaviour
         }
 
         return roomObject;
+    }
+
+    public void CreateRoomContent(GameObject roomObj, RoomType type)
+    {
+        if (this.RoomList.Count > 0)
+        {
+            foreach (var room in RoomList)
+            {
+                if (room.Type == type && room.Prefabs != null)
+                {
+                    int listIndex = Random.Range(0, room.Prefabs.Count);
+                    var prefab = room.Prefabs[listIndex];
+                    if (prefab != null)
+                    {
+                        var roomContentObj = Instantiate(prefab, roomObj.transform);
+                    }
+                }
+            }
+        }
     }
 }
