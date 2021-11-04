@@ -36,6 +36,18 @@ public class LevelGenerator : MonoBehaviour
         ShowRooms();
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            this.maze = new Maze(this.MapWidth, this.MapHeight, this.Rooms);
+            this.rooms = new GameObject[MapWidth, MapHeight];
+            var roomContainer = GameObject.FindGameObjectWithTag("RoomContainer");
+            Destroy(roomContainer);
+            ShowRooms();
+        }
+    }
+
     private void ShowRooms()
     {
         var cells = this.maze.Generate();
@@ -45,6 +57,7 @@ public class LevelGenerator : MonoBehaviour
     private void CreateCells(Cell[] cells)
     {
         GameObject roomsContainer = new GameObject("Rooms");
+        roomsContainer.tag = "RoomContainer";
 
         float roomSize = 42f;
 
@@ -81,6 +94,7 @@ public class LevelGenerator : MonoBehaviour
                 //var roomTypes = Enum.GetValues(typeof(RoomType));
                 //var rndRoomType = (RoomType)roomTypes.GetValue(Random.Range(2, roomTypes.Length));
                 room.Type = PickRandomRoomType();
+                room.OpenGates();
             }
         }
 
