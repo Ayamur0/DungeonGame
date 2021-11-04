@@ -90,7 +90,6 @@ public class LevelGenerator : MonoBehaviour
             {
                 var room = roomObject.GetComponent<Room>();
                 room.NeighborInfos = maze.GetCell((int)room.CellPosition.x, (int)room.CellPosition.y).NeighborInfo;
-                Debug.Log(room.Type);
                 CreateRoomContent(roomObject, room.Type);
             }
         }
@@ -104,11 +103,11 @@ public class LevelGenerator : MonoBehaviour
     private RoomType PickRandomRoomType()
     {
         var probability = Random.Range(0, 100);
-        if (probability < 15)
+        if (probability < 5)
         {
             return RoomType.Shop;
         }
-        else if (probability >= 15 && probability <= 30)
+        else if (probability >= 5 && probability <= 30)
         {
             return RoomType.Explore;
         }
