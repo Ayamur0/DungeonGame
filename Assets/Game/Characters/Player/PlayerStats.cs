@@ -3,6 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
+    private const float MIN_SPEED = 0.02f;
+    private const float MAX_SPEED = 0.15f;
+    private const float MIN_COOLDOWN = 0.1f;
+    private const float MAX_COOLDOWN = 1f;
+    private const float MIN_DAMAGE = 0.1f;
+    private const float MAX_DAMAGE = 5f;
+    private const float MIN_MISSILE_SPEED = 0.05f;
+    private const float MAX_MISSILE_SPEED = 0.2f;
+
+    public float speed = .1f;
+    public float attackCooldown = .5f;
+    public float attackDamage = 1;
+    public float missileSpeed = .1f;
+    public bool tripleShot = true;
+
     public int startHearts = 3;
     public int maxHearts = 15;
     public float blackHearts = 0;
@@ -32,8 +47,6 @@ public class PlayerStats : MonoBehaviour {
             AddBlackHearts(1);
         if (Input.GetKeyDown(KeyCode.U))
             AddSoulHearts(1);
-        if (Input.GetKeyDown(KeyCode.P))
-            print();
     }
 
     public void TakeDamage(float amount) {
@@ -111,7 +124,10 @@ public class PlayerStats : MonoBehaviour {
         return amount;
     }
 
-    private void print() {
-        Debug.Log($"HeartContainers: {heartContainers} \nTotalHearts: {totalHearts}\nRedHearts: {redHearts}\nBlackHearts: {blackHearts}\nSoulHearts: {soulHearts}");
+    public void addStats(float s, float c, float ad, float ms) {
+        speed = Mathf.Clamp(speed + s, MIN_SPEED, MAX_SPEED);
+        attackCooldown = Mathf.Clamp(attackCooldown + c, MIN_COOLDOWN, MAX_COOLDOWN);
+        attackDamage = Mathf.Clamp(attackDamage + ad, MIN_DAMAGE, MAX_DAMAGE);
+        missileSpeed = Mathf.Clamp(missileSpeed + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
     }
 }
