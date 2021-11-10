@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Damage : Pickupable {
+public class RedHeart : Powerup {
     public float size = 1;
 
-    override protected bool Effect(PlayerStats stats) {
-        stats.TakeDamage(size);
+    override protected bool PickupEffect(PlayerStats stats) {
+        stats.AddRedHearts(size);
         return true;
     }
 }

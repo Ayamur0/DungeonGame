@@ -13,9 +13,9 @@ public class PlayerStats : MonoBehaviour {
     private const float MAX_MISSILE_SPEED = 0.2f;
 
     public float speed = .1f;
-    public float attackCooldown = .5f;
+    public float attackCooldownReduction = 1f;
     public float attackDamage = 1;
-    public float missileSpeed = .1f;
+    public float missileSpeedMultiplier = 1f;
     public bool tripleShot = true;
 
     public int startHearts = 3;
@@ -126,8 +126,8 @@ public class PlayerStats : MonoBehaviour {
 
     public void addStats(float s, float c, float ad, float ms) {
         speed = Mathf.Clamp(speed + s, MIN_SPEED, MAX_SPEED);
-        attackCooldown = Mathf.Clamp(attackCooldown + c, MIN_COOLDOWN, MAX_COOLDOWN);
+        attackCooldownReduction = Mathf.Clamp(attackCooldownReduction + c, MIN_COOLDOWN, MAX_COOLDOWN);
         attackDamage = Mathf.Clamp(attackDamage + ad, MIN_DAMAGE, MAX_DAMAGE);
-        missileSpeed = Mathf.Clamp(missileSpeed + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
+        missileSpeedMultiplier = Mathf.Clamp(missileSpeedMultiplier + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
     }
 }

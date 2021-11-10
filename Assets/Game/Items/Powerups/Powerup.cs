@@ -2,7 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Pickupable : MonoBehaviour {
+public abstract class Powerup : MonoBehaviour {
+    public Sprite sprite;
+    protected bool activated = false;
+    public Inventory inventory;
+
+    virtual protected void Update() { }
+
     void OnTriggerEnter(Collider other) {
         Debug.Log("Collider enter");
         if (other.CompareTag("Player"))
@@ -16,10 +22,15 @@ public abstract class Pickupable : MonoBehaviour {
     }
 
     void Pickup(Collider player) {
+        activated = true;
         PlayerStats stats = player.GetComponent<PlayerStats>();
-        if (Effect(stats))
-            Destroy(gameObject);
+        inventory = player.GetComponent<Inventory>();
+        if (PickupEffect(stats)) {
+            GetComponent<SpriteRenderer>().enabled = false;
+            GetComponent<BoxCollider>().enabled = false;
+        }
+        //Destroy(gameObject);
     }
 
-    abstract protected bool Effect(PlayerStats stats);
+    abstract protected bool PickupEffect(PlayerStats stats);
 }

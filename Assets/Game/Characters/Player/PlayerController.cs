@@ -16,7 +16,7 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         move();
         turn();
-        shoot();
+        //shoot();
     }
 
     void move() {
@@ -53,7 +53,7 @@ public class PlayerController : MonoBehaviour {
     void shoot() {
         timeSinceLastAttack += Time.deltaTime;
         if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right")) {
-            if (timeSinceLastAttack >= stats.attackCooldown) {
+            if (timeSinceLastAttack >= stats.attackCooldownReduction) {
                 timeSinceLastAttack = 0;
                 summonFireball();
             }
@@ -69,7 +69,7 @@ public class PlayerController : MonoBehaviour {
         }
         foreach (GameObject fireballObj in fireballObjs) {
             FireballController fireballController = fireballObj.GetComponent<FireballController>();
-            fireballController.Speed = stats.missileSpeed;
+            fireballController.Speed = stats.missileSpeedMultiplier;
         }
     }
 }
