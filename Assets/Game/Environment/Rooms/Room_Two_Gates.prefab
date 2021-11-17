@@ -7466,6 +7466,8 @@ MonoBehaviour:
   - {fileID: 5617950128817600229}
   CellPosition: {x: 0, y: 0}
   GateSize: 2.6
+  PlayerInRoom: 0
+  PlayerTag: Player
 --- !u!65 &7003045754316840478
 BoxCollider:
   m_ObjectHideFlags: 0

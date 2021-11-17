@@ -19,6 +19,8 @@ public class Room : MonoBehaviour
     public List<GameObject> Gates = new List<GameObject>();
     public Vector2 CellPosition = Vector2.zero;
     public float GateSize = 2.6f;
+    public bool PlayerInRoom { get; private set; }
+    public string PlayerTag = "Player";
 
     // Start is called before the first frame update
     private void Start()
@@ -51,14 +53,33 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void OnPlayerEntered()
+    {
+        Debug.Log("ENTER");
+        this.PlayerInRoom = true;
+        CloseGates();
+    }
+
+    public void OnPlayerExit()
+    {
+        Debug.Log("Exit");
+        this.PlayerInRoom = false;
+        OpenGates();
+    }
+
     private void OnTriggerEnter(Collider other)
     {
-        /*
-        var player = other.GetComponent<Player>();
-        if (player)
+        if (other.gameObject.tag == PlayerTag)
         {
-            // player in room
+            OnPlayerEntered();
         }
-        */
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.tag == PlayerTag)
+        {
+            OnPlayerExit();
+        }
     }
 }
