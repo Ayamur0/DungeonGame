@@ -200,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456842359}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.4, y: 23.52, z: 1.23}
+  m_LocalPosition: {x: 0.4, y: 39.37, z: 1.23}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -441,8 +441,8 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 1
+  m_Color: {r: 0.8666667, g: 0.96862745, b: 1, a: 1}
+  m_Intensity: 0.2
   m_Range: 10
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
@@ -551,7 +551,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MapWidth: 20
   MapHeight: 20
-  Rooms: 40
+  Rooms: 10
   FourGateRoomPrefab: {fileID: 3763388036122977116, guid: 769e765e4bb2d9c47b9d536d91e31831, type: 3}
   TwoGateRoomPrefab: {fileID: 4378946936474958776, guid: 15ec30d011b68b0428dac7c601da18cc, type: 3}
   OneGateRoomPrefab: {fileID: 3825264829198593201, guid: 9d6feffa0125a5341b180160e7f55e82, type: 3}
@@ -569,4 +569,4 @@ MonoBehaviour:
     - {fileID: 7287242800714077123, guid: b111a0f7c63f56d4eb366daca98d168b, type: 3}
   - Type: 2
     Prefabs:
-    - {fileID: 5589805968728032816, guid: 07841f95b32df9947940d49100aaabe5, type: 3}
+    - {fileID: 9202029795546195608, guid: 07841f95b32df9947940d49100aaabe5, type: 3}
