@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Weapon : Powerup {
+    public GameObject projectile;
     private float timeSinceLastAttack = .0f;
     private float cooldown = 0.5f;
     protected PlayerStats playerStats;

@@ -37,16 +37,16 @@ public class PlayerStats : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         totalHearts = redHearts + blackHearts + soulHearts;
-        if (Input.GetKeyDown(KeyCode.E))
-            TakeDamage(1);
-        if (Input.GetKeyDown(KeyCode.R))
-            AddHeartContainers(1);
-        if (Input.GetKeyDown(KeyCode.T))
-            AddRedHearts(1);
-        if (Input.GetKeyDown(KeyCode.Z))
-            AddBlackHearts(1);
-        if (Input.GetKeyDown(KeyCode.U))
-            AddSoulHearts(1);
+        // if (Input.GetKeyDown(KeyCode.E))
+        //     TakeDamage(1);
+        // if (Input.GetKeyDown(KeyCode.R))
+        //     AddHeartContainers(1);
+        // if (Input.GetKeyDown(KeyCode.T))
+        //     AddRedHearts(1);
+        // if (Input.GetKeyDown(KeyCode.Z))
+        //     AddBlackHearts(1);
+        // if (Input.GetKeyDown(KeyCode.U))
+        //     AddSoulHearts(1);
     }
 
     public void TakeDamage(float amount) {

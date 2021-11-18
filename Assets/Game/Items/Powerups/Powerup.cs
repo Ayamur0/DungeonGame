@@ -10,26 +10,27 @@ public abstract class Powerup : MonoBehaviour {
     virtual protected void Update() { }
 
     void OnTriggerEnter(Collider other) {
-        Debug.Log("Collider enter");
         if (other.CompareTag("Player"))
-            Pickup(other);
+            other.GetComponent<Inventory>().closest = this;
+        //Pickup(other);
     }
 
-    void OnCollisionEnter(Collision other) {
-        Debug.Log("Collision enter");
-        // if (other.gameObject.CompareTag("Player"))
-        //     Pickup(other.gameObject);
-    }
-
-    void Pickup(Collider player) {
+    public bool Pickup(GameObject player) {
         activated = true;
         PlayerStats stats = player.GetComponent<PlayerStats>();
         inventory = player.GetComponent<Inventory>();
-        if (PickupEffect(stats)) {
+        bool success = PickupEffect(stats);
+        if (success) {
             GetComponent<SpriteRenderer>().enabled = false;
             GetComponent<BoxCollider>().enabled = false;
         }
-        //Destroy(gameObject);
+        return success;
+    }
+
+    public void Drop() {
+        transform.position = inventory.transform.position;
+        GetComponent<SpriteRenderer>().enabled = true;
+        GetComponent<BoxCollider>().enabled = true;
     }
 
     abstract protected bool PickupEffect(PlayerStats stats);
