@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.UIElements;
 using UnityEngine;
 
 public class PlayerTrigger : MonoBehaviour
@@ -10,11 +7,6 @@ public class PlayerTrigger : MonoBehaviour
 
     // Start is called before the first frame update
     private void Start()
-    {
-    }
-
-    // Update is called once per frame
-    private void Update()
     {
     }
 

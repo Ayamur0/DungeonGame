@@ -21,6 +21,7 @@ public class Room : MonoBehaviour
     public float GateSize = 2.6f;
     public bool PlayerInRoom { get; private set; }
     public string PlayerTag = "Player";
+    public bool Visited = false;
 
     // Start is called before the first frame update
     private void Start()
@@ -57,7 +58,8 @@ public class Room : MonoBehaviour
     {
         Debug.Log("ENTER");
         this.PlayerInRoom = true;
-        CloseGates();
+        if (!Visited)
+            CloseGates();
     }
 
     public void OnPlayerExit()

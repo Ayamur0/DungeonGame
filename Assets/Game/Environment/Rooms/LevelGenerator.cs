@@ -1,22 +1,26 @@
+using Assets.Game.Environment.Rooms;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using Assets.Game.Environment.Rooms;
 using UnityEngine;
 using Cell = Assets.Game.Environment.Rooms.Maze.Cell;
 using Random = UnityEngine.Random;
 
 public class LevelGenerator : MonoBehaviour
 {
-    public int MapWidth;
-    public int MapHeight;
-    public int Rooms;
+    [Header("Prefabs")]
     public GameObject FourGateRoomPrefab;
+
     public GameObject TwoGateRoomPrefab;
     public GameObject OneGateRoomPrefab;
     public GameObject TwoGateLRoomPrefab;
     public GameObject ThreeGateRoomPrefab;
+
     public List<RoomDictionary> RoomList = new List<RoomDictionary>();
+
+    private int currentShops = 0;
+    private int currentExplore = 0;
+
+    public LevelSettings Settings = new LevelSettings(1, 2);
 
     [Serializable]
     public struct RoomDictionary
@@ -25,31 +29,48 @@ public class LevelGenerator : MonoBehaviour
         public List<GameObject> Prefabs;
     }
 
+    [Serializable]
+    public class LevelSettings
+    {
+        public int MaxShops = 1;
+        public int MaxExplore = 2;
+        public int MapWidth = 20;
+        public int MapHeight = 20;
+        public int Rooms = 40;
+
+        public LevelSettings(int maxShops, int maxExplore, int rooms = 40, int mapWidth = 20, int mapHeight = 20)
+        {
+            this.MaxShops = maxShops;
+            this.MaxExplore = maxExplore;
+            this.Rooms = rooms;
+            this.MapWidth = mapWidth;
+            this.MapHeight = mapHeight;
+        }
+    }
+
     private Maze maze;
     private GameObject[,] rooms;
 
     private void Start()
     {
-        this.maze = new Maze(this.MapWidth, this.MapHeight, this.Rooms);
-        this.rooms = new GameObject[MapWidth, MapHeight];
-
-        ShowRooms();
+        GenerateLevel(this.Settings);
     }
 
-    private void Update()
+    public void GenerateLevel(LevelSettings settings)
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (settings.MapHeight <= 0 || settings.MapWidth <= 0 || settings.Rooms < 4)
         {
-            this.maze = new Maze(this.MapWidth, this.MapHeight, this.Rooms);
-            this.rooms = new GameObject[MapWidth, MapHeight];
-            var roomContainer = GameObject.FindGameObjectWithTag("RoomContainer");
-            Destroy(roomContainer);
-            ShowRooms();
+            throw new Exception("Invalid Level Settings");
         }
-    }
 
-    private void ShowRooms()
-    {
+        this.maze = new Maze(settings.MapWidth, settings.MapHeight, settings.Rooms);
+        this.rooms = new GameObject[settings.MapWidth, settings.MapHeight];
+        var roomContainer = GameObject.FindGameObjectWithTag("RoomContainer");
+        if (roomContainer)
+        {
+            Destroy(roomContainer);
+        }
+
         var cells = this.maze.Generate();
         CreateCells(cells);
     }
@@ -91,9 +112,7 @@ public class LevelGenerator : MonoBehaviour
             else
             {
                 // set random object type (not spawn and exit)
-                //var roomTypes = Enum.GetValues(typeof(RoomType));
-                //var rndRoomType = (RoomType)roomTypes.GetValue(Random.Range(2, roomTypes.Length));
-                room.Type = PickRandomRoomType();
+                room.Type = PickRandomRoomType(cells[i].X, cells[i].Y);
                 room.OpenGates();
             }
         }
@@ -110,23 +129,82 @@ public class LevelGenerator : MonoBehaviour
 
         // center room container
         var containerPos = roomsContainer.transform.position;
-        var pos = new Vector3(containerPos.x - roomSize * MapWidth / 2, 0, containerPos.y - roomSize * MapHeight / 2);
+        var pos = new Vector3(containerPos.x - roomSize * Settings.MapWidth / 2, 0, containerPos.y - roomSize * Settings.MapHeight / 2);
         roomsContainer.transform.position = pos;
     }
 
-    private RoomType PickRandomRoomType()
+    private RoomType PickRandomRoomType(int cellX, int cellY)
     {
-        var probability = Random.Range(0, 100);
-        if (probability < 5)
+        // 3 = Room Types
+        var probability = Random.Range(1, 3);
+
+        if (probability == 1 && this.currentShops < Settings.MaxShops && !HasSameNeighbor(cellX, cellY, RoomType.Shop))
         {
+            this.currentShops++;
             return RoomType.Shop;
         }
-        else if (probability >= 5 && probability <= 30)
+        else if (probability == 2 && this.currentExplore < Settings.MaxExplore && !HasSameNeighbor(cellX, cellY, RoomType.Explore))
         {
+            this.currentExplore++;
             return RoomType.Explore;
         }
 
         return RoomType.Battle;
+    }
+
+    private bool HasSameNeighbor(int cellX, int cellY, RoomType roomType)
+    {
+        bool equal = false;
+
+        // right
+        if (cellX + 1 < this.rooms.Length)
+        {
+            equal = IsEqualRoomType(cellX + 1, cellY, roomType);
+
+            if (equal)
+                return true;
+        }
+
+        // left
+        if (cellX - 1 >= 0)
+        {
+            equal = IsEqualRoomType(cellX - 1, cellY, roomType);
+
+            if (equal)
+                return true;
+        }
+
+        // down
+        if (cellY + 1 < this.rooms.Length)
+        {
+            equal = IsEqualRoomType(cellX, cellY + 1, roomType);
+
+            if (equal)
+                return true;
+        }
+
+        // up
+        if (cellY - 1 >= 0)
+        {
+            equal = IsEqualRoomType(cellX, cellY - 1, roomType);
+
+            if (equal)
+                return true;
+        }
+
+        return false;
+    }
+
+    private bool IsEqualRoomType(int cellX, int cellY, RoomType roomType)
+    {
+        var gameObj = this.rooms[cellX, cellY];
+        if (gameObj)
+        {
+            var rightRoomType = gameObj.GetComponent<Room>().Type;
+            return rightRoomType == roomType;
+        }
+
+        return false;
     }
 
     private GameObject CreateRoomObject(GameObject roomsContainer, CellNeighborInfo neighborInfo)
