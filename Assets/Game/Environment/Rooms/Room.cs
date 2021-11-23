@@ -22,27 +22,19 @@ public class Room : MonoBehaviour
     public bool PlayerInRoom { get; private set; }
     public string PlayerTag = "Player";
     public bool Visited = false;
+    public LevelManager LevelManager;
 
     // Start is called before the first frame update
     private void Start()
     {
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OpenGates();
-            Debug.Log("OPEN GATES");
-        }
-    }
-
     public void OpenGates()
     {
         foreach (var gate in Gates)
         {
-            gate.transform.position -= new Vector3(0, GateSize, 0);
+            var gatePos = gate.transform.position;
+            gate.transform.position = new Vector3(gatePos.x, GateSize, gatePos.z);
         }
     }
 
@@ -50,7 +42,8 @@ public class Room : MonoBehaviour
     {
         foreach (var gate in Gates)
         {
-            gate.transform.position += new Vector3(0, GateSize, 0);
+            var gatePos = gate.transform.position;
+            gate.transform.position = new Vector3(gatePos.x, -GateSize, gatePos.z);
         }
     }
 
@@ -58,6 +51,9 @@ public class Room : MonoBehaviour
     {
         Debug.Log("ENTER");
         this.PlayerInRoom = true;
+
+        this.LevelManager.SetActiveRoom(this.gameObject);
+
         if (!Visited)
             CloseGates();
     }

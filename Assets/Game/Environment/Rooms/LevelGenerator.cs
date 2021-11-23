@@ -20,6 +20,8 @@ public class LevelGenerator : MonoBehaviour
     private int currentShops = 0;
     private int currentExplore = 0;
 
+    private LevelManager lvlManager;
+
     public LevelSettings Settings = new LevelSettings(1, 2);
 
     [Serializable]
@@ -51,9 +53,16 @@ public class LevelGenerator : MonoBehaviour
     private Maze maze;
     private GameObject[,] rooms;
 
+    public GameObject[,] GetRooms()
+    {
+        return this.rooms;
+    }
+
     private void Start()
     {
+        this.lvlManager = this.GetComponent<LevelManager>();
         GenerateLevel(this.Settings);
+        this.lvlManager.EnableNeighborRooms();
     }
 
     public void GenerateLevel(LevelSettings settings)
@@ -93,12 +102,16 @@ public class LevelGenerator : MonoBehaviour
             rooms[cells[i].X, cells[i].Y].transform.position = new Vector3(cells[i].X * room.Size, 0, cells[i].Y * room.Size);
             roomSize = room.Size;
 
+            room.LevelManager = this.lvlManager;
+
             // start room
             if (i == 0)
             {
                 roomObject.name = "Spawn";
                 roomObject.tag = "Spawn";
                 room.Type = RoomType.Spawn;
+
+                this.lvlManager.SetActiveRoom(roomObject);
 
                 // open room doors
                 room.OpenGates();
@@ -124,6 +137,11 @@ public class LevelGenerator : MonoBehaviour
                 var room = roomObject.GetComponent<Room>();
                 room.NeighborInfos = maze.GetCell((int)room.CellPosition.x, (int)room.CellPosition.y).NeighborInfo;
                 CreateRoomContent(roomObject, room.Type);
+
+                if (room.Type != RoomType.Spawn)
+                {
+                    roomObject.SetActive(false);
+                }
             }
         }
 
