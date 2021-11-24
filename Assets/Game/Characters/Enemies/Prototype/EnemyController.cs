@@ -14,12 +14,16 @@ public class EnemyController : MonoBehaviour
 
     private State currentState;
 
+    public float health = 3f;
+
     public float searchRange = 10f;
     public float attackRange = 5f;
 
-    public NavMeshAgent agent;
+    public float patrolRange = 8f;
 
+    public NavMeshAgent agent;
     public Transform player;
+    public Animator m_Animator;
 
     public LayerMask whatIsGround, whatIsPlayer;
 
@@ -27,14 +31,24 @@ public class EnemyController : MonoBehaviour
 
     private bool MovePointisValid;
 
-    public float shootTimeout;
+    public float shootInterval;
     private float playerDistance;
     private bool waitForTimeout = false;
+
+    public EnemyController(float health, float searchRange, float attackRange, float patrolRange, float shootInterval)
+    {
+        this.health = health;
+        this.searchRange = searchRange;
+        this.attackRange = attackRange;
+        this.patrolRange = patrolRange;
+        this.shootInterval = shootInterval;
+    }
 
     public void Awake()
     {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
+        m_Animator = GetComponent<Animator>();
         currentState = State.Patroling;
     }
 
@@ -49,50 +63,59 @@ public class EnemyController : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
-        switch (currentState)
+        if (health <= 0.0f)
         {
-            case State.Patroling:
-                if (MovePointisValid)
-                {
-                    agent.SetDestination(nextMovingPoint);
-                    playerDistance = Vector3.Distance(transform.position, nextMovingPoint);
-                    if (playerDistance < 1f)
+            m_Animator.ResetTrigger("walking");
+            m_Animator.ResetTrigger("attacking");
+            m_Animator.SetTrigger("defeated");
+        }
+        else
+        {
+            switch (currentState)
+            {
+                case State.Patroling:
+                    if (MovePointisValid)
                     {
-                        MovePointisValid = false;
+                        agent.SetDestination(nextMovingPoint);
+                        m_Animator.SetTrigger("walking");
+                        playerDistance = Vector3.Distance(transform.position, nextMovingPoint);
+                        if (playerDistance < 1f)
+                        {
+                            MovePointisValid = false;
+                            nextMovingPoint = ChooseNextMovingPoint();
+                        }
+                    }
+                    else
+                    {
                         nextMovingPoint = ChooseNextMovingPoint();
                     }
-                }
-                else
-                {
-                    nextMovingPoint = ChooseNextMovingPoint();
-                }
-                DetectPlayer();
-                break;
-            case State.Chasing:
-                ChasePlayer();
-                break;
-            case State.Attack:
-                Attack();
-                break;
-            default:
-            break;
+                    DetectPlayer();
+                    break;
+                case State.Chasing:
+                    ChasePlayer();
+                    break;
+                case State.Attack:
+                    Attack();
+                    break;
+                default:
+                    break;
+            }
         }
+        
           
     }
 
     [System.Obsolete]
     private Vector3 ChooseNextMovingPoint()
-    {
-
+    { 
         Vector3 randomDirRange = new Vector3(Random.RandomRange(-1f, 1f), 0, Random.RandomRange(-1f, 1f));
-        Vector3 walkingPoint = randomDirRange * Random.Range(15f, 15f);
+        Vector3 walkingPoint = randomDirRange * Random.Range(patrolRange, patrolRange);
 
         if (Physics.Raycast(transform.position + walkingPoint, -transform.up, 2f, whatIsGround))
         {
             MovePointisValid = true;
         }
 
-       
         return transform.position + walkingPoint;
     }
 
@@ -120,24 +143,39 @@ public class EnemyController : MonoBehaviour
     private void Attack()
     {
         agent.SetDestination(transform.position);
-        transform.LookAt(player.position);
+
+        transform.LookAt(new Vector3(player.position.x, 0, player.position.z));
 
         if (!waitForTimeout)
-        {
-            
+        { 
             waitForTimeout = true;
-            Invoke(nameof(setShootTimeout), shootTimeout);
+            SendDamage();
+            Invoke(nameof(SetShootTimeout), shootInterval);
         }
-        if (Vector3.Distance(transform.position, player.position) < attackRange)
+        if (Vector3.Distance(transform.position, player.position) > attackRange)
         {
             currentState = State.Chasing;
         }
 
     }
 
-    private void setShootTimeout()
+    private void SetShootTimeout()
     {
         waitForTimeout = false;
+    }
+
+    private void SendDamage()
+    {
+        m_Animator.ResetTrigger("walking");
+        m_Animator.SetTrigger("attacking");
+
+        //Attack
+
+        Debug.Log("Attack!!");
+    }
+
+    public void ReceiveDamage(float damage) {
+        health -= damage;
     }
 
     private void OnDrawGizmosSelected()
@@ -147,7 +185,6 @@ public class EnemyController : MonoBehaviour
         Gizmos.DrawWireSphere(nextMovingPoint, 1);
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, searchRange);
-       
     }
 
 
