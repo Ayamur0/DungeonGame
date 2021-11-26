@@ -13,20 +13,26 @@ public enum RoomType
 
 public class Room : MonoBehaviour
 {
+    [Header("Settings")]
     public int Size = 20;
     public RoomType Type = RoomType.Battle;
     public CellNeighborInfo NeighborInfos;
-    public List<GameObject> Gates = new List<GameObject>();
-    public Vector2 CellPosition = Vector2.zero;
-    public float GateSize = 2.6f;
-    public bool PlayerInRoom { get; private set; }
     public string PlayerTag = "Player";
+    public List<GameObject> Gates = new List<GameObject>();
+    
+    public Vector2 CellPosition = Vector2.zero;
+    public bool PlayerInRoom { get; private set; }
     public bool Visited = false;
     public LevelManager LevelManager;
+    public List<GameObject> NeighborRooms = new List<GameObject>();
+
+    private float gateSize = 1.5f;
+
 
     // Start is called before the first frame update
     private void Start()
     {
+        OpenGates();
     }
 
     public void OpenGates()
@@ -34,16 +40,19 @@ public class Room : MonoBehaviour
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
-            gate.transform.position = new Vector3(gatePos.x, GateSize, gatePos.z);
+            gate.transform.position = new Vector3(gatePos.x, -gateSize, gatePos.z);
         }
     }
 
     public void CloseGates()
     {
+        if (Visited)
+            return;
+
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
-            gate.transform.position = new Vector3(gatePos.x, -GateSize, gatePos.z);
+            gate.transform.position = new Vector3(gatePos.x, 1, gatePos.z);
         }
     }
 
@@ -54,8 +63,7 @@ public class Room : MonoBehaviour
 
         this.LevelManager.SetActiveRoom(this.gameObject);
 
-        if (!Visited)
-            CloseGates();
+        CloseGates();
     }
 
     public void OnPlayerExit()

@@ -138,7 +138,7 @@ public class LevelGenerator : MonoBehaviour
                 room.NeighborInfos = maze.GetCell((int)room.CellPosition.x, (int)room.CellPosition.y).NeighborInfo;
                 CreateRoomContent(roomObject, room.Type);
 
-                if (room.Type != RoomType.Spawn)
+                if (room.Type != RoomType.Spawn && this.lvlManager.HideRooms)
                 {
                     roomObject.SetActive(false);
                 }

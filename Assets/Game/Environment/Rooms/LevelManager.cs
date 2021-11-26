@@ -3,6 +3,8 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
+    public bool HideRooms = true;
+
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private List<GameObject> activeRooms;
@@ -23,7 +25,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetActiveRoom(GameObject newRoom)
     {
-        if (this.activeRoom)
+        if (this.activeRoom && !HideRooms)
         {
             if (this.activeRooms.Count > 0)
             {
@@ -46,6 +48,7 @@ public class LevelManager : MonoBehaviour
             var rooms = GetNeighborRooms(this.activeRoom);
             foreach (var room in rooms)
             {
+                room.gameObject.GetComponent<Room>().NeighborRooms = rooms;
                 room.SetActive(true);
             }
             this.activeRooms = rooms;

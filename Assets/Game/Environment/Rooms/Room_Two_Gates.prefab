@@ -425,7 +425,7 @@ GameObject:
   - component: {fileID: 4273806595989239910}
   - component: {fileID: 927820558667085763}
   - component: {fileID: 3099796680023147273}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (5)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -752,7 +752,7 @@ GameObject:
   - component: {fileID: 4273806596087292801}
   - component: {fileID: 927820558564731940}
   - component: {fileID: 3099796679988009198}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (27)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -833,7 +833,7 @@ GameObject:
   - component: {fileID: 4273806596058277490}
   - component: {fileID: 927820558602168791}
   - component: {fileID: 3099796679958306077}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (12)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -914,7 +914,7 @@ GameObject:
   - component: {fileID: 4273806596072537676}
   - component: {fileID: 927820558615245289}
   - component: {fileID: 3099796679969211683}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (37)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1077,7 +1077,7 @@ GameObject:
   - component: {fileID: 4273806595897240943}
   - component: {fileID: 927820558507320010}
   - component: {fileID: 3099796680199034368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (15)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1158,7 +1158,7 @@ GameObject:
   - component: {fileID: 4273806595858001167}
   - component: {fileID: 927820558536106666}
   - component: {fileID: 3099796680158582368}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (31)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1239,7 +1239,7 @@ GameObject:
   - component: {fileID: 4273806595877184629}
   - component: {fileID: 927820558554639312}
   - component: {fileID: 3099796680177147674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (6)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1320,7 +1320,7 @@ GameObject:
   - component: {fileID: 4273806595951866255}
   - component: {fileID: 927820558427602474}
   - component: {fileID: 3099796680119241440}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (40)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1483,7 +1483,7 @@ GameObject:
   - component: {fileID: 4273806595967999255}
   - component: {fileID: 927820558445040306}
   - component: {fileID: 3099796680136664696}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (29)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1646,7 +1646,7 @@ GameObject:
   - component: {fileID: 4273806595929136419}
   - component: {fileID: 927820558473417350}
   - component: {fileID: 3099796680095835724}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (28)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1727,7 +1727,7 @@ GameObject:
   - component: {fileID: 4273806595932644314}
   - component: {fileID: 927820558476143743}
   - component: {fileID: 3099796680100714677}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1972,7 +1972,7 @@ GameObject:
   - component: {fileID: 4273806595780035247}
   - component: {fileID: 927820558324714762}
   - component: {fileID: 3099796679678704064}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (20)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2217,7 +2217,7 @@ GameObject:
   - component: {fileID: 4273806595693422624}
   - component: {fileID: 927820558170072965}
   - component: {fileID: 3099796679861785423}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2298,7 +2298,7 @@ GameObject:
   - component: {fileID: 4273806595700039073}
   - component: {fileID: 927820558176031236}
   - component: {fileID: 3099796679867754190}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (14)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2461,7 +2461,7 @@ GameObject:
   - component: {fileID: 4273806596569362955}
   - component: {fileID: 927820559179578798}
   - component: {fileID: 3099796679526910308}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (17)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2542,7 +2542,7 @@ GameObject:
   - component: {fileID: 4273806596531274237}
   - component: {fileID: 927820559209254488}
   - component: {fileID: 3099796679489501842}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (11)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2623,7 +2623,7 @@ GameObject:
   - component: {fileID: 4273806596435602976}
   - component: {fileID: 927820559046992261}
   - component: {fileID: 3099796679664866639}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (36)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2704,7 +2704,7 @@ GameObject:
   - component: {fileID: 4273806596396128737}
   - component: {fileID: 927820559073842756}
   - component: {fileID: 3099796679624647310}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (48)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2867,7 +2867,7 @@ GameObject:
   - component: {fileID: 4273806596388569114}
   - component: {fileID: 927820559066681279}
   - component: {fileID: 3099796679615429493}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (25)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3358,7 +3358,7 @@ GameObject:
   - component: {fileID: 4273806596286058642}
   - component: {fileID: 927820558896537399}
   - component: {fileID: 3099796679243983869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (7)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3521,7 +3521,7 @@ GameObject:
   - component: {fileID: 4273806596348788729}
   - component: {fileID: 927820558825435228}
   - component: {fileID: 3099796679172867222}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (24)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3684,7 +3684,7 @@ GameObject:
   - component: {fileID: 4273806596316576863}
   - component: {fileID: 927820558859809786}
   - component: {fileID: 3099796679142164272}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (33)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3929,7 +3929,7 @@ GameObject:
   - component: {fileID: 4273806596217473644}
   - component: {fileID: 927820558694647241}
   - component: {fileID: 3099796679312568579}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (43)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4010,7 +4010,7 @@ GameObject:
   - component: {fileID: 4273806596208471760}
   - component: {fileID: 927820558751834485}
   - component: {fileID: 3099796679300601279}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (9)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4091,7 +4091,7 @@ GameObject:
   - component: {fileID: 4273806596207065856}
   - component: {fileID: 927820558751216805}
   - component: {fileID: 3099796679302004847}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (42)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4172,7 +4172,7 @@ GameObject:
   - component: {fileID: 4273806597097931190}
   - component: {fileID: 927820557560401427}
   - component: {fileID: 3099796681129048793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (44)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4335,7 +4335,7 @@ GameObject:
   - component: {fileID: 4273806597159141891}
   - component: {fileID: 927820557488704934}
   - component: {fileID: 3099796681059449196}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (46)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4498,7 +4498,7 @@ GameObject:
   - component: {fileID: 4273806596932377998}
   - component: {fileID: 927820557463786027}
   - component: {fileID: 3099796681235883745}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (26)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4579,7 +4579,7 @@ GameObject:
   - component: {fileID: 4273806596918188429}
   - component: {fileID: 927820557448681000}
   - component: {fileID: 3099796681220711138}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (47)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4824,7 +4824,7 @@ GameObject:
   - component: {fileID: 4273806597002441940}
   - component: {fileID: 927820557397932913}
   - component: {fileID: 3099796681170014139}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (10)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4987,7 +4987,7 @@ GameObject:
   - component: {fileID: 4273806596871899858}
   - component: {fileID: 927820557268436343}
   - component: {fileID: 3099796680772071869}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (45)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5068,7 +5068,7 @@ GameObject:
   - component: {fileID: 4273806596714866011}
   - component: {fileID: 927820557177989886}
   - component: {fileID: 3099796681017187892}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5313,7 +5313,7 @@ GameObject:
   - component: {fileID: 4273806596778123870}
   - component: {fileID: 927820557106376187}
   - component: {fileID: 3099796680945539377}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (30)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5394,7 +5394,7 @@ GameObject:
   - component: {fileID: 4273806596737330682}
   - component: {fileID: 927820557132554847}
   - component: {fileID: 3099796680902448789}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (39)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5721,7 +5721,7 @@ GameObject:
   - component: {fileID: 4273806597678320307}
   - component: {fileID: 927820558074725654}
   - component: {fileID: 3099796680502522332}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (22)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5802,7 +5802,7 @@ GameObject:
   - component: {fileID: 4273806597516838620}
   - component: {fileID: 927820557980354937}
   - component: {fileID: 3099796680743697843}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5883,7 +5883,7 @@ GameObject:
   - component: {fileID: 4273806597463628578}
   - component: {fileID: 927820557993727111}
   - component: {fileID: 3099796680692047949}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (18)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5964,7 +5964,7 @@ GameObject:
   - component: {fileID: 4273806597462655377}
   - component: {fileID: 927820557992627764}
   - component: {fileID: 3099796680688827134}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (21)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6045,7 +6045,7 @@ GameObject:
   - component: {fileID: 4273806597531020058}
   - component: {fileID: 927820557926376639}
   - component: {fileID: 3099796680624656501}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (32)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6208,7 +6208,7 @@ GameObject:
   - component: {fileID: 4273806597364564259}
   - component: {fileID: 927820557828607622}
   - component: {fileID: 3099796680325544524}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (16)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6289,7 +6289,7 @@ GameObject:
   - component: {fileID: 4273806597349760848}
   - component: {fileID: 927820557881168117}
   - component: {fileID: 3099796680310989887}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (41)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6534,7 +6534,7 @@ GameObject:
   - component: {fileID: 4273806597397587387}
   - component: {fileID: 927820557793471006}
   - component: {fileID: 3099796680221220564}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6779,7 +6779,7 @@ GameObject:
   - component: {fileID: 4273806597292036245}
   - component: {fileID: 927820557622124336}
   - component: {fileID: 3099796680385489914}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (23)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6860,7 +6860,7 @@ GameObject:
   - component: {fileID: 4273806597319365554}
   - component: {fileID: 927820557649320983}
   - component: {fileID: 3099796680412686557}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (34)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6941,7 +6941,7 @@ GameObject:
   - component: {fileID: 4273806597304893023}
   - component: {fileID: 927820557634449914}
   - component: {fileID: 3099796680397800752}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (19)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7022,7 +7022,7 @@ GameObject:
   - component: {fileID: 4273806597305503573}
   - component: {fileID: 927820557633880304}
   - component: {fileID: 3099796680397190202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (38)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7103,7 +7103,7 @@ GameObject:
   - component: {fileID: 4273806597268069576}
   - component: {fileID: 927820557664998253}
   - component: {fileID: 3099796680363321255}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (35)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7184,7 +7184,7 @@ GameObject:
   - component: {fileID: 4273806597268451308}
   - component: {fileID: 927820557664591945}
   - component: {fileID: 3099796680362939523}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (8)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7265,7 +7265,7 @@ GameObject:
   - component: {fileID: 4273806597281252765}
   - component: {fileID: 927820557677005368}
   - component: {fileID: 3099796680375303922}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: tileBrickB_large (13)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7465,9 +7465,10 @@ MonoBehaviour:
   - {fileID: 3131280383677980558}
   - {fileID: 5617950128817600229}
   CellPosition: {x: 0, y: 0}
-  GateSize: 2.6
-  PlayerInRoom: 0
   PlayerTag: Player
+  Visited: 0
+  LevelManager: {fileID: 0}
+  NeighborRooms: []
 --- !u!65 &7003045754316840478
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -7490,7 +7491,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4378946937174008607}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
