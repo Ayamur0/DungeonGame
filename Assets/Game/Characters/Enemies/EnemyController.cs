@@ -15,6 +15,7 @@ public class EnemyController : MonoBehaviour
     private State currentState;
 
     public float health = 3f;
+    public float minDamagePoints;
 
     public float searchRange = 10f;
     public float attackRange = 5f;
@@ -35,17 +36,15 @@ public class EnemyController : MonoBehaviour
     private float playerDistance;
     private bool waitForTimeout = false;
 
-    public EnemyController(float health, float searchRange, float attackRange, float patrolRange, float shootInterval)
+    public void Awake(float health, float minDamagePoints, float searchRange, float attackRange, float patrolRange, float shootInterval)
     {
         this.health = health;
+        this.minDamagePoints = minDamagePoints;
         this.searchRange = searchRange;
         this.attackRange = attackRange;
         this.patrolRange = patrolRange;
         this.shootInterval = shootInterval;
-    }
 
-    public void Awake()
-    {
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
@@ -63,13 +62,7 @@ public class EnemyController : MonoBehaviour
     [System.Obsolete]
     void Update()
     {
-        if (health <= 0.0f)
-        {
-            m_Animator.ResetTrigger("walking");
-            m_Animator.ResetTrigger("attacking");
-            m_Animator.SetTrigger("defeated");
-        }
-        else
+        if (health > 0.0f)
         {
             switch (currentState)
             {
@@ -101,8 +94,6 @@ public class EnemyController : MonoBehaviour
                     break;
             }
         }
-        
-          
     }
 
     [System.Obsolete]
@@ -176,6 +167,18 @@ public class EnemyController : MonoBehaviour
 
     public void ReceiveDamage(float damage) {
         health -= damage;
+        if(health <= 0)
+        {
+            m_Animator.ResetTrigger("walking");
+            m_Animator.ResetTrigger("attacking");
+            m_Animator.SetTrigger("defeated");
+
+            agent.ResetPath();
+
+
+            Destroy(gameObject, 2f);
+
+        }
     }
 
     private void OnDrawGizmosSelected()
