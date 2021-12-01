@@ -25,7 +25,7 @@ public class LevelManager : MonoBehaviour
 
     public void SetActiveRoom(GameObject newRoom)
     {
-        if (this.activeRoom && !HideRooms)
+        if (this.activeRoom && HideRooms)
         {
             if (this.activeRooms.Count > 0)
             {
