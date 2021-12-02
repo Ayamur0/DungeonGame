@@ -12,10 +12,13 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Ground
   - Water
   - UI
-  - Ground
+  - Player
+  - Blocks
+  - Walls
+  - AI
   - 
   - 
   - 
