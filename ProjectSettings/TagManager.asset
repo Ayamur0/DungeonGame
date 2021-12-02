@@ -3,7 +3,11 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Spawn
+  - Exit
+  - RoomContainer
+  - LevelManager
   layers:
   - Default
   - TransparentFX
@@ -15,6 +19,9 @@ TagManager:
   - Blocks
   - Walls
   - AI
+  - 
+  - 
+  - 
   - 
   - 
   - 
