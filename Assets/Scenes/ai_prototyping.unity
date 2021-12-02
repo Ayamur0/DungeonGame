@@ -356,7 +356,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.06666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 8fcaebbaef11f4a4f8b2ba8ea68d1051, type: 2}
 --- !u!4 &377435807
@@ -688,12 +688,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4654d4c6326995140962ee8564f25f4c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skeleton_basic_prefab: {fileID: 0}
-  archer_prefab: {fileID: 0}
-  bigSkeleton_prefab: {fileID: 0}
-  witch_prefab: {fileID: 0}
-  wiking_prefab: {fileID: 0}
-  magician_prefab: {fileID: 0}
+  skeleton_basic_prefab: {fileID: 6780709982196959223, guid: eeeba9ba6c57cee4c9e2d621962f46f5, type: 3}
+  archer_prefab: {fileID: 6780709982196959223, guid: 29d36fd1982ee354db9aceb1ab7930c6, type: 3}
+  bigSkeleton_prefab: {fileID: 6780709982196959223, guid: ba8c8021e80efdf458f08f724642ef44, type: 3}
+  witch_prefab: {fileID: 6780709982196959223, guid: 362c4d6e6dddd894a90e48fb38d4285f, type: 3}
+  wiking_prefab: {fileID: 6780709982196959223, guid: 23d447b7059f3e24e8c1abef9844f944, type: 3}
+  magician_prefab: {fileID: 6780709982196959223, guid: 4d3e9209207211a4589b22556c0ed3dd, type: 3}
   EnemyList:
   - Type: 0
     Difficulty:
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   m_OverrideTileSize: 0
   m_TileSize: 256
   m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
+  m_VoxelSize: 0.06666667
   m_BuildHeightMesh: 0
   m_NavMeshData: {fileID: 23800000, guid: 9caac902d51764848a6abc6f778c2361, type: 2}
 --- !u!224 &1616918944
