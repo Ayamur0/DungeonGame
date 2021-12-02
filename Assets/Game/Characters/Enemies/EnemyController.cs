@@ -36,7 +36,7 @@ public class EnemyController : MonoBehaviour
     private float playerDistance;
     private bool waitForTimeout = false;
 
-    public void Awake(float health, float minDamagePoints, float searchRange, float attackRange, float patrolRange, float shootInterval)
+    public void Init(float health, float minDamagePoints, float searchRange, float attackRange, float patrolRange, float shootInterval)
     {
         this.health = health;
         this.minDamagePoints = minDamagePoints;
@@ -52,14 +52,12 @@ public class EnemyController : MonoBehaviour
     }
 
     // Start is called before the first frame update
-    [System.Obsolete]
     void Start()
     {
         nextMovingPoint = ChooseNextMovingPoint();
     }
 
     // Update is called once per frame
-    [System.Obsolete]
     void Update()
     {
         if (health > 0.0f)
@@ -96,10 +94,9 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    [System.Obsolete]
     private Vector3 ChooseNextMovingPoint()
     { 
-        Vector3 randomDirRange = new Vector3(Random.RandomRange(-1f, 1f), 0, Random.RandomRange(-1f, 1f));
+        Vector3 randomDirRange = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         Vector3 walkingPoint = randomDirRange * Random.Range(patrolRange, patrolRange);
 
         if (Physics.Raycast(transform.position + walkingPoint, -transform.up, 2f, whatIsGround))
