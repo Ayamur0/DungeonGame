@@ -33,11 +33,11 @@ public class Room : MonoBehaviour
     public List<Vector3> GetRandomSpawns(int amount)
     {
         List<Vector3> spawnPositions = new List<Vector3>();
-        if(Type == RoomType.Battle && this.Content)
+        if (Type == RoomType.Battle && this.Content)
         {
             if (this.Content.EnemySpawns.Count > 0)
             {
-                for(int i = 0; i < amount; i++)
+                for (int i = 0; i < amount; i++)
                 {
                     var randomIndex = Random.Range(0, this.Content.EnemySpawns.Count - 1);
                     var maxRange = this.Content.EnemySpawns[randomIndex].Range;
@@ -49,7 +49,6 @@ public class Room : MonoBehaviour
                     var y = center.y + randomRange * Mathf.Sin(angle);
 
                     spawnPositions.Add(new Vector3(x, y));
-
                 }
             }
         }
