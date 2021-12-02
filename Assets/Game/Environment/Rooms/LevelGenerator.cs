@@ -65,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
         this.lvlManager.EnableNeighborRooms();
     }
 
-    public void GenerateLevel(LevelSettings settings)
+    public Vector3 GenerateLevel(LevelSettings settings)
     {
         if (settings.MapHeight <= 0 || settings.MapWidth <= 0 || settings.Rooms < 4)
         {
@@ -81,13 +81,14 @@ public class LevelGenerator : MonoBehaviour
         }
 
         var cells = this.maze.Generate();
-        CreateCells(cells);
+        return CreateCells(cells);
     }
 
-    private void CreateCells(Cell[] cells)
+    private Vector3 CreateCells(Cell[] cells)
     {
         GameObject roomsContainer = new GameObject("Rooms");
         roomsContainer.tag = "RoomContainer";
+        Vector3 spawnPos = Vector3.zero;
 
         float roomSize = 42f;
 
@@ -113,6 +114,8 @@ public class LevelGenerator : MonoBehaviour
 
                 this.lvlManager.SetActiveRoom(roomObject);
 
+                spawnPos = roomObject.transform.position;
+
                 // open room doors
                 room.OpenGates();
             }
@@ -128,6 +131,8 @@ public class LevelGenerator : MonoBehaviour
                 room.Type = PickRandomRoomType(cells[i].X, cells[i].Y);
                 room.OpenGates();
             }
+
+            roomObject.name = room.Type.ToString();
         }
 
         foreach (var roomObject in rooms)
@@ -149,6 +154,8 @@ public class LevelGenerator : MonoBehaviour
         var containerPos = roomsContainer.transform.position;
         var pos = new Vector3(containerPos.x - roomSize * Settings.MapWidth / 2, 0, containerPos.y - roomSize * Settings.MapHeight / 2);
         roomsContainer.transform.position = pos;
+
+        return spawnPos;
     }
 
     private RoomType PickRandomRoomType(int cellX, int cellY)
@@ -335,6 +342,7 @@ public class LevelGenerator : MonoBehaviour
                     if (prefab != null)
                     {
                         var roomContentObj = Instantiate(prefab, roomObj.transform);
+                        roomContentObj.name = "Content";
                     }
                 }
             }

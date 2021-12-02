@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.43667546, g: 0.48427135, b: 0.5645225, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -148,7 +148,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3942342495347132986, guid: c5787323bc03df34a8010d82ba1e159f, type: 3}
       propertyPath: m_Name
-      value: Cube
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 8562093841700199539, guid: c5787323bc03df34a8010d82ba1e159f, type: 3}
       propertyPath: m_RootOrder
@@ -279,66 +279,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
---- !u!1 &1496051974
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1496051975}
-  m_Layer: 0
-  m_Name: Spawns
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1496051975
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1496051974}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1919814271
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1919814272}
-  m_Layer: 0
-  m_Name: GameObject
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1919814272
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1919814271}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -13.309999, y: 1.36, z: 13}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2140475674
 GameObject:
   m_ObjectHideFlags: 0
@@ -445,7 +385,7 @@ GameObject:
   - component: {fileID: 1597987971301211941}
   m_Layer: 0
   m_Name: Maze
-  m_TagString: Untagged
+  m_TagString: LevelManager
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -462,7 +402,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cbcd830c6657f42aa5f95bf8bf79fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HideRooms: 1
+  HideRooms: 0
+  CurrentStage: 1
 --- !u!4 &1597987971301211942
 Transform:
   m_ObjectHideFlags: 0
@@ -503,7 +444,7 @@ MonoBehaviour:
     - {fileID: 1885464899623854680, guid: 14cc4a666bdcf144d86e320d97e720ee, type: 3}
   - Type: 3
     Prefabs:
-    - {fileID: 7287242800714077123, guid: b111a0f7c63f56d4eb366daca98d168b, type: 3}
+    - {fileID: 4275317505379696570, guid: b111a0f7c63f56d4eb366daca98d168b, type: 3}
   - Type: 2
     Prefabs:
     - {fileID: 3913196063933679201, guid: 07841f95b32df9947940d49100aaabe5, type: 3}
@@ -515,4 +456,4 @@ MonoBehaviour:
     MaxExplore: 2
     MapWidth: 20
     MapHeight: 20
-    Rooms: 40
+    Rooms: 10

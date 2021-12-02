@@ -5,6 +5,8 @@ public class LevelManager : MonoBehaviour
 {
     public bool HideRooms = true;
 
+    public int CurrentStage = 1;
+
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private List<GameObject> activeRooms;
@@ -15,11 +17,21 @@ public class LevelManager : MonoBehaviour
         this.levelGenerator = this.GetComponent<LevelGenerator>();
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void LoadNextState()
     {
-        if (this.activeRoom)
+        if (this.levelGenerator)
         {
+            var lvlSettings = this.levelGenerator.Settings;
+            lvlSettings.Rooms += 5;
+            var spawnPos = this.levelGenerator.GenerateLevel(lvlSettings);
+
+            this.CurrentStage++;
+
+            var player = GameObject.FindGameObjectWithTag("Player");
+            if (player)
+            {
+                player.transform.position = spawnPos;
+            }
         }
     }
 
