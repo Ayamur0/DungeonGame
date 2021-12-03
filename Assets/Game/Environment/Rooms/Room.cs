@@ -28,6 +28,8 @@ public class Room : MonoBehaviour
     public List<GameObject> NeighborRooms = new List<GameObject>();
 
     public RoomContent Content;
+    public BoxCollider CameraBounds;
+    
     private float gateSize = 1.5f;
 
     public List<Vector3> GetRandomSpawns(int amount)
@@ -98,6 +100,13 @@ public class Room : MonoBehaviour
         this.PlayerInRoom = true;
         this.LevelManager.SetActiveRoom(this.gameObject);
         CloseGates();
+
+        var cameraObj = GameObject.FindGameObjectWithTag("Camera");
+        if (cameraObj && this.CameraBounds)
+        {
+            var confiner = cameraObj.GetComponent<Cinemachine.CinemachineConfiner>();
+            confiner.m_BoundingVolume = this.CameraBounds;
+        }
     }
 
     public void OnPlayerExit()
