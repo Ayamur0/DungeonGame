@@ -9,7 +9,7 @@ public class LevelManager : MonoBehaviour
 
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
-    private List<GameObject> activeRooms;
+    private Dictionary<NeighborRoomPosition, GameObject> activeRooms;
 
     // Start is called before the first frame update
     private void Start()
@@ -41,7 +41,7 @@ public class LevelManager : MonoBehaviour
         {
             if (this.activeRooms.Count > 0)
             {
-                foreach (var room in activeRooms)
+                foreach (var room in activeRooms.Values)
                 {
                     room.SetActive(false);
                 }
@@ -57,8 +57,8 @@ public class LevelManager : MonoBehaviour
     {
         if (this.activeRoom)
         {
-            var rooms = GetNeighborRooms(this.activeRoom);
-            foreach (var room in rooms)
+            Dictionary<NeighborRoomPosition, GameObject> rooms = GetNeighborRooms(this.activeRoom);
+            foreach (var room in rooms.Values)
             {
                 room.gameObject.GetComponent<Room>().NeighborRooms = rooms;
                 room.SetActive(true);
@@ -67,9 +67,9 @@ public class LevelManager : MonoBehaviour
         }
     }
 
-    public List<GameObject> GetNeighborRooms(GameObject activeRoom)
+    public Dictionary<NeighborRoomPosition, GameObject> GetNeighborRooms(GameObject activeRoom)
     {
-        List<GameObject> rooms = new List<GameObject>();
+        Dictionary<NeighborRoomPosition, GameObject> rooms = new Dictionary<NeighborRoomPosition, GameObject>();
         var room = activeRoom.GetComponent<Room>();
 
         var pos = room.CellPosition;
@@ -79,7 +79,7 @@ public class LevelManager : MonoBehaviour
         {
             var rightRoom = this.levelGenerator.GetRooms()[(int)pos.x + 1, (int)pos.y];
             if (rightRoom)
-                rooms.Add(rightRoom);
+                rooms.Add(NeighborRoomPosition.Right, rightRoom);
         }
 
         // left
@@ -87,7 +87,7 @@ public class LevelManager : MonoBehaviour
         {
             var leftRoom = this.levelGenerator.GetRooms()[(int)pos.x - 1, (int)pos.y];
             if (leftRoom)
-                rooms.Add(leftRoom);
+                rooms.Add(NeighborRoomPosition.Left, leftRoom);
         }
 
         // Up
@@ -95,7 +95,7 @@ public class LevelManager : MonoBehaviour
         {
             var upRoom = this.levelGenerator.GetRooms()[(int)pos.x, (int)pos.y - 1];
             if (upRoom)
-                rooms.Add(upRoom);
+                rooms.Add(NeighborRoomPosition.Up, upRoom);
         }
 
         // Down
@@ -103,7 +103,7 @@ public class LevelManager : MonoBehaviour
         {
             var downRoom = this.levelGenerator.GetRooms()[(int)pos.x, (int)pos.y + 1];
             if (downRoom)
-                rooms.Add(downRoom);
+                rooms.Add(NeighborRoomPosition.Down, downRoom);
         }
 
         return rooms;

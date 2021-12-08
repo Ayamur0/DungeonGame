@@ -11,6 +11,14 @@ public enum RoomType
     Explore,
 }
 
+public enum NeighborRoomPosition
+{
+    Up,
+    Left,
+    Right,
+    Down,
+}
+
 public class Room : MonoBehaviour
 {
     [Header("Settings")]
@@ -23,13 +31,14 @@ public class Room : MonoBehaviour
 
     public Vector2 CellPosition = Vector2.zero;
     public bool PlayerInRoom { get; private set; }
+    public bool GatesClosed { get; private set; }
     public bool Visited = false;
     public LevelManager LevelManager;
-    public List<GameObject> NeighborRooms = new List<GameObject>();
+    public Dictionary<NeighborRoomPosition, GameObject> NeighborRooms;
 
     public RoomContent Content;
     public BoxCollider CameraBounds;
-    
+
     private float gateSize = 1.5f;
 
     public List<Vector3> GetRandomSpawns(int amount)
@@ -74,18 +83,25 @@ public class Room : MonoBehaviour
         }
     }
 
+    public void RoomCleared()
+    {
+        this.Visited = true;
+        this.OpenGates();
+    }
+
     public void OpenGates()
     {
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
             gate.transform.position = new Vector3(gatePos.x, -gateSize, gatePos.z);
+            GatesClosed = false;
         }
     }
 
     public void CloseGates()
     {
-        if (Visited)
+        if (Visited || Type != RoomType.Battle)
             return;
 
         foreach (var gate in Gates)
@@ -93,6 +109,8 @@ public class Room : MonoBehaviour
             var gatePos = gate.transform.position;
             gate.transform.position = new Vector3(gatePos.x, 1, gatePos.z);
         }
+
+        GatesClosed = true;
     }
 
     public void OnPlayerEntered()
@@ -105,7 +123,7 @@ public class Room : MonoBehaviour
         if (cameraObj && this.CameraBounds)
         {
             var confiner = cameraObj.GetComponent<Cinemachine.CinemachineConfiner>();
-            confiner.m_BoundingVolume = this.CameraBounds;
+            //confiner.m_BoundingVolume = this.CameraBounds;
         }
     }
 
