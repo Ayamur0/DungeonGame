@@ -13,7 +13,7 @@ public abstract class Weapon : Powerup {
             return;
         timeSinceLastAttack += Time.deltaTime;
         if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("left") || Input.GetKey("right")) {
-            if (timeSinceLastAttack >= cooldown * playerStats.attackCooldownReduction) {
+            if (timeSinceLastAttack >= cooldown / playerStats.attackCooldownReduction) {
                 timeSinceLastAttack = 0;
                 Attack();
             }

@@ -3,16 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public abstract class Powerup : MonoBehaviour {
+    [HideInInspector]
     public Sprite sprite;
     protected bool activated = false;
+    [HideInInspector]
     public Inventory inventory;
+
+    void Start() {
+        sprite = GetComponent<SpriteRenderer>().sprite;
+    }
 
     virtual protected void Update() { }
 
     void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player"))
             other.GetComponent<Inventory>().closest = this;
-        //Pickup(other);
     }
 
     public bool Pickup(GameObject player) {
@@ -28,6 +33,7 @@ public abstract class Powerup : MonoBehaviour {
     }
 
     public void Drop() {
+        activated = false;
         transform.position = inventory.transform.position;
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<BoxCollider>().enabled = true;

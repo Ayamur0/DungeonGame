@@ -3,20 +3,28 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerStats : MonoBehaviour {
-    private const float MIN_SPEED = 0.02f;
-    private const float MAX_SPEED = 0.15f;
+    private const float MIN_MOVESPEED = 0.02f;
+    private const float MAX_MOVESPEED = 0.15f;
     private const float MIN_COOLDOWN = 0.1f;
-    private const float MAX_COOLDOWN = 1f;
+    private const float MAX_COOLDOWN = 5f;
     private const float MIN_DAMAGE = 0.1f;
     private const float MAX_DAMAGE = 5f;
-    private const float MIN_MISSILE_SPEED = 0.05f;
-    private const float MAX_MISSILE_SPEED = 0.2f;
+    private const float MIN_PROJECTILE_SPEED = 0.05f;
+    private const float MAX_PROJECTILE_SPEED = 0.2f;
+    private const float MIN_RANGE = 2;
+    private const float MAX_RANGE = 100;
+    private const int MAX_CRIT_DAMAGE = 500;
 
-    public float speed = .1f;
+    public float movespeed = .1f;
     public float attackCooldownReduction = 1f;
     public float attackDamage = 1;
-    public float missileSpeedMultiplier = 1f;
-    public bool tripleShot = true;
+    public float projectileSpeedMultiplier = 1f;
+    public float range = 10;
+    public int critChance = 10;
+    public int critDamage = 50;
+    public int lifestealPercent = 0;
+    public bool weaponPiercing = false;
+    public bool overchargeActiveItems = false;
 
     public int startHearts = 3;
     public int maxHearts = 15;
@@ -124,10 +132,40 @@ public class PlayerStats : MonoBehaviour {
         return amount;
     }
 
-    public void addStats(float s, float c, float ad, float ms) {
-        speed = Mathf.Clamp(speed + s, MIN_SPEED, MAX_SPEED);
-        attackCooldownReduction = Mathf.Clamp(attackCooldownReduction + c, MIN_COOLDOWN, MAX_COOLDOWN);
-        attackDamage = Mathf.Clamp(attackDamage + ad, MIN_DAMAGE, MAX_DAMAGE);
-        missileSpeedMultiplier = Mathf.Clamp(missileSpeedMultiplier + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
+    // public void addStats(float s, float c, float ad, float ms) {
+    //     speed = Mathf.Clamp(speed + s, MIN_SPEED, MAX_SPEED);
+    //     attackCooldownReduction = Mathf.Clamp(attackCooldownReduction + c, MIN_COOLDOWN, MAX_COOLDOWN);
+    //     attackDamage = Mathf.Clamp(attackDamage + ad, MIN_DAMAGE, MAX_DAMAGE);
+    //     missileSpeedMultiplier = Mathf.Clamp(missileSpeedMultiplier + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
+    // }
+
+    public void updateStats(PassiveItem[] items) {
+        float moveSpeedModifier = 0;
+        float attackSpeedModifier = 0;
+        float projectileSpeedModifier = 0;
+        float damageModifier = 0;
+        foreach (PassiveItem i in items) {
+            movespeed += i.flatMoveSpeed;
+            moveSpeedModifier += i.percentMoveSpeed;
+            attackCooldownReduction += i.flatAttackSpeed;
+            attackSpeedModifier += i.percentAttackSpeed;
+            projectileSpeedMultiplier += i.flatProjectileSpeed;
+            projectileSpeedModifier += i.percentProjectileSpeed;
+            attackDamage += i.flatDamage;
+            damageModifier += i.percentDamage;
+            range += i.flatRange;
+            critChance += i.critChance;
+            critDamage += i.percentCritDamage;
+            lifestealPercent += i.lifesteal;
+            weaponPiercing = weaponPiercing || i.weaponPiercing;
+            overchargeActiveItems = overchargeActiveItems || i.overchargeActiveItems;
+        }
+        movespeed = Mathf.Clamp(movespeed * moveSpeedModifier, MIN_MOVESPEED, MAX_MOVESPEED);
+        attackCooldownReduction = Mathf.Clamp(attackCooldownReduction * attackSpeedModifier, MIN_COOLDOWN, MAX_COOLDOWN);
+        projectileSpeedMultiplier = Mathf.Clamp(projectileSpeedMultiplier * projectileSpeedModifier, MIN_PROJECTILE_SPEED, MAX_PROJECTILE_SPEED);
+        attackDamage = Mathf.Clamp(attackDamage * damageModifier, MIN_DAMAGE, MAX_DAMAGE);
+        range = Mathf.Clamp(range, MIN_RANGE, MAX_RANGE);
+        critChance = Mathf.Clamp(0, critChance, 100);
+        critDamage = Mathf.Clamp(critDamage, 0, MAX_CRIT_DAMAGE);
     }
 }

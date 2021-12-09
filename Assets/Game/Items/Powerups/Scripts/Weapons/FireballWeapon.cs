@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballWeapon : Weapon {
-    private float missileSpeed = .1f;
+    private float missileSpeed = 10f;
 
     public override void Attack() {
         List<GameObject> fireballObjs = new List<GameObject>();
@@ -12,7 +12,7 @@ public class FireballWeapon : Weapon {
             inventory.WeaponMod.modProjectiles(fireballObjs);
         foreach (GameObject fireballObj in fireballObjs) {
             FireballController fireballController = fireballObj.GetComponent<FireballController>();
-            fireballController.Speed = missileSpeed * playerStats.missileSpeedMultiplier;
+            fireballController.Speed = missileSpeed * playerStats.projectileSpeedMultiplier;
         }
     }
 }

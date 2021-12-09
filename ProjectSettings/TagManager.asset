@@ -8,6 +8,7 @@ TagManager:
   - Exit
   - RoomContainer
   - LevelManager
+  - PlayerProjectile
   layers:
   - Default
   - TransparentFX
@@ -19,9 +20,6 @@ TagManager:
   - Blocks
   - Walls
   - AI
-  - 
-  - 
-  - 
   - 
   - 
   - 

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class FireballController : MonoBehaviour {
-    private const int Up = 0, Right = 90, Down = 180, Left = 270;
     public float Lifetime = 2f;
     public float Speed;
     private float direction = 0f;
@@ -15,6 +14,6 @@ public class FireballController : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
-        transform.position += transform.forward * Speed;
+        transform.position += transform.forward * Speed * Time.deltaTime;
     }
 }
