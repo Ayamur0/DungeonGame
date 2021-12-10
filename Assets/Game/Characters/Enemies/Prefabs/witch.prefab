@@ -703,11 +703,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5535203eb51004f469ff0ce1c61a6241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 2
-  minDamagePoints: 3
-  searchRange: 11
-  attackRange: 8
-  patrolRange: 3
+  enemyStats: {fileID: 11400000, guid: 82ab575c6c69d0e46919f7bbf798df9d, type: 2}
   agent: {fileID: 3725350962644464045}
   player: {fileID: 0}
   m_Animator: {fileID: 3725350962644464211}
@@ -718,7 +714,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   nextMovingPoint: {x: 0, y: 0, z: 0}
-  shootInterval: 6
 --- !u!54 &3725350962644464210
 Rigidbody:
   m_ObjectHideFlags: 0
