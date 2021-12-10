@@ -14,13 +14,7 @@ public class EnemyController : MonoBehaviour
 
     private State currentState;
 
-    public float health = 3f;
-    public float minDamagePoints;
-
-    public float searchRange = 10f;
-    public float attackRange = 5f;
-
-    public float patrolRange = 8f;
+    public EnemyStats enemyStats;
 
     public NavMeshAgent agent;
     public Transform player;
@@ -32,18 +26,17 @@ public class EnemyController : MonoBehaviour
 
     private bool MovePointisValid;
 
-    public float shootInterval;
     private float playerDistance;
     private bool waitForTimeout = false;
 
-    public void Init(float health, float minDamagePoints, float searchRange, float attackRange, float patrolRange, float shootInterval)
+    public void Init()
     {
-        this.health = health;
-        this.minDamagePoints = minDamagePoints;
-        this.searchRange = searchRange;
-        this.attackRange = attackRange;
-        this.patrolRange = patrolRange;
-        this.shootInterval = shootInterval;
+        //this.enemyStats.health = enemyStats.health;
+        //this.enemyStats.minDamagePoints = enemyStats.minDamagePoints;
+        //this.enemyStats.searchRange = enemyStats.searchRange;
+        //this.enemyStats.attackRange = enemyStats.attackRange;
+        //this.enemyStats.patrolRange = enemyStats.patrolRange;
+        //this.enemyStats.shootInterval = enemyStats.shootInterval;
 
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
@@ -60,7 +53,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health > 0.0f)
+        if (enemyStats.health > 0.0f)
         {
             switch (currentState)
             {
@@ -97,7 +90,7 @@ public class EnemyController : MonoBehaviour
     private Vector3 ChooseNextMovingPoint()
     { 
         Vector3 randomDirRange = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-        Vector3 walkingPoint = randomDirRange * Random.Range(patrolRange, patrolRange);
+        Vector3 walkingPoint = randomDirRange * Random.Range(enemyStats.patrolRange, enemyStats.patrolRange);
 
         if (Physics.Raycast(transform.position + walkingPoint, -transform.up, 2f, whatIsGround))
         {
@@ -109,7 +102,7 @@ public class EnemyController : MonoBehaviour
 
     private void DetectPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < searchRange)
+        if (Vector3.Distance(transform.position, player.position) < enemyStats.searchRange)
         {
             currentState = State.Chasing;
         }
@@ -118,11 +111,11 @@ public class EnemyController : MonoBehaviour
     private void ChasePlayer()
     {
         agent.SetDestination(player.position);
-        if(Vector3.Distance(transform.position, player.position) > searchRange + 5f)
+        if(Vector3.Distance(transform.position, player.position) > enemyStats.searchRange + 5f)
         {
             currentState = State.Patroling;
         }
-        if (Vector3.Distance(transform.position, player.position) < attackRange)
+        if (Vector3.Distance(transform.position, player.position) < enemyStats.attackRange)
         {
             currentState = State.Attack;
         }
@@ -138,9 +131,9 @@ public class EnemyController : MonoBehaviour
         { 
             waitForTimeout = true;
             SendDamage();
-            Invoke(nameof(SetShootTimeout), shootInterval);
+            Invoke(nameof(SetShootTimeout), enemyStats.shootInterval);
         }
-        if (Vector3.Distance(transform.position, player.position) > attackRange)
+        if (Vector3.Distance(transform.position, player.position) > enemyStats.attackRange)
         {
             currentState = State.Chasing;
         }
@@ -163,8 +156,8 @@ public class EnemyController : MonoBehaviour
     }
 
     public void ReceiveDamage(float damage) {
-        health -= damage;
-        if(health <= 0)
+        enemyStats.health -= damage;
+        if(enemyStats.health <= 0)
         {
             m_Animator.ResetTrigger("walking");
             m_Animator.ResetTrigger("attacking");
@@ -181,10 +174,10 @@ public class EnemyController : MonoBehaviour
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, attackRange);
+        Gizmos.DrawWireSphere(transform.position, enemyStats.attackRange);
         Gizmos.DrawWireSphere(nextMovingPoint, 1);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, searchRange);
+        Gizmos.DrawWireSphere(transform.position, enemyStats.searchRange);
     }
 
 
