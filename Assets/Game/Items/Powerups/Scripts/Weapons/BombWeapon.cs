@@ -13,6 +13,7 @@ public class BombWeapon : Weapon {
         foreach (GameObject bombObj in bombObjs) {
             BombController bombController = bombObj.GetComponent<BombController>();
             bombController.Speed = missileSpeed * playerStats.projectileSpeedMultiplier;
+            bombController.Lifetime = playerStats.range / 10 / bombController.Speed;
         }
     }
 }

@@ -4,16 +4,23 @@ using UnityEngine;
 using UnityEngine.UI;
 
 public class Inventory : MonoBehaviour {
+    [HideInInspector]
     public Weapon Weapon;
+    [HideInInspector]
     public WeaponMod WeaponMod;
+    [HideInInspector]
     public ActiveItem ActiveItem;
-    private Powerup[] PassiveItems = new Powerup[5];
+    private PassiveItem[] PassiveItems = new PassiveItem[5];
 
     public Image WeaponSlot;
     public Image WeaponModSlot;
     public Image ActiveSlot;
     public Image[] PassiveSlots;
 
+    private int Money;
+    public Text MoneyDisplay;
+
+    [HideInInspector]
     public Powerup closest;
 
     // Update is called once per frame
@@ -55,7 +62,6 @@ public class Inventory : MonoBehaviour {
     }
 
     public void dropWeapon() {
-        Debug.Log("Drop Weapon");
         if (Weapon != null)
             Weapon.Drop();
         Weapon = null;
@@ -87,11 +93,12 @@ public class Inventory : MonoBehaviour {
         ActiveItem = null;
     }
 
-    public bool addPassiveItem(Powerup item) {
+    public bool addPassiveItem(PassiveItem item) {
         for (int i = 0; i < PassiveItems.Length; i++) {
             if (PassiveItems[i] != null)
                 continue;
             PassiveItems[i] = item;
+            GetComponent<PlayerStats>().updateStats(PassiveItems);
             return true;
         }
         return false;
@@ -101,6 +108,12 @@ public class Inventory : MonoBehaviour {
         if (PassiveItems[index] != null)
             PassiveItems[index].Drop();
         PassiveItems[index] = null;
+        GetComponent<PlayerStats>().updateStats(PassiveItems);
+    }
+
+    public void addMoney(int value) {
+        Money += value;
+        MoneyDisplay.text = "" + Money;
     }
 
     private void processInputs() {

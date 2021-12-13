@@ -12,10 +12,8 @@ public class PassiveItem : Powerup {
     public int flatDamage = 0;
     public float percentDamage = 1;
     public float flatRange = 0;
-    public int critChance = 0;
+    public int luck = 0;
     public int percentCritDamage = 0;
-    public int lifesteal = 0;
-    public bool weaponPiercing = false;
     public bool overchargeActiveItems = false;
 
 

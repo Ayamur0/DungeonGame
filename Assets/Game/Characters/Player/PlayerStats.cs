@@ -5,25 +5,31 @@ using UnityEngine;
 public class PlayerStats : MonoBehaviour {
     private const float MIN_MOVESPEED = 0.02f;
     private const float MAX_MOVESPEED = 0.15f;
+    private const float DEFAULT_MOVESPEED = 0.05f;
     private const float MIN_COOLDOWN = 0.1f;
+    private const float DEFAULT_COOLDOWN = 1f;
     private const float MAX_COOLDOWN = 5f;
     private const float MIN_DAMAGE = 0.1f;
+    private const float DEFAULT_DAMAGE = 1f;
     private const float MAX_DAMAGE = 5f;
-    private const float MIN_PROJECTILE_SPEED = 0.05f;
-    private const float MAX_PROJECTILE_SPEED = 0.2f;
+    private const float MIN_PROJECTILE_SPEED = 0.25f;
+    private const float DEFAULT_PROJECTILE_SPEED = 0.25f;
+    private const float MAX_PROJECTILE_SPEED = 5f;
     private const float MIN_RANGE = 2;
+    private const float DEFUALT_RANGE = 10;
     private const float MAX_RANGE = 100;
     private const int MAX_CRIT_DAMAGE = 500;
+    private const int DEFAULT_CRIT_DAMAGE = 50;
+    private const int DEFAULT_LUCK = 10;
 
-    public float movespeed = .1f;
+
+    public float movespeed = .05f;
     public float attackCooldownReduction = 1f;
     public float attackDamage = 1;
     public float projectileSpeedMultiplier = 1f;
     public float range = 10;
-    public int critChance = 10;
+    public int luck = 10;
     public int critDamage = 50;
-    public int lifestealPercent = 0;
-    public bool weaponPiercing = false;
     public bool overchargeActiveItems = false;
 
     public int startHearts = 3;
@@ -66,7 +72,12 @@ public class PlayerStats : MonoBehaviour {
             } else if (blackHearts > 0) {
                 blackHearts -= 0.5f;
                 if (blackHearts % 1 == 0) {
-                    // dealDamage
+                    Collider[] colliders = Physics.OverlapSphere(transform.position, 8);
+                    for (int i = 0; i < colliders.Length; i++) {
+                        if (colliders[i].tag == "Enemy") {
+                            // deal damage
+                        }
+                    }
                 }
             } else if (redHearts > 0) {
                 redHearts -= 0.5f;
@@ -132,19 +143,30 @@ public class PlayerStats : MonoBehaviour {
         return amount;
     }
 
-    // public void addStats(float s, float c, float ad, float ms) {
-    //     speed = Mathf.Clamp(speed + s, MIN_SPEED, MAX_SPEED);
-    //     attackCooldownReduction = Mathf.Clamp(attackCooldownReduction + c, MIN_COOLDOWN, MAX_COOLDOWN);
-    //     attackDamage = Mathf.Clamp(attackDamage + ad, MIN_DAMAGE, MAX_DAMAGE);
-    //     missileSpeedMultiplier = Mathf.Clamp(missileSpeedMultiplier + ms, MIN_MISSILE_SPEED, MAX_MISSILE_SPEED);
-    // }
+    public float GetDamage() {
+        float damage = attackDamage;
+        int r = Random.Range(0, 100);
+        if (r <= luck) {
+            damage *= critDamage / 100 + 1;
+        }
+        return damage;
+    }
 
     public void updateStats(PassiveItem[] items) {
-        float moveSpeedModifier = 0;
-        float attackSpeedModifier = 0;
-        float projectileSpeedModifier = 0;
-        float damageModifier = 0;
+        movespeed = DEFAULT_MOVESPEED;
+        attackCooldownReduction = DEFAULT_COOLDOWN;
+        projectileSpeedMultiplier = DEFAULT_PROJECTILE_SPEED;
+        attackDamage = DEFAULT_DAMAGE;
+        critDamage = DEFAULT_CRIT_DAMAGE;
+        luck = DEFAULT_LUCK;
+        range = DEFUALT_RANGE;
+        float moveSpeedModifier = 1;
+        float attackSpeedModifier = 1;
+        float projectileSpeedModifier = 1;
+        float damageModifier = 1;
         foreach (PassiveItem i in items) {
+            if (i == null)
+                continue;
             movespeed += i.flatMoveSpeed;
             moveSpeedModifier += i.percentMoveSpeed;
             attackCooldownReduction += i.flatAttackSpeed;
@@ -154,10 +176,8 @@ public class PlayerStats : MonoBehaviour {
             attackDamage += i.flatDamage;
             damageModifier += i.percentDamage;
             range += i.flatRange;
-            critChance += i.critChance;
+            luck += i.luck;
             critDamage += i.percentCritDamage;
-            lifestealPercent += i.lifesteal;
-            weaponPiercing = weaponPiercing || i.weaponPiercing;
             overchargeActiveItems = overchargeActiveItems || i.overchargeActiveItems;
         }
         movespeed = Mathf.Clamp(movespeed * moveSpeedModifier, MIN_MOVESPEED, MAX_MOVESPEED);
@@ -165,7 +185,7 @@ public class PlayerStats : MonoBehaviour {
         projectileSpeedMultiplier = Mathf.Clamp(projectileSpeedMultiplier * projectileSpeedModifier, MIN_PROJECTILE_SPEED, MAX_PROJECTILE_SPEED);
         attackDamage = Mathf.Clamp(attackDamage * damageModifier, MIN_DAMAGE, MAX_DAMAGE);
         range = Mathf.Clamp(range, MIN_RANGE, MAX_RANGE);
-        critChance = Mathf.Clamp(0, critChance, 100);
+        luck = Mathf.Clamp(0, luck, 100);
         critDamage = Mathf.Clamp(critDamage, 0, MAX_CRIT_DAMAGE);
     }
 }

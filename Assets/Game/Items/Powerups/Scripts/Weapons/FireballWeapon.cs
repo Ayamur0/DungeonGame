@@ -13,6 +13,7 @@ public class FireballWeapon : Weapon {
         foreach (GameObject fireballObj in fireballObjs) {
             FireballController fireballController = fireballObj.GetComponent<FireballController>();
             fireballController.Speed = missileSpeed * playerStats.projectileSpeedMultiplier;
+            fireballController.Lifetime = playerStats.range / fireballController.Speed;
         }
     }
 }

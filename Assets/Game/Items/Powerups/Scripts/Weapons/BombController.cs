@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BombController : MonoBehaviour {
+public class BombController : Projectile {
     public float Lifetime = 2f;
     public float Speed;
     private float direction = 0f;
@@ -10,24 +10,29 @@ public class BombController : MonoBehaviour {
     private Vector3 targetPos;
     private float arcHeight = 5;
     private float dist;
+    private bool targetReached;
 
     // hide deprecated collider property
     new private Collider collider;
     private HashSet<Collider> enmiesInRange = new HashSet<Collider>();
 
     // Start is called before the first frame update
-    void Start() {
+    override protected void Start() {
         collider = GetComponent<Collider>();
         startPos = transform.position;
         direction = transform.rotation.eulerAngles.y;
         targetPos = transform.position + transform.forward * Speed * Lifetime;
-        float dist = Vector3.Distance(startPos, targetPos);
-        Explode();
-        Destroy(gameObject, Lifetime);
+        dist = Vector3.Distance(startPos, targetPos);
+        StartCoroutine("Explode");
+        StartCoroutine("EmitParticles");
+        ParticleSystem.MainModule particles = GetComponent<ParticleSystem>().main;
+        Destroy(gameObject, Lifetime + particles.duration);
     }
 
     // Update is called once per frame
-    void Update() {
+    override protected void Update() {
+        if (targetReached)
+            return;
         float x0 = startPos.x;
         float z0 = startPos.z;
         float x1 = targetPos.x;
@@ -47,9 +52,25 @@ public class BombController : MonoBehaviour {
             enmiesInRange.Remove(other);
     }
 
-    void Explode() {
+    private IEnumerator EmitParticles() {
+        yield return new WaitForSeconds(Lifetime);
+        GetComponent<MeshRenderer>().enabled = false;
+        GetComponent<Collider>().enabled = false;
+        transform.rotation = new Quaternion(0, 0, 0, 1);
+        ParticleSystem.MainModule particles = GetComponent<ParticleSystem>().main;
+        particles.startSizeX = new ParticleSystem.MinMaxCurve(particles.startSizeX.constantMin * transform.localScale.x, particles.startSizeX.constantMax * transform.localScale.x);
+        particles.startSizeY = new ParticleSystem.MinMaxCurve(particles.startSizeY.constantMin * transform.localScale.x, particles.startSizeY.constantMax * transform.localScale.x);
+        particles.startSizeZ = new ParticleSystem.MinMaxCurve(particles.startSizeZ.constantMin * transform.localScale.x, particles.startSizeZ.constantMax * transform.localScale.x);
+        GetComponent<ParticleSystem>().Play();
+        targetReached = true;
+    }
+
+    private IEnumerator Explode() {
+        yield return new WaitForSeconds(Lifetime);
         foreach (Collider c in enmiesInRange) {
             // damage enemy
+            if (onHitEffect != null)
+                onHitEffect(c.gameObject);
         }
     }
 }
