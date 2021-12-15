@@ -272,7 +272,6 @@ GameObject:
   - component: {fileID: 1560155056196705638}
   - component: {fileID: 1560155056196705561}
   - component: {fileID: 1560155056196705560}
-  - component: {fileID: 1560155056196705563}
   - component: {fileID: 1560155056196705562}
   - component: {fileID: 1560155056196705565}
   m_Layer: 0
@@ -328,7 +327,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 30353eba9a7c5ec4aad5e5d61b3afda1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireball: {fileID: 5901348858978309909, guid: 6e8c4c0b9ce9c7449992764d4493a43d, type: 3}
 --- !u!114 &1560155056196705561
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -387,7 +385,6 @@ MonoBehaviour:
   lifestealPercent: 0
   weaponPiercing: 0
   overchargeActiveItems: 0
-  tripleShot: 1
   startHearts: 3
   maxHearts: 15
   blackHearts: 0
@@ -395,19 +392,6 @@ MonoBehaviour:
   redHearts: 0
   heartContainers: 5
   healthPerHeart: 2
---- !u!65 &1560155056196705563
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1560155056196705636}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.174055, y: 2.5636387, z: 2.273417}
-  m_Center: {x: -0.02120328, y: 0.78181934, z: 0.07067746}
 --- !u!54 &1560155056196705562
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -9,6 +9,7 @@ TagManager:
   - RoomContainer
   - LevelManager
   - PlayerProjectile
+  - Camera
   layers:
   - Default
   - TransparentFX
