@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class CameraController : MonoBehaviour
 {
-    public float DefaultZoom = 10f;
-    public float EnemyZoom = 15f;
+    public float DefaultZoom = 25f;
+    public float EnemyZoom = 30f;
 
     private CinemachineVirtualCamera virtualCamera;
     private CinemachineFramingTransposer framingTransposer;
@@ -20,10 +20,10 @@ public class CameraController : MonoBehaviour
 
     public void SetDefaultZoom()
     {
-        this.framingTransposer.m_TrackedObjectOffset = new Vector3(0f, DefaultZoom, 0f);
+        this.framingTransposer.m_CameraDistance = DefaultZoom;
     }
     public void SetEnemyZoom()
     {
-        this.framingTransposer.m_TrackedObjectOffset = new Vector3(0f, EnemyZoom, 0f);
+        this.framingTransposer.m_CameraDistance = EnemyZoom;
     }
 }

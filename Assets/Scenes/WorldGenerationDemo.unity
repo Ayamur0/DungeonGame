@@ -323,7 +323,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456842359}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000023841858, y: 25.000006, z: 0.0000011920929}
+  m_LocalPosition: {x: 0.00000047683716, y: 20.000002, z: 0.0000023841858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -442,7 +442,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503801063}
   m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000023841858, y: 25.000006, z: 0.0000011920929}
+  m_LocalPosition: {x: 0.00000047683716, y: 20.000002, z: 0.0000023841858}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1616141564}
@@ -461,8 +461,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 87b2ead376ff6ad498b30900f94efb89, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DefaultZoom: 10
-  EnemyZoom: 20
+  DefaultZoom: 20
+  EnemyZoom: 30
 --- !u!1 &1171496825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1560155056196705636, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
@@ -531,7 +531,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 15, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 0, z: 0}
   m_LookaheadTime: 0.5
   m_LookaheadSmoothing: 2.5
   m_LookaheadIgnoreY: 0
@@ -541,7 +541,7 @@ MonoBehaviour:
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
-  m_CameraDistance: 10
+  m_CameraDistance: 20
   m_DeadZoneWidth: 0.05
   m_DeadZoneHeight: 0.1
   m_DeadZoneDepth: 0
