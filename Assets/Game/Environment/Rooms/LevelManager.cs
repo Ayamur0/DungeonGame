@@ -23,14 +23,15 @@ public class LevelManager : MonoBehaviour
         {
             var lvlSettings = this.levelGenerator.Settings;
             lvlSettings.Rooms += 5;
-            var spawnPos = this.levelGenerator.GenerateLevel(lvlSettings);
+            this.levelGenerator.GenerateLevel(lvlSettings);
 
             this.CurrentStage++;
 
             var player = GameObject.FindGameObjectWithTag("Player");
             if (player)
             {
-                player.transform.position = spawnPos;
+                // player spawns aloways in the center of the world
+                player.transform.position = new Vector3(0, 0, 0);
             }
         }
     }
@@ -107,5 +108,17 @@ public class LevelManager : MonoBehaviour
         }
 
         return rooms;
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            var room = this.activeRoom.GetComponent<Room>();
+            if (room.Type == RoomType.Battle)
+            {
+                room.RoomCleared();
+            }
+        }
     }
 }

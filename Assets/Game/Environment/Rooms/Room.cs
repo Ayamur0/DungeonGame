@@ -119,18 +119,30 @@ public class Room : MonoBehaviour
         this.LevelManager.SetActiveRoom(this.gameObject);
         CloseGates();
 
-        var cameraObj = GameObject.FindGameObjectWithTag("Camera");
+        if (this.Type == RoomType.Battle)
+        {
+            var cameraController = GameObject.FindObjectOfType<CameraController>();
+            cameraController.SetEnemyZoom();
+        }
+
+        /*var cameraObj = GameObject.FindGameObjectWithTag("Camera");
         if (cameraObj && this.CameraBounds)
         {
             var confiner = cameraObj.GetComponent<Cinemachine.CinemachineConfiner>();
-            //confiner.m_BoundingVolume = this.CameraBounds;
-        }
+            confiner.m_BoundingVolume = this.CameraBounds;
+        }*/
     }
 
     public void OnPlayerExit()
     {
         this.PlayerInRoom = false;
         OpenGates();
+
+        if (this.Type == RoomType.Battle)
+        {
+            var cameraController = GameObject.FindObjectOfType<CameraController>();
+            cameraController.SetDefaultZoom();
+        }
     }
 
     private void OnTriggerEnter(Collider other)

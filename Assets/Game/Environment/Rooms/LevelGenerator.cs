@@ -65,7 +65,7 @@ public class LevelGenerator : MonoBehaviour
         this.lvlManager.EnableNeighborRooms();
     }
 
-    public Vector3 GenerateLevel(LevelSettings settings)
+    public void GenerateLevel(LevelSettings settings)
     {
         if (settings.MapHeight <= 0 || settings.MapWidth <= 0 || settings.Rooms < 4)
         {
@@ -81,10 +81,10 @@ public class LevelGenerator : MonoBehaviour
         }
 
         var cells = this.maze.Generate();
-        return CreateCells(cells);
+        CreateCells(cells);
     }
 
-    private Vector3 CreateCells(Cell[] cells)
+    private void CreateCells(Cell[] cells)
     {
         GameObject roomsContainer = new GameObject("Rooms");
         roomsContainer.tag = "RoomContainer";
@@ -154,8 +154,6 @@ public class LevelGenerator : MonoBehaviour
         var containerPos = roomsContainer.transform.position;
         var pos = new Vector3(containerPos.x - roomSize * Settings.MapWidth / 2, 0, containerPos.y - roomSize * Settings.MapHeight / 2);
         roomsContainer.transform.position = pos;
-
-        return spawnPos;
     }
 
     private RoomType PickRandomRoomType(int cellX, int cellY)

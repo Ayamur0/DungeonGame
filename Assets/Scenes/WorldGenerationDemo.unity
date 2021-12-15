@@ -297,7 +297,7 @@ Camera:
     height: 1
   near clip plane: 0.1
   far clip plane: 5000
-  field of view: 37
+  field of view: 45
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -322,8 +322,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 456842359}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000017881393, y: 20.000002, z: 0.0000011920928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00000023841858, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -374,6 +374,7 @@ GameObject:
   - component: {fileID: 503801066}
   - component: {fileID: 503801065}
   - component: {fileID: 503801064}
+  - component: {fileID: 503801067}
   m_Layer: 0
   m_Name: VirtualCamera
   m_TagString: Camera
@@ -419,7 +420,7 @@ MonoBehaviour:
   m_LookAt: {fileID: 1171496833}
   m_Follow: {fileID: 1171496833}
   m_Lens:
-    FieldOfView: 37
+    FieldOfView: 45
     OrthographicSize: 10
     NearClipPlane: 0.1
     FarClipPlane: 5000
@@ -440,14 +441,28 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503801063}
-  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: 0.00000017881393, y: 20.000002, z: 0.0000011920928}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.00000023841858, y: 15, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1616141564}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
+--- !u!114 &503801067
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 503801063}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 87b2ead376ff6ad498b30900f94efb89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  DefaultZoom: 10
+  EnemyZoom: 20
 --- !u!1 &1171496825 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 1560155056196705636, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
@@ -516,13 +531,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ad980451443d70438faac0bc6c235a0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_TrackedObjectOffset: {x: 0, y: 10, z: 0}
+  m_TrackedObjectOffset: {x: 0, y: 15, z: 0}
   m_LookaheadTime: 0.5
   m_LookaheadSmoothing: 2.5
   m_LookaheadIgnoreY: 0
   m_XDamping: 1
   m_YDamping: 1
-  m_ZDamping: 1
+  m_ZDamping: 2
   m_TargetMovementOnly: 1
   m_ScreenX: 0.5
   m_ScreenY: 0.5
@@ -566,9 +581,13 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1560155056196705560, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
+      propertyPath: movespeed
+      value: 0.2
+      objectReference: {fileID: 0}
     - target: {fileID: 1560155056196705562, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
       propertyPath: m_Constraints
-      value: 4
+      value: 116
       objectReference: {fileID: 0}
     - target: {fileID: 1560155056196705636, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
       propertyPath: m_Name
@@ -743,7 +762,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03cbcd830c6657f42aa5f95bf8bf79fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HideRooms: 0
+  HideRooms: 1
   CurrentStage: 1
 --- !u!4 &1597987971301211942
 Transform:
