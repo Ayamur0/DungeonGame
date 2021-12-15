@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e01326beea26d2c4c85756fdabc804dd, type: 3}
-  m_Name: Witch
+  m_Name: Witch_Stats
   m_EditorClassIdentifier: 
-  health: 3
-  minDamagePoints: 6
   searchRange: 10
-  attackRange: 10
+  attackRange: 5
   patrolRange: 8
-  shootInterval: 6
+  shootInterval: 0

@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e01326beea26d2c4c85756fdabc804dd, type: 3}
-  m_Name: Magician
+  m_Name: Big_Skeleton_Stats
   m_EditorClassIdentifier: 
-  health: 3
-  minDamagePoints: 2
   searchRange: 10
-  attackRange: 8
+  attackRange: 5
   patrolRange: 8
-  shootInterval: 5
+  shootInterval: 0

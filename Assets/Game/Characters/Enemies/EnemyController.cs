@@ -13,6 +13,10 @@ public class EnemyController : MonoBehaviour
     }
 
     private State currentState;
+    private float health;
+    private float minDamage;
+
+    private EnemyHealth healthStats;
 
     public EnemyStats enemyStats;
 
@@ -29,19 +33,13 @@ public class EnemyController : MonoBehaviour
     private float playerDistance;
     private bool waitForTimeout = false;
 
-    public void Init()
+    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type)
     {
-        //this.enemyStats.health = enemyStats.health;
-        //this.enemyStats.minDamagePoints = enemyStats.minDamagePoints;
-        //this.enemyStats.searchRange = enemyStats.searchRange;
-        //this.enemyStats.attackRange = enemyStats.attackRange;
-        //this.enemyStats.patrolRange = enemyStats.patrolRange;
-        //this.enemyStats.shootInterval = enemyStats.shootInterval;
-
         player = GameObject.Find("Player").transform;
         agent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
         currentState = State.Patroling;
+        healthStats.Init(mode, type);
     }
 
     // Start is called before the first frame update
@@ -53,12 +51,12 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (enemyStats.health > 0.0f)
+        if (health > 0.0f)
         {
             switch (currentState)
             {
                 case State.Patroling:
-                    if (MovePointisValid)
+                    if (MovePointisValid) //check if player is not alive
                     {
                         agent.SetDestination(nextMovingPoint);
                         m_Animator.SetTrigger("walking");
@@ -156,8 +154,13 @@ public class EnemyController : MonoBehaviour
     }
 
     public void ReceiveDamage(float damage) {
-        enemyStats.health -= damage;
-        if(enemyStats.health <= 0)
+        health -= damage;
+
+        Debug.Log(gameObject);
+        Debug.Log("Received" + damage + "Damage.");
+        Debug.Log(health + "HP remains.");
+
+        if (health <= 0)
         {
             m_Animator.ResetTrigger("walking");
             m_Animator.ResetTrigger("attacking");
@@ -165,9 +168,7 @@ public class EnemyController : MonoBehaviour
 
             agent.ResetPath();
 
-
             Destroy(gameObject, 2f);
-
         }
     }
 
