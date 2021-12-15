@@ -10,11 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e01326beea26d2c4c85756fdabc804dd, type: 3}
-  m_Name: Wiking
+  m_Name: Mage_Stats
   m_EditorClassIdentifier: 
-  health: 8
-  minDamagePoints: 8
-  searchRange: 5
-  attackRange: 3
-  patrolRange: 3
-  shootInterval: 6
+  searchRange: 10
+  attackRange: 5
+  patrolRange: 8
+  shootInterval: 0
