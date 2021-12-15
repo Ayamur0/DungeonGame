@@ -36,6 +36,7 @@ public class Room : MonoBehaviour
     public LevelManager LevelManager;
     public Dictionary<NeighborRoomPosition, GameObject> NeighborRooms;
 
+    public GameObject FogOfWarPlane;
     public RoomContent Content;
     public BoxCollider CameraBounds;
 
@@ -81,6 +82,13 @@ public class Room : MonoBehaviour
                 portal.LevelManager = LevelManager;
             }
         }
+
+        if(this.FogOfWarPlane)
+        {
+            this.FogOfWarPlane.SetActive(this.Type != RoomType.Spawn);
+        }
+
+        
     }
 
     public void RoomCleared()
@@ -123,6 +131,11 @@ public class Room : MonoBehaviour
         {
             var cameraController = GameObject.FindObjectOfType<CameraController>();
             cameraController.SetEnemyZoom();
+        }
+
+        if (this.FogOfWarPlane)
+        {
+            this.FogOfWarPlane.SetActive(false);
         }
 
         /*var cameraObj = GameObject.FindGameObjectWithTag("Camera");

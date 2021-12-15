@@ -59,10 +59,11 @@ public class LevelManager : MonoBehaviour
         if (this.activeRoom)
         {
             Dictionary<NeighborRoomPosition, GameObject> rooms = GetNeighborRooms(this.activeRoom);
-            foreach (var room in rooms.Values)
+            foreach (var roomObj in rooms.Values)
             {
-                room.gameObject.GetComponent<Room>().NeighborRooms = rooms;
-                room.SetActive(true);
+                var room = roomObj.gameObject.GetComponent<Room>();
+                room.NeighborRooms = rooms;
+                roomObj.SetActive(true);
             }
             this.activeRooms = rooms;
         }
