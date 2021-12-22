@@ -585,6 +585,7 @@ GameObject:
   - component: {fileID: 3725350962644464211}
   - component: {fileID: 3725350962644464045}
   - component: {fileID: 8891058368419438576}
+  - component: {fileID: -4490502271421612016}
   m_Layer: 9
   m_Name: witch
   m_TagString: Untagged
@@ -619,6 +620,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5535203eb51004f469ff0ce1c61a6241, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthStats: {fileID: 0}
   enemyStats: {fileID: 11400000, guid: 59d69badd85104d479dd1d3c7207917c, type: 2}
   agent: {fileID: 3725350962644464045}
   player: {fileID: 0}
@@ -644,7 +646,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 4
   m_CollisionDetection: 0
 --- !u!95 &3725350962644464211
 Animator:
@@ -695,12 +697,25 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6780709982196959223}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 1
   m_Height: 2.05
   m_Direction: 1
   m_Center: {x: -0.0068734437, y: 0.89, z: 0.011789575}
+--- !u!114 &-4490502271421612016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6780709982196959223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af77140a3591be94b9f753fbd766cd9d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 0
 --- !u!1 &6880248940734984871
 GameObject:
   m_ObjectHideFlags: 0

@@ -694,12 +694,6 @@ MonoBehaviour:
   witch_prefab: {fileID: 6780709982196959223, guid: 362c4d6e6dddd894a90e48fb38d4285f, type: 3}
   wiking_prefab: {fileID: 6780709982196959223, guid: 23d447b7059f3e24e8c1abef9844f944, type: 3}
   magician_prefab: {fileID: 6780709982196959223, guid: 4d3e9209207211a4589b22556c0ed3dd, type: 3}
-  EnemyList:
-  - Type: 0
-    Difficulty:
-    - {fileID: 0}
-    - {fileID: 0}
-    - {fileID: 0}
 --- !u!4 &1172513569
 Transform:
   m_ObjectHideFlags: 0
@@ -1362,7 +1356,6 @@ GameObject:
   - component: {fileID: 1616918941}
   - component: {fileID: 1616918940}
   - component: {fileID: 1616918939}
-  - component: {fileID: 1616918942}
   m_Layer: 3
   m_Name: Plane
   m_TagString: Untagged
@@ -1433,35 +1426,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1616918938}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!114 &1616918942
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1616918938}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 8
-  m_UseGeometry: 0
-  m_DefaultArea: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.06666667
-  m_BuildHeightMesh: 0
-  m_NavMeshData: {fileID: 23800000, guid: 9caac902d51764848a6abc6f778c2361, type: 2}
 --- !u!224 &1616918944
 RectTransform:
   m_ObjectHideFlags: 0

@@ -13,15 +13,14 @@ public class EnemyController : MonoBehaviour
     }
 
     private State currentState;
-    private float health;
     private float minDamage;
 
-    private EnemyHealth healthStats;
+    public EnemyHealth healthStats;
 
     public EnemyStats enemyStats;
 
     public NavMeshAgent agent;
-    public Transform player;
+    public GameObject player;
     public Animator m_Animator;
 
     public LayerMask whatIsGround, whatIsPlayer;
@@ -33,13 +32,17 @@ public class EnemyController : MonoBehaviour
     private float playerDistance;
     private bool waitForTimeout = false;
 
-    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type)
+    private Room activeRoom;
+
+    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type, Room activeRoom)
     {
-        player = GameObject.Find("Player").transform;
+        player = GameObject.Find("Player");
         agent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
         currentState = State.Patroling;
+        healthStats = GetComponent<EnemyHealth>();
         healthStats.Init(mode, type);
+        this.activeRoom = activeRoom;
     }
 
     // Start is called before the first frame update
@@ -51,7 +54,7 @@ public class EnemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (health > 0.0f)
+        if (healthStats.health > 0.0f)
         {
             switch (currentState)
             {
@@ -83,6 +86,16 @@ public class EnemyController : MonoBehaviour
                     break;
             }
         }
+        else
+        {
+            m_Animator.ResetTrigger("walking");
+            m_Animator.ResetTrigger("attacking");
+            m_Animator.SetTrigger("defeated");
+
+            agent.ResetPath();
+
+            Destroy(gameObject, 2f);
+        }
     }
 
     private Vector3 ChooseNextMovingPoint()
@@ -90,9 +103,15 @@ public class EnemyController : MonoBehaviour
         Vector3 randomDirRange = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         Vector3 walkingPoint = randomDirRange * Random.Range(enemyStats.patrolRange, enemyStats.patrolRange);
 
-        if (Physics.Raycast(transform.position + walkingPoint, -transform.up, 2f, whatIsGround))
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, whatIsGround))
         {
-            MovePointisValid = true;
+            var roomID = this.activeRoom.gameObject.GetInstanceID();
+            // path: NavMeshPlane/Ground/Colliders/Room
+            if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+            {
+                MovePointisValid = true;
+            }
         }
 
         return transform.position + walkingPoint;
@@ -100,20 +119,20 @@ public class EnemyController : MonoBehaviour
 
     private void DetectPlayer()
     {
-        if (Vector3.Distance(transform.position, player.position) < enemyStats.searchRange)
+        if (Vector3.Distance(transform.position, player.transform.position) < enemyStats.searchRange)
         {
-            currentState = State.Chasing;
+            //currentState = State.Chasing;
         }
     }
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.position);
-        if(Vector3.Distance(transform.position, player.position) > enemyStats.searchRange + 5f)
+        agent.SetDestination(player.transform.position);
+        if(Vector3.Distance(transform.position, player.transform.position) > enemyStats.searchRange + 5f)
         {
             currentState = State.Patroling;
         }
-        if (Vector3.Distance(transform.position, player.position) < enemyStats.attackRange)
+        if (Vector3.Distance(transform.position, player.transform.position) < enemyStats.attackRange)
         {
             currentState = State.Attack;
         }
@@ -123,7 +142,7 @@ public class EnemyController : MonoBehaviour
     {
         agent.SetDestination(transform.position);
 
-        transform.LookAt(new Vector3(player.position.x, 0, player.position.z));
+        transform.LookAt(new Vector3(player.transform.position.x, 0, player.transform.position.z));
 
         if (!waitForTimeout)
         { 
@@ -131,7 +150,7 @@ public class EnemyController : MonoBehaviour
             SendDamage();
             Invoke(nameof(SetShootTimeout), enemyStats.shootInterval);
         }
-        if (Vector3.Distance(transform.position, player.position) > enemyStats.attackRange)
+        if (Vector3.Distance(transform.position, player.transform.position) > enemyStats.attackRange)
         {
             currentState = State.Chasing;
         }
@@ -148,29 +167,13 @@ public class EnemyController : MonoBehaviour
         m_Animator.ResetTrigger("walking");
         m_Animator.SetTrigger("attacking");
 
-        //Attack
+        //TODO: Attack
+        //TODO: Remove
+        this.healthStats.ReceiveDamage(2f);
 
         Debug.Log("Attack!!");
     }
 
-    public void ReceiveDamage(float damage) {
-        health -= damage;
-
-        Debug.Log(gameObject);
-        Debug.Log("Received" + damage + "Damage.");
-        Debug.Log(health + "HP remains.");
-
-        if (health <= 0)
-        {
-            m_Animator.ResetTrigger("walking");
-            m_Animator.ResetTrigger("attacking");
-            m_Animator.SetTrigger("defeated");
-
-            agent.ResetPath();
-
-            Destroy(gameObject, 2f);
-        }
-    }
 
     private void OnDrawGizmosSelected()
     {

@@ -1,5 +1,6 @@
 using Assets.Game.Environment.Rooms;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public enum RoomType
@@ -41,6 +42,7 @@ public class Room : MonoBehaviour
     public BoxCollider CameraBounds;
 
     private float gateSize = 1.5f;
+    public List<GameObject> spawnedEnemies = new List<GameObject>();
 
     public List<Vector3> GetRandomSpawns(int amount)
     {
@@ -89,6 +91,24 @@ public class Room : MonoBehaviour
         }
 
         
+    }
+
+    public void Update()
+    {
+        CheckEnemiesStatus();
+    }
+
+    private void CheckEnemiesStatus()
+    {
+        if (this.spawnedEnemies.Count > 0)
+        {
+            var waveCleared = this.spawnedEnemies.All(x => x == null);
+            if (waveCleared)
+            {
+                this.spawnedEnemies.Clear();
+                RoomCleared();
+            }
+        }
     }
 
     public void RoomCleared()
@@ -144,6 +164,15 @@ public class Room : MonoBehaviour
             var confiner = cameraObj.GetComponent<Cinemachine.CinemachineConfiner>();
             confiner.m_BoundingVolume = this.CameraBounds;
         }*/
+        if (this.Content && !this.Visited)
+        {
+            var enemyGenerator = this.Content.GetComponent<EnemyGenerator>();
+            if(enemyGenerator != null)
+            {
+                var spawns = this.Content.GetRandomSpawns(5);
+                this.spawnedEnemies = enemyGenerator.GenerateEnemies(0, spawns, this);
+            }
+        }
     }
 
     public void OnPlayerExit()
@@ -173,4 +202,6 @@ public class Room : MonoBehaviour
             OnPlayerExit();
         }
     }
+
+
 }

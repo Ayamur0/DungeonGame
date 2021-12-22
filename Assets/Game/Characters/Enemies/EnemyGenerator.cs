@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class EnemyGenerator : MonoBehaviour
 {
@@ -11,7 +12,8 @@ public class EnemyGenerator : MonoBehaviour
         BigSkeleton, //Hammer
         Magician,
         Wiking,
-        Witch
+        Witch,
+        Boss
     }
 
     public enum EnemyDifficulty
@@ -19,7 +21,6 @@ public class EnemyGenerator : MonoBehaviour
         Easy,
         Medium,
         Hard,
-        Boss
     }
 
     private EnemyType enemies;
@@ -36,7 +37,7 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject magician_prefab;
 
 
-    public List<GameObject> GenerateEnemies(float mode, List<Vector3> spawnPoints)
+    public List<GameObject> GenerateEnemies(float mode, List<Transform> spawnPoints, Room activeRoom)
     {
         List<GameObject> returnList = new List<GameObject>();
         EnemyDifficulty mode_difficulty = (EnemyDifficulty)mode;
@@ -58,47 +59,43 @@ public class EnemyGenerator : MonoBehaviour
                 break;
                 //case EnemyDifficulty.Boss:
                 //    amountEnemy = 1;
-                //    //enemies = 6; //not implemented 
+                //    enemies = 6; //not implemented 
                 //    break;
         }
-
-        Vector3 spawnpoint = new Vector3(0 + Random.Range(0.0f, 0.5f) * 10, 0, 0 * Random.Range(0.0f, 0.5f));
 
 
         for (float f = 1.0f; f <= amountEnemy; f++)
         {
+            Transform spawnpoint = spawnPoints[Random.Range(0, spawnPoints.Count - 1)];
+            GameObject enemyObj = null;
+
             switch (enemies)
             {
                 case EnemyType.SkeletonBasic:
-                    GameObject skeleton_basic_object = Instantiate(skeleton_basic_prefab, spawnpoint, Quaternion.identity);
-                    skeleton_basic_object.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(skeleton_basic_object);
+                    enemyObj = Instantiate(skeleton_basic_prefab);
                     break;
                 case EnemyType.Archer:
-                    GameObject archer = Instantiate(archer_prefab, new Vector3(0 + Random.Range(0.0f, 0.8f) * 10, 0, 0 * Random.Range(0.0f, 0.8f)), Quaternion.identity);
-                    archer.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(archer);
+                    enemyObj = Instantiate(archer_prefab);
                     break;
                 case EnemyType.BigSkeleton:
-                    GameObject bigSkeleton_object = Instantiate(bigSkeleton_prefab, new Vector3(0 + Random.Range(0.0f, 0.5f) * 10, 0, 0 * Random.Range(0.0f, 0.5f)), Quaternion.identity);
-                    bigSkeleton_object.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(bigSkeleton_object);
+                    enemyObj = Instantiate(bigSkeleton_prefab);
                     break;
                 case EnemyType.Magician:
-                    GameObject mage_object = Instantiate(witch_prefab, new Vector3(0 + Random.Range(0.0f, 0.8f) * 10, 0, 0 * Random.Range(0.0f, 0.8f)), Quaternion.identity);
-                    mage_object.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(mage_object);
+                    enemyObj = Instantiate(witch_prefab);
                     break;
                 case EnemyType.Wiking:
-                    GameObject wiking_object = Instantiate(wiking_prefab, new Vector3(0 + Random.Range(0.0f, 0.5f) * 10, 0, 0 * Random.Range(0.0f, 0.5f)), Quaternion.identity);
-                    wiking_object.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(wiking_object);
+                    enemyObj = Instantiate(wiking_prefab);
                     break;
                 case EnemyType.Witch:
-                    GameObject witch_object = Instantiate(wiking_prefab, new Vector3(0 + Random.Range(0.0f, 0.5f) * 10, 0, 0 * Random.Range(0.0f, 0.5f)), Quaternion.identity);
-                    witch_object.GetComponent<EnemyController>().Init(mode_difficulty, enemies);
-                    returnList.Add(witch_object);
+                    enemyObj = Instantiate(wiking_prefab);
                     break;
+            }
+
+            if (enemyObj != null)
+            {
+                enemyObj.GetComponent<EnemyController>().Init(mode_difficulty, enemies, activeRoom);
+                enemyObj.GetComponent<NavMeshAgent>().Warp(spawnpoint.position);
+                returnList.Add(enemyObj);
             }
         }
 
