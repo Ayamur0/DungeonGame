@@ -121,7 +121,7 @@ public class EnemyController : MonoBehaviour
     {
         if (Vector3.Distance(transform.position, player.transform.position) < enemyStats.searchRange)
         {
-            //currentState = State.Chasing;
+            currentState = State.Chasing;
         }
     }
 

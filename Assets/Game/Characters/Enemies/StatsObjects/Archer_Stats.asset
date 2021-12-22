@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchRange: 10
   attackRange: 5
-  patrolRange: 8
+  patrolRange: 9
   shootInterval: 0
