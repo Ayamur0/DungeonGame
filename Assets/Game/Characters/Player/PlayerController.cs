@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
     private PlayerStats stats;
+    private Rigidbody body;
 
     void Start() {
         stats = this.GetComponent<PlayerStats>();
+        this.body = this.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -21,7 +23,9 @@ public class PlayerController : MonoBehaviour {
 
         Vector3 moveVelocity = new Vector3(xVelocity, .0f, zVelocity);
 
-        transform.position += moveVelocity * stats.movespeed;
+        //transform.position += moveVelocity * stats.movespeed;
+
+        body.velocity = moveVelocity * stats.movespeed;
     }
 
     void turn() {
