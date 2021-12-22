@@ -2,6 +2,7 @@ using Assets.Game.Environment.Rooms;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 using Cell = Assets.Game.Environment.Rooms.Maze.Cell;
 using Random = UnityEngine.Random;
 
@@ -82,6 +83,7 @@ public class LevelGenerator : MonoBehaviour
 
         var cells = this.maze.Generate();
         CreateCells(cells);
+
     }
 
     private void CreateCells(Cell[] cells)
