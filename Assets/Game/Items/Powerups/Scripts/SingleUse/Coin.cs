@@ -9,4 +9,8 @@ public class Coin : Powerup {
         inventory.addMoney(value);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }

@@ -16,4 +16,8 @@ public class BombWeapon : Weapon {
             bombController.Lifetime = playerStats.range / 10 / bombController.Speed;
         }
     }
+
+    public override string GetDescription() {
+        return "A short ranged Area Of Effect Weapon";
+    }
 }

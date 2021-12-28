@@ -98,4 +98,8 @@ public class LightningWeapon : Weapon {
     }
 
     public override void Attack() { }
+
+    public override string GetDescription() {
+        return "A short ranged Auto Aim Weapon";
+    }
 }

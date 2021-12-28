@@ -9,4 +9,8 @@ public class RedHeart : Powerup {
         stats.AddRedHearts(size);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }

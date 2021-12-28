@@ -12,6 +12,8 @@ TagManager:
   - Camera
   - FxTemporaire
   - GameManager
+  - Enemy
+  - Powerup
   layers:
   - Default
   - TransparentFX

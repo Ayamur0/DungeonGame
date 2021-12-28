@@ -10,7 +10,8 @@ public class Inventory : MonoBehaviour {
     public WeaponMod WeaponMod;
     [HideInInspector]
     public ActiveItem ActiveItem;
-    private PassiveItem[] PassiveItems = new PassiveItem[5];
+    [HideInInspector]
+    public PassiveItem[] PassiveItems = new PassiveItem[5];
 
     public Image WeaponSlot;
     public Image WeaponModSlot;
@@ -19,9 +20,6 @@ public class Inventory : MonoBehaviour {
 
     private int Money;
     public Text MoneyDisplay;
-
-    [HideInInspector]
-    public Powerup closest;
 
     // Update is called once per frame
     void Update() {
@@ -133,9 +131,26 @@ public class Inventory : MonoBehaviour {
             dropPassiveItem(3);
         if (Input.GetKeyDown(KeyCode.Alpha8))
             dropPassiveItem(4);
-        if (Input.GetKeyDown(KeyCode.E) && closest != null) {
-            if (closest.Pickup(gameObject))
-                closest = null;
+        if (Input.GetKeyDown(KeyCode.E)) {
+            GetClosestPowerup().Pickup(gameObject);
         }
+    }
+
+    private Powerup GetClosestPowerup() {
+        Collider[] colliders = Physics.OverlapSphere(transform.position, 5);
+        Collider nearestCollider = null;
+        float minSqrDistance = Mathf.Infinity;
+
+        for (int i = 0; i < colliders.Length; i++) {
+            if (colliders[i].tag != "Powerup")
+                continue;
+            float sqrDistanceToCenter = (transform.position - colliders[i].transform.position).sqrMagnitude;
+
+            if (sqrDistanceToCenter < minSqrDistance) {
+                minSqrDistance = sqrDistanceToCenter;
+                nearestCollider = colliders[i];
+            }
+        }
+        return nearestCollider.GetComponent<Powerup>();
     }
 }

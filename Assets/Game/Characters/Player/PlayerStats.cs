@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerStats : MonoBehaviour {
     private const float MIN_MOVESPEED = 0.02f;
@@ -13,7 +15,7 @@ public class PlayerStats : MonoBehaviour {
     private const float DEFAULT_DAMAGE = 1f;
     private const float MAX_DAMAGE = 5f;
     private const float MIN_PROJECTILE_SPEED = 0.25f;
-    private const float DEFAULT_PROJECTILE_SPEED = 0.25f;
+    private const float DEFAULT_PROJECTILE_SPEED = 1f;
     private const float MAX_PROJECTILE_SPEED = 5f;
     private const float MIN_RANGE = 2;
     private const float DEFUALT_RANGE = 10;
@@ -41,6 +43,11 @@ public class PlayerStats : MonoBehaviour {
     public int heartContainers;
     [HideInInspector]
     public int healthPerHeart = 2;
+
+    public Image PlayerStatsUI;
+    public Image ItemStatsUI;
+    public Image WeaponStatsUI;
+
     // Start is called before the first frame update
     void Start() {
         heartContainers = startHearts;
@@ -51,6 +58,13 @@ public class PlayerStats : MonoBehaviour {
     // Update is called once per frame
     void Update() {
         totalHearts = redHearts + blackHearts + soulHearts;
+        if (Input.GetKey(KeyCode.Tab))
+            ShowStatsUI();
+        else {
+            ItemStatsUI.gameObject.SetActive(false);
+            PlayerStatsUI.gameObject.SetActive(false);
+            WeaponStatsUI.gameObject.SetActive(false);
+        }
         // if (Input.GetKeyDown(KeyCode.E))
         //     TakeDamage(1);
         // if (Input.GetKeyDown(KeyCode.R))
@@ -168,13 +182,13 @@ public class PlayerStats : MonoBehaviour {
             if (i == null)
                 continue;
             movespeed += i.flatMoveSpeed;
-            moveSpeedModifier += i.percentMoveSpeed;
+            moveSpeedModifier *= i.percentMoveSpeed;
             attackCooldownReduction += i.flatAttackSpeed;
-            attackSpeedModifier += i.percentAttackSpeed;
+            attackSpeedModifier *= i.percentAttackSpeed;
             projectileSpeedMultiplier += i.flatProjectileSpeed;
-            projectileSpeedModifier += i.percentProjectileSpeed;
+            projectileSpeedModifier *= i.percentProjectileSpeed;
             attackDamage += i.flatDamage;
-            damageModifier += i.percentDamage;
+            damageModifier *= i.percentDamage;
             range += i.flatRange;
             luck += i.luck;
             critDamage += i.percentCritDamage;
@@ -187,5 +201,73 @@ public class PlayerStats : MonoBehaviour {
         range = Mathf.Clamp(range, MIN_RANGE, MAX_RANGE);
         luck = Mathf.Clamp(0, luck, 100);
         critDamage = Mathf.Clamp(critDamage, 0, MAX_CRIT_DAMAGE);
+    }
+
+    private void ShowStatsUI() {
+        Debug.Log("Updating stats");
+        ItemStatsUI.gameObject.SetActive(true);
+        PlayerStatsUI.gameObject.SetActive(true);
+        WeaponStatsUI.gameObject.SetActive(true);
+        PlayerStatsUI.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = $"<align=left>Attack Damage:<line-height=0>\n<align=right>{attackDamage}<line-height=1em>\n"
+        + $"<align=left>Move Speed:<line-height=0>\n<align=right>{movespeed}<line-height=1em>\n"
+        + $"<align=left>Attack CDR:<line-height=0>\n<align=right>{attackCooldownReduction * 100}%<line-height=1em>\n"
+        + $"<align=left>Projectile Speed:<line-height=0>\n<align=right>{projectileSpeedMultiplier}<line-height=1em>\n"
+        + $"<align=left>Range:<line-height=0>\n<align=right>{range}<line-height=1em>\n"
+        + $"<align=left>Luck:<line-height=0>\n<align=right>{luck}%<line-height=1em>\n"
+        + $"<align=left>Crit Damage:<line-height=0>\n<align=right>{critDamage}%<line-height=1em>\n";
+
+        Inventory inventory = GetComponent<Inventory>();
+
+        for (int i = 0; i < 8; i++) {
+            Transform transform;
+            if (i < 3)
+                transform = WeaponStatsUI.transform.GetChild(i);
+            else
+                transform = ItemStatsUI.transform.GetChild(i - 3);
+            Image image = transform.GetComponent<Image>();
+            TextMeshProUGUI text = transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+
+            if (i == 0) {
+                if (inventory.Weapon != null) {
+                    image.enabled = true;
+                    text.enabled = true;
+                    image.sprite = inventory.Weapon.sprite;
+                    text.text = inventory.Weapon.GetDescription();
+                } else {
+                    text.enabled = false;
+                    image.enabled = false;
+                }
+            } else if (i == 1) {
+                if (inventory.WeaponMod != null) {
+                    image.enabled = true;
+                    text.enabled = true;
+                    image.sprite = inventory.WeaponMod.sprite;
+                    text.text = inventory.WeaponMod.GetDescription();
+                } else {
+                    text.enabled = false;
+                    image.enabled = false;
+                }
+            } else if (i == 2) {
+                if (inventory.ActiveItem != null) {
+                    image.enabled = true;
+                    text.enabled = true;
+                    image.sprite = inventory.ActiveItem.sprite;
+                    text.text = inventory.ActiveItem.GetDescription();
+                } else {
+                    text.enabled = false;
+                    image.enabled = false;
+                }
+            } else {
+                if (inventory.PassiveItems[i - 3] != null) {
+                    image.enabled = true;
+                    text.enabled = true;
+                    image.sprite = inventory.PassiveItems[i - 3].sprite;
+                    text.text = inventory.PassiveItems[i - 3].GetDescription();
+                } else {
+                    text.enabled = false;
+                    image.enabled = false;
+                }
+            }
+        }
     }
 }

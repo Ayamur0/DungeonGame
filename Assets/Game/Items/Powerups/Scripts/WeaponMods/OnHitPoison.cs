@@ -17,8 +17,12 @@ public class OnHitPoison : WeaponMod {
     public IEnumerator PoisonEffectRoutine(GameObject target) {
         for (int i = 0; i < 5; i++) {
             yield return new WaitForSeconds(0.25f);
-            Debug.Log("posion tick " + i);
             // deal damage to target
         }
+    }
+
+    public override string GetDescription() {
+        return "Adds Poison Effect to your Weapon that is triggered by your luck.\n"
+                + "Does 1 Damage every 0.25 Seconds for 1.25 Seconds";
     }
 }

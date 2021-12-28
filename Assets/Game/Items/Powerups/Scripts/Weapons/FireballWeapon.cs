@@ -16,4 +16,8 @@ public class FireballWeapon : Weapon {
             fireballController.Lifetime = playerStats.range / fireballController.Speed;
         }
     }
+
+    public override string GetDescription() {
+        return "A medium ranged projectile Weapon";
+    }
 }

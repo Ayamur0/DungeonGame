@@ -9,4 +9,8 @@ public class BigProjectile : WeaponMod {
             p.transform.localScale *= 1.5f;
         }
     }
+
+    public override string GetDescription() {
+        return "Increases Projectile size by 150%";
+    }
 }

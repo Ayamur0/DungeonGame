@@ -12,4 +12,8 @@ public class EightShot : ActiveItem {
             projectiles.Add(Instantiate(projectile, inventory.transform.position, Quaternion.Euler(0, (inventory.transform.rotation.eulerAngles.y + 45 * i) % 360, 0)));
         cooldown = initialCooldown;
     }
+
+    public override string GetDescription() {
+        return "Fires eight Projectiles, one in each Direction.\nCooldown: 2 Rooms";
+    }
 }

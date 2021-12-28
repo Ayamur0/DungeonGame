@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5648477278882467688}
   m_Layer: 0
   m_Name: OnHitSlow
-  m_TagString: Untagged
+  m_TagString: Powerup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

@@ -9,4 +9,8 @@ public class Damage : Powerup {
         stats.TakeDamage(size);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }

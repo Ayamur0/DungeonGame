@@ -9,4 +9,8 @@ public class SoulHeart : Powerup {
         stats.AddSoulHearts(size);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }

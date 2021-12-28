@@ -20,4 +20,9 @@ public class OnHitSlow : WeaponMod {
         yield return new WaitForSeconds(1);
         // remove slow
     }
+
+    public override string GetDescription() {
+        return "Adds Slow Effect to your Weapon that is triggered by your luck.\n"
+                + "Slows Enemy by 25% for 1 Second";
+    }
 }
