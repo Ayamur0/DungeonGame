@@ -147,7 +147,7 @@ public class Room : MonoBehaviour
         GatesClosed = true;
     }
 
-    public void OnPlayerEntered()
+    public void OnPlayerEntered(GameObject player)
     {
         this.PlayerInRoom = true;
         this.LevelManager.SetActiveRoom(this.gameObject);
@@ -166,6 +166,7 @@ public class Room : MonoBehaviour
 
         if (this.Content && !this.Visited)
         {
+            player.GetComponent<PlayerAPI>().DecreaseActiveItemCooldown();
             var enemyGenerator = this.Content.GetComponent<EnemyGenerator>();
             if(enemyGenerator != null)
             {
@@ -196,7 +197,7 @@ public class Room : MonoBehaviour
     {
         if (other.gameObject.tag == PlayerTag)
         {
-            OnPlayerEntered();
+            OnPlayerEntered(other.gameObject);
         }
     }
 

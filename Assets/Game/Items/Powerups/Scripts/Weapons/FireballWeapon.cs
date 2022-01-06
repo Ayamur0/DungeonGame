@@ -12,7 +12,13 @@ public class FireballWeapon : Weapon {
             inventory.WeaponMod.modProjectiles(fireballObjs);
         foreach (GameObject fireballObj in fireballObjs) {
             FireballController fireballController = fireballObj.GetComponent<FireballController>();
+            fireballController.playerStats = playerStats;
             fireballController.Speed = missileSpeed * playerStats.projectileSpeedMultiplier;
+            fireballController.Lifetime = playerStats.range / fireballController.Speed;
         }
+    }
+
+    public override string GetDescription() {
+        return "A medium ranged projectile Weapon";
     }
 }

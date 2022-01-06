@@ -9,4 +9,8 @@ public class BlackHeart : Powerup {
         stats.AddBlackHearts(size);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }

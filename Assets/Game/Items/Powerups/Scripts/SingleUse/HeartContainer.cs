@@ -9,4 +9,8 @@ public class HeartContainer : Powerup {
         stats.AddHeartContainers(size);
         return true;
     }
+
+    public override string GetDescription() {
+        return "";
+    }
 }
