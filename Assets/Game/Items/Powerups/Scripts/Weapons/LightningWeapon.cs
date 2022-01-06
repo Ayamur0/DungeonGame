@@ -53,7 +53,7 @@ public class LightningWeapon : Weapon {
                 projectileInstance.GetComponent<Projectile>().onHitEffect(currentTarget);
             // reaply weapon mod to reset onhit effect
             applyWeaponMod();
-            // deal Damage to current Target * damageMultiplier
+            currentTarget.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage() * damageModifier);
         }
     }
 

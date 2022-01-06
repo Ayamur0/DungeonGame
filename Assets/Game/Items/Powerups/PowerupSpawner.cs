@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PowerupSpawner : MonoBehaviour {
-    public static GameObject[] powerups;
+    public GameObject[] powerups;
+    public GameObject coin;
 
-    public static void spawnPowerups(List<Vector3> positions) {
+    public void SpawnPowerups(List<Vector3> positions) {
         List<int> usedIndices = new List<int>();
         foreach (Vector3 pos in positions) {
             int r = Random.Range(0, powerups.Length);
@@ -16,6 +17,13 @@ public class PowerupSpawner : MonoBehaviour {
             usedIndices.Add(r);
             if (usedIndices.Count >= powerups.Length / 2)
                 usedIndices.Clear();
+        }
+    }
+
+    public void SpawnCoins(List<Vector3> positions) {
+        foreach (Vector3 pos in positions) {
+            GameObject temp = Instantiate(coin);
+            temp.transform.position = pos;
         }
     }
 }

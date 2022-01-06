@@ -172,7 +172,7 @@ public class EnemyController : MonoBehaviour
 
         //TODO: Attack
         //TODO: Remove
-        this.healthStats.ReceiveDamage(2f);
+        //this.healthStats.ReceiveDamage(2f);
 
         Debug.Log("Attack!!");
     }

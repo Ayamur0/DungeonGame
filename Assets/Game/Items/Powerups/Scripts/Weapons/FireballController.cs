@@ -22,8 +22,9 @@ public class FireballController : Projectile {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Enemy") {
-            //damage Enemy
+        EnemyController enemyController = other.GetComponent<EnemyController>();
+        if (enemyController != null) {
+            other.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
             if (onHitEffect != null)
                 onHitEffect(other.gameObject);
             emitImpactParticles();

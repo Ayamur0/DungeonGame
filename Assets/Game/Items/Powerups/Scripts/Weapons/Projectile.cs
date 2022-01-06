@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour {
     public Action<GameObject> onHitEffect;
+    public PlayerStats playerStats;
 
     virtual protected void Start() { }
 

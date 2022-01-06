@@ -43,12 +43,14 @@ public class BombController : Projectile {
     }
 
     private void OnTriggerEnter(Collider other) {
-        if (other.tag == "Enemy")
+        EnemyController enemyController = other.GetComponent<EnemyController>();
+        if (enemyController != null)
             enmiesInRange.Add(other);
     }
 
     private void OnTriggerExit(Collider other) {
-        if (other.tag == "Enemy")
+        EnemyController enemyController = other.GetComponent<EnemyController>();
+        if (enemyController != null)
             enmiesInRange.Remove(other);
     }
 
@@ -68,7 +70,7 @@ public class BombController : Projectile {
     private IEnumerator Explode() {
         yield return new WaitForSeconds(Lifetime);
         foreach (Collider c in enmiesInRange) {
-            // damage enemy
+            c.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
             if (onHitEffect != null)
                 onHitEffect(c.gameObject);
         }

@@ -12,6 +12,7 @@ public class BombWeapon : Weapon {
             inventory.WeaponMod.modProjectiles(bombObjs);
         foreach (GameObject bombObj in bombObjs) {
             BombController bombController = bombObj.GetComponent<BombController>();
+            bombController.playerStats = playerStats;
             bombController.Speed = missileSpeed * playerStats.projectileSpeedMultiplier;
             bombController.Lifetime = playerStats.range / 2 / bombController.Speed;
         }
