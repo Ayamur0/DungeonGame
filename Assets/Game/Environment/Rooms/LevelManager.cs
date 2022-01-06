@@ -10,21 +10,27 @@ public class LevelManager : MonoBehaviour
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private Dictionary<NeighborRoomPosition, GameObject> activeRooms;
+    private TransitionManager transitionManager;
 
     // Start is called before the first frame update
     private void Start()
     {
         this.levelGenerator = this.GetComponent<LevelGenerator>();
+        this.transitionManager = FindObjectOfType<TransitionManager>();
     }
 
     public void LoadNextState()
     {
+        if (this.transitionManager != null)
+        {
+            StartCoroutine(this.transitionManager.FadeToTransparent(2f, delegate (int i) {  }));
+        }
+
         if (this.levelGenerator)
         {
             var lvlSettings = this.levelGenerator.Settings;
             lvlSettings.Rooms += 5;
             this.levelGenerator.GenerateLevel(lvlSettings);
-
             this.CurrentStage++;
 
             var player = GameObject.FindGameObjectWithTag("Player");

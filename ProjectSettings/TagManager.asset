@@ -10,6 +10,8 @@ TagManager:
   - LevelManager
   - PlayerProjectile
   - Camera
+  - FxTemporaire
+  - GameManager
   layers:
   - Default
   - TransparentFX
