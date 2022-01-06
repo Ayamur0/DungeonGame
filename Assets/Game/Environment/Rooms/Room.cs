@@ -1,3 +1,4 @@
+using System.Collections;
 using Assets.Game.Environment.Rooms;
 using System.Collections.Generic;
 using System.Linq;
@@ -36,13 +37,16 @@ public class Room : MonoBehaviour
     public bool Visited = false;
     public LevelManager LevelManager;
     public Dictionary<NeighborRoomPosition, GameObject> NeighborRooms;
+    public AudioClip DoorsMoving;
 
     public GameObject FogOfWarPlane;
     public RoomContent Content;
-    public BoxCollider CameraBounds;
 
     private float gateSize = 1.5f;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
+
+    private SoundManager soundManager;
+    private bool isDirty;
 
     public List<Vector3> GetRandomSpawns(int amount)
     {
@@ -90,7 +94,7 @@ public class Room : MonoBehaviour
             this.FogOfWarPlane.SetActive(this.Type != RoomType.Spawn);
         }
 
-        
+        this.soundManager = GameObject.FindObjectOfType<SoundManager>();
     }
 
     public void Update()
@@ -115,6 +119,8 @@ public class Room : MonoBehaviour
     {
         this.Visited = true;
         this.OpenGates();
+
+        this.soundManager?.PlayMainMusic();
     }
 
     public void OpenGates()
@@ -122,20 +128,20 @@ public class Room : MonoBehaviour
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
-            gate.transform.position = new Vector3(gatePos.x, -gateSize, gatePos.z);
-            GatesClosed = false;
+            StartCoroutine(TweenPosition(gate, new Vector3(gatePos.x, -gateSize, gatePos.z), 2f));
         }
+        GatesClosed = false;
     }
 
     public void CloseGates()
     {
         if (Visited || Type != RoomType.Battle)
             return;
-
+        
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
-            gate.transform.position = new Vector3(gatePos.x, 1, gatePos.z);
+            StartCoroutine(TweenPosition(gate, new Vector3(gatePos.x, 1f, gatePos.z), 2f));
         }
 
         GatesClosed = true;
@@ -158,12 +164,6 @@ public class Room : MonoBehaviour
             this.FogOfWarPlane.SetActive(false);
         }
 
-        /*var cameraObj = GameObject.FindGameObjectWithTag("Camera");
-        if (cameraObj && this.CameraBounds)
-        {
-            var confiner = cameraObj.GetComponent<Cinemachine.CinemachineConfiner>();
-            confiner.m_BoundingVolume = this.CameraBounds;
-        }*/
         if (this.Content && !this.Visited)
         {
             var enemyGenerator = this.Content.GetComponent<EnemyGenerator>();
@@ -171,6 +171,11 @@ public class Room : MonoBehaviour
             {
                 var spawns = this.Content.GetRandomSpawns(5);
                 this.spawnedEnemies = enemyGenerator.GenerateEnemies(0, spawns, this);
+            }
+
+            if (this.Type == RoomType.Battle)
+            {
+                this.soundManager?.PlayBattleMusic();
             }
         }
     }
@@ -203,5 +208,17 @@ public class Room : MonoBehaviour
         }
     }
 
-
+    IEnumerator TweenPosition(GameObject target, Vector3 targetPosition, float duration)
+    {
+        this.isDirty = true;
+        Vector3 previousPosition = target.transform.position;
+        float time = 0.0f;
+        do
+        {
+            time += Time.deltaTime;
+            target.transform.position = Vector3.Lerp(previousPosition, targetPosition, Mathf.SmoothStep(0.0f, 1.0f, time / duration));
+            yield return 0;
+        } while (time < duration);
+        this.isDirty = false;
+    }
 }

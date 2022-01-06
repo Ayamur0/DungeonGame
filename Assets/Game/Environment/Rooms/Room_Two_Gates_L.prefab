@@ -1439,9 +1439,10 @@ MonoBehaviour:
   CellPosition: {x: 0, y: 0}
   Visited: 0
   LevelManager: {fileID: 0}
+  DoorsMoving: {fileID: 8300000, guid: 9f6e7fa8268da994784410d2a51e246f, type: 3}
   FogOfWarPlane: {fileID: 8219210263911092803}
   Content: {fileID: 0}
-  CameraBounds: {fileID: 0}
+  spawnedEnemies: []
 --- !u!65 &4050173475436922104
 BoxCollider:
   m_ObjectHideFlags: 0

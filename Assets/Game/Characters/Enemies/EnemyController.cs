@@ -103,14 +103,17 @@ public class EnemyController : MonoBehaviour
         Vector3 randomDirRange = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
         Vector3 walkingPoint = randomDirRange * Random.Range(enemyStats.patrolRange, enemyStats.patrolRange);
 
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, whatIsGround))
+        if (this.activeRoom)
         {
-            var roomID = this.activeRoom.gameObject.GetInstanceID();
-            // path: NavMeshPlane/Ground/Colliders/Room
-            if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, whatIsGround))
             {
-                MovePointisValid = true;
+                var roomID = this.activeRoom.gameObject.GetInstanceID();
+                // path: NavMeshPlane/Ground/Colliders/Room
+                if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+                {
+                    MovePointisValid = true;
+                }
             }
         }
 
