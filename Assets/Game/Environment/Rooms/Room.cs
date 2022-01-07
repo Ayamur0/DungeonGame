@@ -41,6 +41,7 @@ public class Room : MonoBehaviour
 
     public GameObject FogOfWarPlane;
     public RoomContent Content;
+    public bool KeepDoorsClosed = false;
 
     private float gateSize = 1.5f;
     public List<GameObject> spawnedEnemies = new List<GameObject>();
@@ -125,6 +126,9 @@ public class Room : MonoBehaviour
 
     public void OpenGates()
     {
+        if(KeepDoorsClosed)
+            return;
+
         foreach (var gate in Gates)
         {
             var gatePos = gate.transform.position;
