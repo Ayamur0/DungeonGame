@@ -568,6 +568,7 @@ MonoBehaviour:
   DoorsMoving: {fileID: 8300000, guid: 9f6e7fa8268da994784410d2a51e246f, type: 3}
   FogOfWarPlane: {fileID: 4567040832696614610}
   Content: {fileID: 0}
+  KeepDoorsClosed: 0
   spawnedEnemies: []
 --- !u!65 &7565174445118998807
 BoxCollider:
@@ -8355,9 +8356,9 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6873502617451945753}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.01, z: 0}
-  m_LocalScale: {x: 4, y: 1, z: 4}
+  m_LocalScale: {x: 3.8, y: 1, z: 3.8}
   m_Children: []
   m_Father: {fileID: 6110069378710919281}
   m_RootOrder: 1

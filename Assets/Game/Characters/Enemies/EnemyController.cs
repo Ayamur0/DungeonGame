@@ -108,11 +108,18 @@ public class EnemyController : MonoBehaviour
             RaycastHit hit;
             if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, whatIsGround))
             {
-                var roomID = this.activeRoom.gameObject.GetInstanceID();
-                // path: NavMeshPlane/Ground/Colliders/Room
-                if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+                RaycastHit sphereHit;
+                if (Physics.SphereCast(transform.position + walkingPoint, 1f, transform.position + walkingPoint, out sphereHit, 1f))
                 {
-                    MovePointisValid = true;
+                    if(sphereHit.transform.gameObject.tag != "Decoration")
+                    {
+                        var roomID = this.activeRoom.gameObject.GetInstanceID();
+                        // path: NavMeshPlane/Ground/Colliders/Room
+                        if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+                        {
+                            MovePointisValid = true;
+                        }
+                    } 
                 }
             }
         }

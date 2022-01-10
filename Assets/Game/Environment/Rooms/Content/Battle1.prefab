@@ -612,6 +612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bricks (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
 --- !u!4 &4386017733634718232 stripped
@@ -903,6 +907,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 284b07f10bdd4534dbf88a62675caa38, type: 3}
       propertyPath: m_Name
       value: barrel
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 284b07f10bdd4534dbf88a62675caa38, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 284b07f10bdd4534dbf88a62675caa38, type: 3}
@@ -1329,6 +1337,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bricks
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
 --- !u!4 &4386017732769457031 stripped
@@ -1551,6 +1563,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crate
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d15c2e1f7478a8b428ca347d9e77d3e4, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15c2e1f7478a8b428ca347d9e77d3e4, type: 3}
 --- !u!1 &4005269412531463595 stripped
@@ -1696,6 +1712,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pots
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bc03faf326d10d4ab65bb0a76359a28, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc03faf326d10d4ab65bb0a76359a28, type: 3}
 --- !u!4 &4386017732651007996 stripped
@@ -1835,6 +1855,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: af2351de56ab1b34bb3c71491d93d938, type: 3}
       propertyPath: m_Name
       value: potB_decorated
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: af2351de56ab1b34bb3c71491d93d938, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: af2351de56ab1b34bb3c71491d93d938, type: 3}
@@ -1988,6 +2012,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: crate (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d15c2e1f7478a8b428ca347d9e77d3e4, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d15c2e1f7478a8b428ca347d9e77d3e4, type: 3}
 --- !u!1 &4005269412129780311 stripped
@@ -2062,6 +2090,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
       propertyPath: m_Name
       value: bricks (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
@@ -2273,6 +2305,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4cbc9239a159491468f186c4ff80edba, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cbc9239a159491468f186c4ff80edba, type: 3}
 --- !u!4 &6484971620348077564 stripped
@@ -2347,6 +2383,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 07bd272a9f7a0ac44bae7df854dd11d2, type: 3}
       propertyPath: m_Name
       value: targetStand
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 07bd272a9f7a0ac44bae7df854dd11d2, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07bd272a9f7a0ac44bae7df854dd11d2, type: 3}
@@ -2423,6 +2463,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pillar (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4cbc9239a159491468f186c4ff80edba, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4cbc9239a159491468f186c4ff80edba, type: 3}
 --- !u!4 &6484971620166252944 stripped
@@ -2497,6 +2541,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4e2f013cc839cea4592b0432dd669877, type: 3}
       propertyPath: m_Name
       value: jackolantern_small
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4e2f013cc839cea4592b0432dd669877, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4e2f013cc839cea4592b0432dd669877, type: 3}
@@ -2638,6 +2686,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: spikeRoller
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 84c08ed86d15c4a4987b58e49ceb9aff, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84c08ed86d15c4a4987b58e49ceb9aff, type: 3}
 --- !u!4 &6484971619248728780 stripped
@@ -2725,6 +2777,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: coffinB_bottom
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 120b3de6102d615449c466c6d407705f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 120b3de6102d615449c466c6d407705f, type: 3}
 --- !u!1 &5959652057846266866 stripped
@@ -2799,6 +2855,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4f8b272cbf201574d87c7c80058146e3, type: 3}
       propertyPath: m_Name
       value: pillar_broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f8b272cbf201574d87c7c80058146e3, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f8b272cbf201574d87c7c80058146e3, type: 3}
