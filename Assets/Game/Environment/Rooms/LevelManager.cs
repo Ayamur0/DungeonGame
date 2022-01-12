@@ -7,6 +7,8 @@ public class LevelManager : MonoBehaviour
 
     public int CurrentStage = 1;
 
+    public GameObject SpawnVFX;
+
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private Dictionary<NeighborRoomPosition, GameObject> activeRooms;
@@ -38,6 +40,13 @@ public class LevelManager : MonoBehaviour
             {
                 // player spawns aloways in the center of the world
                 player.transform.position = new Vector3(0, 0, 0);
+            }
+
+            if (SpawnVFX)
+            {
+                var spawnvfx = Instantiate(SpawnVFX);
+                spawnvfx.transform.position = new Vector3(0, 0.25f, 0);
+                spawnvfx.transform.localScale = new Vector3(3, 3, 3);
             }
         }
     }

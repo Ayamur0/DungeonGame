@@ -10,7 +10,6 @@ public class LevelGenerator : MonoBehaviour
 {
     [Header("Prefabs")]
     public GameObject FourGateRoomPrefab;
-
     public GameObject TwoGateRoomPrefab;
     public GameObject OneGateRoomPrefab;
     public GameObject TwoGateLRoomPrefab;
