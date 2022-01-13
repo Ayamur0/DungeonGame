@@ -132,7 +132,9 @@ public class Inventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.Alpha8))
             dropPassiveItem(4);
         if (Input.GetKeyDown(KeyCode.E)) {
-            GetClosestPowerup().Pickup(gameObject);
+            Powerup p = GetClosestPowerup();
+            if (p != null)
+                p.Pickup(gameObject);
         }
     }
 
@@ -151,6 +153,8 @@ public class Inventory : MonoBehaviour {
                 nearestCollider = colliders[i];
             }
         }
+        if (nearestCollider == null)
+            return null;
         return nearestCollider.GetComponent<Powerup>();
     }
 }

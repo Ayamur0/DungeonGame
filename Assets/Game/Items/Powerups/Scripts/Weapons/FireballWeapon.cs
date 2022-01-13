@@ -7,7 +7,9 @@ public class FireballWeapon : Weapon {
 
     public override void Attack() {
         List<GameObject> fireballObjs = new List<GameObject>();
-        fireballObjs.Add(Instantiate(projectile, playerStats.transform.position, playerStats.transform.rotation));
+        Vector3 pos = playerStats.transform.position;
+        pos.y += 1;
+        fireballObjs.Add(Instantiate(projectile, pos, playerStats.transform.rotation));
         if (inventory.WeaponMod != null)
             inventory.WeaponMod.modProjectiles(fireballObjs);
         foreach (GameObject fireballObj in fireballObjs) {

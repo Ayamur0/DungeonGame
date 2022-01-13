@@ -7,5 +7,9 @@ public class PlayerAPI : MonoBehaviour {
         GetComponent<PlayerStats>().TakeDamage(amount);
     }
 
-    public void DecreaseActiveItemCooldown() { }
+    public void DecreaseActiveItemCooldown() {
+        ActiveItem item = GetComponent<Inventory>().ActiveItem;
+        if (item != null)
+            item.reduceCooldown();
+    }
 }
