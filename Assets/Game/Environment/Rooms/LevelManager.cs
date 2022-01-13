@@ -41,7 +41,8 @@ public class LevelManager : MonoBehaviour
             {
                 foreach (var powerup in powerups)
                 {
-                    Destroy(powerup);
+                    if(powerup.GetComponent<BoxCollider>().enabled)
+                        Destroy(powerup);
                 }
             }
 
