@@ -66,6 +66,7 @@ MonoBehaviour:
   ItemSpawnRadius: 3
   OpenVFX: {fileID: 1823190983921821680}
   MaxSpawnItems: 3
+  SpawnOnlyWeapons: 0
 --- !u!95 &1823190982905752170
 Animator:
   serializedVersion: 3
@@ -107,8 +108,8 @@ AudioSource:
   m_GameObject: {fileID: 1823190982905752171}
   m_Enabled: 1
   serializedVersion: 4
-  OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: f95ff701ee6cec84b8ac5ddf94ccde80, type: 3}
+  OutputAudioMixerGroup: {fileID: -1738170763531002052, guid: b455ead298e559c48ab385292d3e42df, type: 2}
+  m_audioClip: {fileID: 8300000, guid: 526e1ff34be2cf24e976267ba19b0199, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1

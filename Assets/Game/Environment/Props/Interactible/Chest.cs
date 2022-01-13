@@ -7,9 +7,9 @@ public class Chest : MonoBehaviour
     public float ItemSpawnRadius = 1.5f;
     public GameObject OpenVFX;
     public int MaxSpawnItems = 3;
+    public bool SpawnOnlyWeapons = false;
+    
     private int spawnedItems;
-
-
     private bool isOpen = false;
     private bool canInteract = false;
     private Animator animator;
@@ -54,8 +54,20 @@ public class Chest : MonoBehaviour
                 float angle = i * Mathf.PI * 2f / 8;
                 Vector3 newPos = new Vector3(Mathf.Cos(angle) * this.ItemSpawnRadius, -0.75f, Mathf.Sin(angle) * this.ItemSpawnRadius);
                 var spawnPos = gameObject.transform.position + newPos;
-                var rndItemIndex = Random.Range(0, this.itemsSpawner.powerups.Length);
-                GameObject item = Instantiate(this.itemsSpawner.powerups[rndItemIndex], spawnPos, Quaternion.identity);
+
+                GameObject item = null;
+                if (SpawnOnlyWeapons)
+                {
+                    var rndItemIndex = Random.Range(0, this.itemsSpawner.weapons.Length);
+                    item = Instantiate(this.itemsSpawner.weapons[rndItemIndex], spawnPos, Quaternion.identity);
+                }
+                else
+                {
+                    var rndItemIndex = Random.Range(0, this.itemsSpawner.powerups.Length);
+                    item = Instantiate(this.itemsSpawner.powerups[rndItemIndex], spawnPos, Quaternion.identity);
+                }
+                
+                
                 item.transform.Rotate(90f, 0f, 0f);
                 this.spawnedItems++;
             }

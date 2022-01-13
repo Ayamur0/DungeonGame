@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PowerupSpawner : MonoBehaviour {
     public GameObject[] powerups;
+    public GameObject[] weapons;
     public GameObject coin;
 
     public void SpawnPowerups(List<Vector3> positions) {

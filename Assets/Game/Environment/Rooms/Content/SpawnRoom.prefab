@@ -2726,6 +2726,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1885464899623854681}
     m_Modifications:
+    - target: {fileID: 1823190982905752166, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 526e1ff34be2cf24e976267ba19b0199, type: 3}
     - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
       propertyPath: m_RootOrder
       value: 1
@@ -2769,6 +2773,10 @@ PrefabInstance:
     - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1823190982905752169, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
+      propertyPath: SpawnOnlyWeapons
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1823190982905752171, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
       propertyPath: m_Name
