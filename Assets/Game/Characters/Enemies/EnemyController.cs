@@ -5,74 +5,89 @@ using UnityEngine.AI;
 
 public class EnemyController : MonoBehaviour
 { 
-    private enum State
+    public enum State
     {
         Patroling,
         Chasing,
-        Attack
+        Attack,
     }
 
-    private State currentState;
-    private float minDamage;
+    private EnemyGenerator.EnemyType EnemyType;
+    
+    public State currentState;
 
-    public EnemyHealth healthStats;
+    [Header("Scripts")]
+    public EnemyHealth HealthStats;
+    public DamageManager DamageManager;
 
-    public EnemyStats enemyStats;
+    [Header("ScriptableObject")]
+    public EnemyStats EnemyStats;
 
-    public NavMeshAgent agent;
-    public GameObject player;
+    [Header("Meta Data")]
+    public NavMeshAgent Agent;
+    public GameObject Player;
     public Animator m_Animator;
-
-    public LayerMask whatIsGround, whatIsPlayer;
-
-    public Vector3 nextMovingPoint;
+    public LayerMask WhatIsGround, WhatIsPlayer;
+    public Vector3 NextMovingPoint;
+    public GameObject projectile;
 
     private bool MovePointisValid;
-
     private float playerDistance;
     private bool waitForTimeout = false;
 
     private Room activeRoom;
 
+    [Header("Effects")]
+    public AudioClip DeathSound;
+    private AudioSource audiosource;
+    public GameObject DeathVFX;
+    private bool vfxStarted = false;
+
     public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type, Room activeRoom)
     {
-        player = GameObject.Find("Player");
-        agent = GetComponent<NavMeshAgent>();
+        this.EnemyType = type;
+        Player = GameObject.FindGameObjectWithTag("Player");
+        Agent = GetComponent<NavMeshAgent>();
         m_Animator = GetComponent<Animator>();
         currentState = State.Patroling;
-        healthStats = GetComponent<EnemyHealth>();
-        healthStats.Init(mode, type);
+
+        HealthStats = GetComponent<EnemyHealth>();
+        DamageManager = GetComponent<DamageManager>();
+        HealthStats.Init(mode, type);
+        DamageManager.Init(mode, type);
+        audiosource = GetComponent<AudioSource>();
+
         this.activeRoom = activeRoom;
     }
 
     // Start is called before the first frame update
     void Start()
     {
-        nextMovingPoint = ChooseNextMovingPoint();
+        NextMovingPoint = ChooseNextMovingPoint();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (healthStats.health > 0.0f)
+        if (HealthStats.Health > 0.0f)
         {
             switch (currentState)
             {
                 case State.Patroling:
                     if (MovePointisValid) //check if player is not alive
                     {
-                        agent.SetDestination(nextMovingPoint);
+                        Agent.SetDestination(NextMovingPoint);
                         m_Animator.SetTrigger("walking");
-                        playerDistance = Vector3.Distance(transform.position, nextMovingPoint);
+                        playerDistance = Vector3.Distance(transform.position, NextMovingPoint);
                         if (playerDistance < 1f)
                         {
                             MovePointisValid = false;
-                            nextMovingPoint = ChooseNextMovingPoint();
+                            NextMovingPoint = ChooseNextMovingPoint();
                         }
                     }
                     else
                     {
-                        nextMovingPoint = ChooseNextMovingPoint();
+                        NextMovingPoint = ChooseNextMovingPoint();
                     }
                     DetectPlayer();
                     break;
@@ -88,38 +103,47 @@ public class EnemyController : MonoBehaviour
         }
         else
         {
+            Agent.ResetPath();
+
             m_Animator.ResetTrigger("walking");
             m_Animator.ResetTrigger("attacking");
             m_Animator.SetTrigger("defeated");
 
-            agent.ResetPath();
-
-            Destroy(gameObject, 2f);
+            if (DeathVFX && !vfxStarted)
+            {
+                var deathvfx = Instantiate(DeathVFX);
+                deathvfx.transform.position = gameObject.transform.position;
+                deathvfx.transform.localScale = new Vector3(2, 2, 2);
+                vfxStarted = true;
+            }
+            Destroy(gameObject, 1f);
         }
     }
+
 
     private Vector3 ChooseNextMovingPoint()
     { 
         Vector3 randomDirRange = new Vector3(Random.Range(-1f, 1f), 0, Random.Range(-1f, 1f));
-        Vector3 walkingPoint = randomDirRange * Random.Range(enemyStats.patrolRange, enemyStats.patrolRange);
+        Vector3 walkingPoint = randomDirRange * Random.Range(EnemyStats.patrolRange, EnemyStats.patrolRange);
 
         if (this.activeRoom)
         {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, whatIsGround))
+            if (Physics.Raycast(transform.position + walkingPoint, -transform.up, out hit, 2f, WhatIsGround))
             {
                 RaycastHit sphereHit;
-                if (Physics.SphereCast(transform.position + walkingPoint, 1f, transform.position + walkingPoint, out sphereHit, 1f))
+                if (Physics.SphereCast(transform.position + walkingPoint, 2f, transform.up, out sphereHit, 0.1f))
                 {
-                    if(sphereHit.transform.gameObject.tag != "Decoration")
+                    if(sphereHit.transform.gameObject.tag == "Decoration")
                     {
-                        var roomID = this.activeRoom.gameObject.GetInstanceID();
-                        // path: NavMeshPlane/Ground/Colliders/Room
-                        if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
-                        {
-                            MovePointisValid = true;
-                        }
+                        return transform.position + walkingPoint;
                     } 
+                }
+                var roomID = this.activeRoom.gameObject.GetInstanceID();
+                // path: NavMeshPlane/Ground/Colliders/Room
+                if (hit.transform.parent.parent.parent.gameObject.GetInstanceID() == roomID)
+                {
+                    MovePointisValid = true;
                 }
             }
         }
@@ -129,20 +153,24 @@ public class EnemyController : MonoBehaviour
 
     private void DetectPlayer()
     {
-        if (Vector3.Distance(transform.position, player.transform.position) < enemyStats.searchRange)
+        if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.searchRange)
         {
+            RaycastHit sphereHit;
+            if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f))
+            {
+                if (sphereHit.transform.gameObject.tag != "Player")
+                {
+                    return;
+                }
+            }
             currentState = State.Chasing;
         }
     }
 
     private void ChasePlayer()
     {
-        agent.SetDestination(player.transform.position);
-        if(Vector3.Distance(transform.position, player.transform.position) > enemyStats.searchRange + 5f)
-        {
-            currentState = State.Patroling;
-        }
-        if (Vector3.Distance(transform.position, player.transform.position) < enemyStats.attackRange)
+        Agent.SetDestination(Player.transform.position);
+        if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.attackRange)
         {
             currentState = State.Attack;
         }
@@ -150,19 +178,21 @@ public class EnemyController : MonoBehaviour
 
     private void Attack()
     {
-        agent.SetDestination(transform.position);
-
-        transform.LookAt(new Vector3(player.transform.position.x, 0, player.transform.position.z));
+        Agent.SetDestination(transform.position);
+        transform.LookAt(new Vector3(Player.transform.position.x, 0, Player.transform.position.z));
 
         if (!waitForTimeout)
-        { 
+        {
             waitForTimeout = true;
-            SendDamage();
-            Invoke(nameof(SetShootTimeout), enemyStats.shootInterval);
+            m_Animator.ResetTrigger("walking");
+            m_Animator.SetTrigger("attacking");
+            Invoke(nameof(SetShootTimeout), EnemyStats.shootInterval);
         }
-        if (Vector3.Distance(transform.position, player.transform.position) > enemyStats.attackRange)
+        if (Vector3.Distance(transform.position, Player.transform.position) > EnemyStats.attackRange)
         {
             currentState = State.Chasing;
+            m_Animator.SetTrigger("walking");
+            m_Animator.ResetTrigger("attacking");
         }
 
     }
@@ -174,25 +204,37 @@ public class EnemyController : MonoBehaviour
 
     private void SendDamage()
     {
-        m_Animator.ResetTrigger("walking");
-        m_Animator.SetTrigger("attacking");
-
-        //TODO: Attack
-        //TODO: Remove
-        //this.healthStats.ReceiveDamage(2f);
-
-        Debug.Log("Attack!!");
+        Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
+        Debug.Log(gameObject.name + "Attack!!");
     }
 
 
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, enemyStats.attackRange);
-        Gizmos.DrawWireSphere(nextMovingPoint, 1);
+        Gizmos.DrawWireSphere(transform.position, EnemyStats.attackRange);
+        Gizmos.DrawWireSphere(NextMovingPoint, 1);
         Gizmos.color = Color.yellow;
-        Gizmos.DrawWireSphere(transform.position, enemyStats.searchRange);
+        Gizmos.DrawWireSphere(transform.position, EnemyStats.searchRange);
     }
 
+    private void ShootProjectile()
+    {
+        Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
+        GameObject projectileObj = Instantiate(projectile, spawnPosition, transform.rotation);
 
+        switch (EnemyType)
+        {
+            case EnemyGenerator.EnemyType.Archer:
+                projectileObj.GetComponent<ArrowEffect>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                break;
+            case EnemyGenerator.EnemyType.Mage:
+                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                break;
+            case EnemyGenerator.EnemyType.Witch:
+                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                break;
+
+        }
+    }
 }
