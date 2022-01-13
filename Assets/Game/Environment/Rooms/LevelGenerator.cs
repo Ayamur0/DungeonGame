@@ -53,6 +53,8 @@ public class LevelGenerator : MonoBehaviour
     private Maze maze;
     private GameObject[,] rooms;
 
+    public Action RoomsGenerated;
+
     public GameObject[,] GetRooms()
     {
         return this.rooms;
@@ -82,6 +84,10 @@ public class LevelGenerator : MonoBehaviour
 
         var cells = this.maze.Generate();
         CreateCells(cells);
+
+        this.Settings = settings;
+
+        this.RoomsGenerated?.Invoke();
 
     }
 

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,12 +10,20 @@ public class LevelManager : MonoBehaviour
 
     public GameObject SpawnVFX;
     public AudioClip SpawnSfx;
-
+    
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private Dictionary<NeighborRoomPosition, GameObject> activeRooms;
     private TransitionManager transitionManager;
     private AudioSource audioSource;
+
+    public Action ActiveRoomChanged;
+    public Action NextStageLoaded;
+
+    public GameObject GetActiveRoom()
+    {
+        return this.activeRoom;
+    }
 
     // Start is called before the first frame update
     private void Start()
@@ -79,6 +88,8 @@ public class LevelManager : MonoBehaviour
                 spawnvfx.transform.localScale = new Vector3(3, 3, 3);
             }
         }
+
+        NextStageLoaded?.Invoke();
     }
 
     public void SetActiveRoom(GameObject newRoom)
@@ -97,6 +108,8 @@ public class LevelManager : MonoBehaviour
         this.activeRoom = newRoom;
         this.activeRoom.SetActive(true);
         EnableNeighborRooms();
+
+        this.ActiveRoomChanged?.Invoke();
     }
 
     public void EnableNeighborRooms()
