@@ -8,17 +8,20 @@ public class LevelManager : MonoBehaviour
     public int CurrentStage = 1;
 
     public GameObject SpawnVFX;
+    public AudioClip SpawnSfx;
 
     private GameObject activeRoom;
     private LevelGenerator levelGenerator;
     private Dictionary<NeighborRoomPosition, GameObject> activeRooms;
     private TransitionManager transitionManager;
+    private AudioSource audioSource;
 
     // Start is called before the first frame update
     private void Start()
     {
         this.levelGenerator = this.GetComponent<LevelGenerator>();
         this.transitionManager = FindObjectOfType<TransitionManager>();
+        this.audioSource = this.GetComponent<AudioSource>();
     }
 
     public void LoadNextState()
@@ -54,6 +57,12 @@ public class LevelManager : MonoBehaviour
                 {
                     Destroy(enemy);
                 }
+            }
+
+            if (this.audioSource && this.SpawnSfx)
+            {
+                this.audioSource.clip = SpawnSfx;
+                this.audioSource.Play();
             }
 
             var player = GameObject.FindGameObjectWithTag("Player");
@@ -149,7 +158,7 @@ public class LevelManager : MonoBehaviour
 
     public void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.L))
         {
             var room = this.activeRoom.GetComponent<Room>();
             if (room.Type == RoomType.Battle)
