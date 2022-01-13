@@ -5929,7 +5929,7 @@ MonoBehaviour:
   HideRooms: 0
   CurrentStage: 1
   SpawnVFX: {fileID: 100000, guid: ada5d62ffe762ce4fbccc70dcdbc9022, type: 3}
-  SpawnSfx: {fileID: 8300000, guid: bb9f9907ada376541a356166c680b952, type: 3}
+  SpawnSfx: {fileID: 8300000, guid: 35f599da470289f45815c0735d00b0f7, type: 3}
 --- !u!4 &1597987971301211942
 Transform:
   m_ObjectHideFlags: 0

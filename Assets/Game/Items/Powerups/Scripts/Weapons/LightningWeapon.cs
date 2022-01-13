@@ -10,6 +10,11 @@ public class LightningWeapon : Weapon {
     private float damageModifier = 0.5f;
     private List<System.Type> disabledWeaponMods = new List<System.Type> { typeof(TripleShot), typeof(BigProjectile) };
     private List<GameObject> projectileList;
+    private bool soundPlaying = false;
+    public GameObject LightHitVfx;
+
+    private float time = 0.0f;
+    public float interpolationPeriod = 0.1f;
 
     void applyWeaponMod() {
         if (inventory.WeaponMod == null)
@@ -29,6 +34,9 @@ public class LightningWeapon : Weapon {
     override protected void Update() {
         if (!activated)
             return;
+
+        time += Time.deltaTime;
+
         if (projectileInstance == null) {
             projectileInstance = Instantiate(projectile, playerStats.transform.position, playerStats.transform.rotation);
             projectileList = new List<GameObject> { projectileInstance };
@@ -61,6 +69,13 @@ public class LightningWeapon : Weapon {
         projectileInstance.GetComponent<LineRenderer>().enabled = lightningActive;
         projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().enabled = lightningActive;
         if (!lightningActive) {
+            // stop sound
+            if (soundPlaying)
+            {
+                GetComponent<AudioSource>().Stop();
+                soundPlaying = false;
+            }
+
             return;
         }
         projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().StartObject = playerStats.gameObject;
@@ -75,7 +90,26 @@ public class LightningWeapon : Weapon {
             projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().enabled = false;
             return;
         }
+
+        // play sound
+        if (!soundPlaying)
+        {
+            GetComponent<AudioSource>().Play();
+            soundPlaying = true;
+        }
+
+
         projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().EndObject = nearestEnemy.gameObject;
+        if (LightHitVfx != null)
+        {
+            if (time >= interpolationPeriod)
+            {
+                time -= interpolationPeriod;
+                var lightvfxObj = Instantiate(LightHitVfx, nearestEnemy.gameObject.transform.position, Quaternion.identity);
+                var scale = 3.5f;
+                lightvfxObj.transform.localScale = new Vector3(scale, scale, scale);
+            }
+        }
     }
 
     private Collider GetNearestCollision(SphereCollider collider) {
