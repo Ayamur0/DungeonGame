@@ -11,13 +11,16 @@ public class BombController : Projectile {
     private float arcHeight = 5;
     private float dist;
     private bool targetReached;
+    private AudioSource audioSource;
 
     // hide deprecated collider property
     new private Collider collider;
     private HashSet<Collider> enmiesInRange = new HashSet<Collider>();
 
     // Start is called before the first frame update
-    override protected void Start() {
+    override protected void Start()
+    {
+        this.audioSource = GetComponent<AudioSource>();
         collider = GetComponent<Collider>();
         startPos = transform.position;
         direction = transform.rotation.eulerAngles.y;
@@ -69,8 +72,13 @@ public class BombController : Projectile {
 
     private IEnumerator Explode() {
         yield return new WaitForSeconds(Lifetime);
+
+        this.audioSource.pitch = Random.Range(0.5f, 1f);
+        this.audioSource.Play();
+
         foreach (Collider c in enmiesInRange) {
             c.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
+
             if (onHitEffect != null)
                 onHitEffect(c.gameObject);
         }
