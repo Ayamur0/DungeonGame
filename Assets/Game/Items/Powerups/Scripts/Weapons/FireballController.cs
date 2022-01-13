@@ -21,12 +21,17 @@ public class FireballController : Projectile {
         transform.position += transform.forward * Speed * Time.deltaTime;
     }
 
-    private void OnTriggerEnter(Collider other) {
+    private void OnCollisionEnter(Collision col) {
+        GameObject other = col.gameObject;
         EnemyController enemyController = other.GetComponent<EnemyController>();
         if (enemyController != null) {
             other.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
             if (onHitEffect != null)
                 onHitEffect(other.gameObject);
+            emitImpactParticles();
+        } else if (other.tag == "Player") {
+            Physics.IgnoreCollision(other.GetComponent<Collider>(), GetComponent<Collider>());
+        } else {
             emitImpactParticles();
         }
     }

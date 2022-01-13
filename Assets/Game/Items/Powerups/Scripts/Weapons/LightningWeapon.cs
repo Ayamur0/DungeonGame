@@ -85,7 +85,7 @@ public class LightningWeapon : Weapon {
         float minSqrDistance = Mathf.Infinity;
 
         for (int i = 0; i < colliders.Length; i++) {
-            if (colliders[i].tag != "Enemy")
+            if (colliders[i].GetComponent<EnemyController>() == null)
                 continue;
             float sqrDistanceToCenter = (collider.center - colliders[i].transform.position).sqrMagnitude;
 
