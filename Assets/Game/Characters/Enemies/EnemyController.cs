@@ -221,18 +221,18 @@ public class EnemyController : MonoBehaviour
     private void ShootProjectile()
     {
         Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
-        GameObject projectileObj = Instantiate(projectile, spawnPosition, transform.rotation);
+        GameObject projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation); //TODO: Set rotation for arrows;
 
         switch (EnemyType)
         {
             case EnemyGenerator.EnemyType.Archer:
-                projectileObj.GetComponent<ArrowEffect>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                projectileObj.GetComponent<ArrowEffect>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
                 break;
             case EnemyGenerator.EnemyType.Mage:
-                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 20f, DamageManager.GetDamage());
+                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
                 break;
 
         }

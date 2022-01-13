@@ -33,7 +33,6 @@ public class PotionExplosion : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room")
         {
-            Debug.Log("Enemy ignored");
         }
         else
         {
@@ -44,6 +43,7 @@ public class PotionExplosion : MonoBehaviour
 
     private void startExplosionParticle()
     {
-        Destroy(gameObject, 2f);
+        Destroy(gameObject);
+        //TODO break bottle create visible damage area
     }
 }

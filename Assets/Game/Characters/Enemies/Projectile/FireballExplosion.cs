@@ -33,7 +33,6 @@ public class FireballExplosion : MonoBehaviour
         }
         else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room")
         {
-            Debug.Log("Enemy ignored");
         }
         else
         {

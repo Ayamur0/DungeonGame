@@ -53,13 +53,13 @@ public class EnemyGenerator : MonoBehaviour
             switch (mode_difficulty)
             {
                 case EnemyDifficulty.Easy:
-                    amountEnemy = Random.Range(Mathf.Min(2, spawnPoints.Count + 1), Mathf.Min(4, spawnPoints.Count + 1));
+                    amountEnemy = Random.Range(Mathf.Min(2, spawnPoints.Count), Mathf.Min(4, spawnPoints.Count));
                     break;
                 case EnemyDifficulty.Medium:
-                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count + 1), Mathf.Min(5, spawnPoints.Count + 1));
+                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count), Mathf.Min(5, spawnPoints.Count));
                     break;
                 case EnemyDifficulty.Hard:
-                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count + 1), Mathf.Min(6, spawnPoints.Count + 1));
+                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count), Mathf.Min(6, spawnPoints.Count));
                     break;
             }
 
@@ -67,7 +67,7 @@ public class EnemyGenerator : MonoBehaviour
             for (int f = 1; f <= amountEnemy; f++)
             {
                 int PointRandomIndex = Random.Range(0, spawnPoints.Count - 1);
-                Debug.Log("("+amountEnemy+") "+(amountEnemy - f)+"<"+spawnPoints.Count);
+                //Debug.Log("("+amountEnemy+") "+(amountEnemy - f)+"<"+spawnPoints.Count);
                 Transform spawnpoint = spawnPoints[PointRandomIndex];
                 spawnPoints.RemoveAt(PointRandomIndex);
                 GameObject enemyObj = null;
