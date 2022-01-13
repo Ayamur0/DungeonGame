@@ -5,6 +5,10 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour {
     private PlayerStats stats;
     private Rigidbody body;
+    private Vector3 moveVelocity;
+
+    private float xVelocity;
+    private float zVelocity;
 
     void Start() {
         stats = this.GetComponent<PlayerStats>();
@@ -18,14 +22,13 @@ public class PlayerController : MonoBehaviour {
     }
 
     void move() {
-        float xVelocity = Input.GetAxis("Horizontal");
-        float zVelocity = Input.GetAxis("Vertical");
+        this.xVelocity = Input.GetAxis("Horizontal");
+        this.zVelocity = Input.GetAxis("Vertical");
+    }
 
-        Vector3 moveVelocity = new Vector3(xVelocity, .0f, zVelocity);
-
-        //transform.position += moveVelocity * stats.movespeed;
-
-        body.velocity = moveVelocity * stats.movespeed;
+    public void FixedUpdate()
+    {
+        body.velocity = new Vector3(xVelocity, 0f, zVelocity) * stats.movespeed;
     }
 
     void turn() {

@@ -35,6 +35,26 @@ public class LevelManager : MonoBehaviour
             this.levelGenerator.GenerateLevel(lvlSettings);
             this.CurrentStage++;
 
+            // remove all unused powerups
+            var powerups = GameObject.FindGameObjectsWithTag("Powerup");
+            if (powerups != null)
+            {
+                foreach (var powerup in powerups)
+                {
+                    Destroy(powerup);
+                }
+            }
+
+            // remove enemies
+            var enemies = GameObject.FindGameObjectsWithTag("Enemy");
+            if (enemies != null)
+            {
+                foreach (var enemy in enemies)
+                {
+                    Destroy(enemy);
+                }
+            }
+
             var player = GameObject.FindGameObjectWithTag("Player");
             if (player)
             {
