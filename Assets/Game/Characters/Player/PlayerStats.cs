@@ -5,9 +5,9 @@ using UnityEngine.UI;
 using TMPro;
 
 public class PlayerStats : MonoBehaviour {
-    private const float MIN_MOVESPEED = 0.02f;
-    private const float MAX_MOVESPEED = 0.15f;
-    private const float DEFAULT_MOVESPEED = 0.05f;
+    private const float MIN_MOVESPEED = 15f;
+    private const float MAX_MOVESPEED = 40f;
+    private const float DEFAULT_MOVESPEED = 25f;
     private const float MIN_COOLDOWN = 0.1f;
     private const float DEFAULT_COOLDOWN = 1f;
     private const float MAX_COOLDOWN = 5f;
@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour {
     private const int DEFAULT_LUCK = 10;
 
 
-    public float movespeed = .05f;
+    public float movespeed = 25f;
     public float attackCooldownReduction = 1f;
     public float attackDamage = 1;
     public float projectileSpeedMultiplier = 1f;
