@@ -30,6 +30,7 @@ public abstract class Powerup : MonoBehaviour {
     public void Drop() {
         activated = false;
         transform.position = inventory.transform.position;
+        transform.position += new Vector3(0, 0.1f, 0);
         GetComponent<SpriteRenderer>().enabled = true;
         GetComponent<BoxCollider>().enabled = true;
     }

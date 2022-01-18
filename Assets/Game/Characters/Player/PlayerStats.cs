@@ -88,14 +88,15 @@ public class PlayerStats : MonoBehaviour {
                 if (blackHearts % 1 == 0) {
                     Collider[] colliders = Physics.OverlapSphere(transform.position, 8);
                     for (int i = 0; i < colliders.Length; i++) {
-                        if (colliders[i].tag == "Enemy") {
-                            // deal damage
+                        if (colliders[i].GetComponent<EnemyController>() != null) {
+                            colliders[i].GetComponent<EnemyHealth>().ReceiveDamage(1);
                         }
                     }
                 }
             } else if (redHearts > 0) {
                 redHearts -= 0.5f;
             } else {
+                // TODO
                 // die
             }
             amount -= 0.5f;

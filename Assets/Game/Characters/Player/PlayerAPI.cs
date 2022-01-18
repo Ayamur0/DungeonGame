@@ -12,4 +12,12 @@ public class PlayerAPI : MonoBehaviour {
         if (item != null)
             item.reduceCooldown();
     }
+
+    public bool Pay(int amount) {
+        if (GetComponent<Inventory>().getMoney() >= amount) {
+            GetComponent<Inventory>().addMoney(-amount);
+            return true;
+        }
+        return false;
+    }
 }

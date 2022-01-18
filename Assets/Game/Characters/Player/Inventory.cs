@@ -18,7 +18,7 @@ public class Inventory : MonoBehaviour {
     public Image ActiveSlot;
     public Image[] PassiveSlots;
 
-    private int Money;
+    private int Money = 100;
     public Text MoneyDisplay;
 
     // Update is called once per frame
@@ -112,6 +112,10 @@ public class Inventory : MonoBehaviour {
     public void addMoney(int value) {
         Money += value;
         MoneyDisplay.text = "" + Money;
+    }
+
+    public int getMoney() {
+        return Money;
     }
 
     private void processInputs() {

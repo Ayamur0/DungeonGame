@@ -18,8 +18,7 @@ public class BombController : Projectile {
     private HashSet<Collider> enmiesInRange = new HashSet<Collider>();
 
     // Start is called before the first frame update
-    override protected void Start()
-    {
+    override protected void Start() {
         this.audioSource = GetComponent<AudioSource>();
         collider = GetComponent<Collider>();
         startPos = transform.position;
@@ -75,12 +74,24 @@ public class BombController : Projectile {
 
         this.audioSource.pitch = Random.Range(0.5f, 1f);
         this.audioSource.Play();
+        transform.GetChild(0).GetComponent<Light>().enabled = true;
+        DecreaseLightIntensity();
 
         foreach (Collider c in enmiesInRange) {
             c.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
 
             if (onHitEffect != null)
                 onHitEffect(c.gameObject);
+        }
+    }
+
+    private IEnumerator DecreaseLightIntensity() {
+        Light light = transform.GetChild(0).GetComponent<Light>();
+        float startIntensity = light.intensity;
+        for (float i = 0; i < startIntensity; i += 0.1f) {
+            light.intensity -= 0.1f;
+            Debug.Log(light.intensity);
+            yield return new WaitForSeconds(0.1f / startIntensity);
         }
     }
 }
