@@ -28,6 +28,7 @@ public class Inventory : MonoBehaviour {
         int rndItemIndex = Random.Range(0, itemsSpawner.weapons.Length);
         GameObject w = Instantiate(itemsSpawner.weapons[rndItemIndex], new Vector3(), Quaternion.identity);
         w.GetComponent<Powerup>().Pickup(gameObject);
+        w.transform.Rotate(90, 0, 0);
     }
 
     // Update is called once per frame
@@ -149,8 +150,7 @@ public class Inventory : MonoBehaviour {
             if (p != null) {
                 // play sound
                 var pickedUp = p.Pickup(gameObject);
-                if (pickedUp)
-                {
+                if (pickedUp) {
                     var audioSource = GetComponent<AudioSource>();
                     audioSource.clip = PickupSound;
                     audioSource.Play();
