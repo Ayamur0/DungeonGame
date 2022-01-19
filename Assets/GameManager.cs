@@ -1,15 +1,29 @@
+using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public class Score
     {
+        public int KilledEnemies = 0;
+        public int CurrentStage = 1;
+        public int CollectedCoins = 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    public Score CurrentScore = new Score();
+
+    public Action OnPlayerDied;
+
+    public void Start()
     {
-        
+        this.CurrentScore = new Score();
+    }
+
+    public void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            FindObjectOfType<PlayerStats>().TakeDamage(999);
+        }
     }
 }
