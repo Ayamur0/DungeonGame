@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour {
             var powerups = GameObject.FindGameObjectsWithTag("Powerup");
             if (powerups != null) {
                 foreach (var powerup in powerups) {
-                    if (powerup.GetComponent<BoxCollider>().enabled)
+                    if (powerup.GetComponent<SpriteRenderer>().enabled)
                         Destroy(powerup);
                 }
             }

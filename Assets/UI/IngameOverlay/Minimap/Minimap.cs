@@ -83,7 +83,7 @@ public class Minimap : MonoBehaviour
                         var roomImage = RoomImages[x, y];
                         if (roomImage != null)
                         {
-                            roomImage.transform.position += new Vector3(moveDirection.x, moveDirection.y) * 16f;
+                            roomImage.transform.position += new Vector3(moveDirection.x, moveDirection.y) * 32f;
                         }
                     }
                 }
