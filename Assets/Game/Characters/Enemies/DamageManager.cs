@@ -11,22 +11,22 @@ public class DamageManager : MonoBehaviour
         switch (type)
         {
             case EnemyGenerator.EnemyType.SkeletonBasic:
-                this.damage = 2;
+                this.damage = 0.5f;
                 break;
             case EnemyGenerator.EnemyType.Archer:
-                this.damage = 3;
+                this.damage = 0.5f;
                 break;
             case EnemyGenerator.EnemyType.BigSkeleton:
-                this.damage = 4;
+                this.damage = 1f;
                 break;
             case EnemyGenerator.EnemyType.Mage:
-                this.damage = 7;
+                this.damage = 0.5f;
                 break;
             case EnemyGenerator.EnemyType.Wiking:
-                this.damage = 6;
+                this.damage = 1f;
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                this.damage = 5;
+                this.damage = 1f;
                 break;
         }
 
