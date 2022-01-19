@@ -34,6 +34,8 @@ public class DamageManager : MonoBehaviour {
         }
     }
     public float GetDamage() {
+        if (levelManager == null)
+            levelManager = FindObjectOfType<LevelManager>();
         return damage + (levelManager.CurrentStage / 2) * 0.5f;
     }
 }
