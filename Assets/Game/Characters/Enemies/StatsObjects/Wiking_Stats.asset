@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Wiking_Stats
   m_EditorClassIdentifier: 
   searchRange: 10
-  attackRange: 5
+  attackRange: 2.5
   patrolRange: 8
   shootInterval: 0

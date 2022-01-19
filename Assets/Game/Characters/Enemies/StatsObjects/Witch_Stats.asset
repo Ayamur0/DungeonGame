@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Witch_Stats
   m_EditorClassIdentifier: 
   searchRange: 10
-  attackRange: 5
+  attackRange: 9
   patrolRange: 8
   shootInterval: 0

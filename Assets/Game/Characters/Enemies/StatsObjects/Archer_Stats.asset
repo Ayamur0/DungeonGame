@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Archer_Stats
   m_EditorClassIdentifier: 
   searchRange: 10
-  attackRange: 5
+  attackRange: 8
   patrolRange: 9
   shootInterval: 0

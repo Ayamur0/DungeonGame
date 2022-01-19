@@ -15,6 +15,7 @@ TagManager:
   - Enemy
   - Powerup
   - Decoration
+  - Room
   layers:
   - Default
   - TransparentFX
