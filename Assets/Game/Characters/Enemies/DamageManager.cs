@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DamageManager : MonoBehaviour
-{
+public class DamageManager : MonoBehaviour {
     private float damage;
 
-    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type)
-    {
-        switch (type)
-        {
+    private LevelManager levelManager;
+
+    void Start() {
+        levelManager = FindObjectOfType<LevelManager>();
+    }
+
+    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type) {
+        switch (type) {
             case EnemyGenerator.EnemyType.SkeletonBasic:
                 this.damage = 0.5f;
                 break;
@@ -29,23 +32,8 @@ public class DamageManager : MonoBehaviour
                 this.damage = 1f;
                 break;
         }
-
-        switch (mode)
-        {
-            case EnemyGenerator.EnemyDifficulty.Easy:
-                damage += Random.Range(0.0f, 1.0f);
-                break;
-            case EnemyGenerator.EnemyDifficulty.Medium:
-                damage += Random.Range(1.0f, 2.0f);
-                break;
-            case EnemyGenerator.EnemyDifficulty.Hard:
-                damage += Random.Range(2.0f, 3.0f);
-                break;
-        }
     }
-    public float GetDamage()
-    {
-        float extraDmg = (float) Random.Range(0 , 1);
-        return damage + extraDmg;
+    public float GetDamage() {
+        return damage + (levelManager.CurrentStage / 2) * 0.5f;
     }
 }
