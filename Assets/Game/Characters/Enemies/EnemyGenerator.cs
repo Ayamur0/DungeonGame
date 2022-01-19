@@ -83,7 +83,11 @@ public class EnemyGenerator : MonoBehaviour
                         enemyObj = Instantiate(bigSkeleton_prefab);
                         break;
                     case EnemyType.Mage:
-                        enemyObj = Instantiate(mage_prefab);
+                        if (mage_prefab != null)
+                        {
+                            // TODO: QUICKFIX
+                            enemyObj = Instantiate(mage_prefab);
+                        }
                         break;
                     case EnemyType.Wiking:
                         enemyObj = Instantiate(wiking_prefab);

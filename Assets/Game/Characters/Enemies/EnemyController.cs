@@ -116,8 +116,10 @@ public class EnemyController : MonoBehaviour
                 deathvfx.transform.position = gameObject.transform.position;
                 deathvfx.transform.localScale = new Vector3(2, 2, 2);
                 vfxStarted = true;
+
+                FindObjectOfType<GameManager>().CurrentScore.KilledEnemies++;
+                Destroy(gameObject, 1f);
             }
-            Destroy(gameObject, 1f);
         }
     }
 

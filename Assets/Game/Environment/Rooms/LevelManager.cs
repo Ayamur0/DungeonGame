@@ -42,7 +42,7 @@ public class LevelManager : MonoBehaviour
 
         if (this.levelGenerator)
         {
-            FindObjectOfType<GameManager>().CurrentScore.CurrentStage++;
+            FindObjectOfType<GameManager>().CurrentScore.CurrentStage = CurrentStage;
 
             var lvlSettings = this.levelGenerator.Settings;
             lvlSettings.Rooms += 1;
