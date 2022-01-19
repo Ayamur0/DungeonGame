@@ -11,12 +11,14 @@ public class EnemyHealth : MonoBehaviour {
     public AudioClip[] GetDamageSounds;
 
     private LevelManager levelManager;
+    private EnemyController controller;
 
     void Start() {
         levelManager = FindObjectOfType<LevelManager>();
     }
 
-    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type) {
+    public void Init(EnemyController controller, EnemyGenerator.EnemyType type) {
+        this.controller = controller;
         switch (type) {
             case EnemyGenerator.EnemyType.SkeletonBasic:
                 this._health = 4;
@@ -47,6 +49,9 @@ public class EnemyHealth : MonoBehaviour {
 
     public void ReceiveDamage(float damage) {
         _health -= damage;
+
+        if (_health <= 0)
+            controller.Die();
 
         //TODO: SHOW HEALTHBAR
 

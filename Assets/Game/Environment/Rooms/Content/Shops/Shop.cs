@@ -20,7 +20,7 @@ public class Shop : MonoBehaviour {
             // var item = this.AvailableItems[rndIndex];
             // Instantiate(item, slot.transform);
         }
-        items = GetComponent<PowerupSpawner>().SpawnPowerups(positions);
+        items = FindObjectOfType<PowerupSpawner>().SpawnPowerups(positions);
         foreach (GameObject item in items) {
             item.GetComponent<Collider>().enabled = false;
         }

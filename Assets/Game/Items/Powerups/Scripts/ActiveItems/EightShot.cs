@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class EightShot : ActiveItem {
     public override void ActivationEffect() {
+        if (inventory.Weapon == null)
+            return;
         GameObject projectile = inventory.Weapon.projectile;
         if (projectile == null)
             return;
