@@ -58,12 +58,12 @@ public class Chest : MonoBehaviour
                 GameObject item = null;
                 if (SpawnOnlyWeapons)
                 {
-                    var rndItemIndex = Random.Range(0, this.itemsSpawner.weapons.Length);
+                    var rndItemIndex = Random.Range(0, this.itemsSpawner.weapons.Length - 1);
                     item = Instantiate(this.itemsSpawner.weapons[rndItemIndex], spawnPos, Quaternion.identity);
                 }
                 else
                 {
-                    var rndItemIndex = Random.Range(0, this.itemsSpawner.powerups.Length);
+                    var rndItemIndex = Random.Range(0, this.itemsSpawner.powerups.Length - 1);
                     item = Instantiate(this.itemsSpawner.powerups[rndItemIndex], spawnPos, Quaternion.identity);
                 }
                 
