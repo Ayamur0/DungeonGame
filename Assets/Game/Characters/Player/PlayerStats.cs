@@ -89,6 +89,7 @@ public class PlayerStats : MonoBehaviour {
                 redHearts -= 0.5f;
             } else {
                 FindObjectOfType<DeathMenu>().Open();
+                FindObjectOfType<GameManager>().OnPlayerDied?.Invoke();
             }
             amount -= 0.5f;
         }

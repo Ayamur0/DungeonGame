@@ -7,6 +7,7 @@ public class Coin : Powerup {
 
     override protected bool PickupEffect(PlayerStats stats) {
         inventory.addMoney(value);
+        FindObjectOfType<GameManager>().CurrentScore.CollectedCoins += value;
         return true;
     }
 
