@@ -46,6 +46,14 @@ public class LevelManager : MonoBehaviour
 
             var lvlSettings = this.levelGenerator.Settings;
             lvlSettings.Rooms += 1;
+
+            if (lvlSettings.Rooms % 3 == 0)
+            {
+                lvlSettings.MaxShops++;
+                lvlSettings.MaxExplore++;
+            }
+            
+            
             this.levelGenerator.GenerateLevel(lvlSettings);
             this.CurrentStage++;
 

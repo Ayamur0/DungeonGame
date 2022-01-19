@@ -394,6 +394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3613382872693402958}
   - component: {fileID: 5274551998549275614}
+  - component: {fileID: 6822206632854248155}
   m_Layer: 0
   m_Name: WallCollider (3)
   m_TagString: Untagged
@@ -422,12 +423,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2306163141022980294}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 40, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &6822206632854248155
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306163141022980294}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2615700138170125537
 GameObject:
   m_ObjectHideFlags: 0
@@ -497,6 +514,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8993005367204226157}
   - component: {fileID: 2407886573482780228}
+  - component: {fileID: 8727435668761004282}
   m_Layer: 0
   m_Name: WallCollider (5)
   m_TagString: Untagged
@@ -525,12 +543,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2683271636720958711}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18.8, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &8727435668761004282
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2683271636720958711}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2715750004034040492
 GameObject:
   m_ObjectHideFlags: 0
@@ -541,6 +575,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2413347657224900195}
   - component: {fileID: 2873996835878380073}
+  - component: {fileID: 535951766672471793}
   m_Layer: 0
   m_Name: WallCollider (4)
   m_TagString: Untagged
@@ -569,12 +604,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2715750004034040492}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18.8, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &535951766672471793
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2715750004034040492}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &2872781449231791190
 GameObject:
   m_ObjectHideFlags: 0
@@ -971,6 +1022,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6125990365481690315}
   - component: {fileID: 5792007663302499761}
+  - component: {fileID: 7161425673955700941}
   m_Layer: 0
   m_Name: WallCollider (1)
   m_TagString: Untagged
@@ -999,12 +1051,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4707582693348160631}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 40, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &7161425673955700941
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4707582693348160631}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &4793546335225402770
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1083,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4625000692996375434}
   - component: {fileID: 2995671062355261854}
+  - component: {fileID: 8956796795048635729}
   m_Layer: 0
   m_Name: WallCollider (7)
   m_TagString: Untagged
@@ -1043,12 +1112,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4793546335225402770}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18.8, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &8956796795048635729
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4793546335225402770}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1 &5012452511306742243
 GameObject:
   m_ObjectHideFlags: 0
@@ -8868,6 +8953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3331491114910829895}
   - component: {fileID: 6173752673955483614}
+  - component: {fileID: 3733292120916578065}
   m_Layer: 0
   m_Name: WallCollider (6)
   m_TagString: Untagged
@@ -8896,12 +8982,28 @@ BoxCollider:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8884131756927742380}
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 13400000, guid: c0584422fb76dfc42828cf31c05c0830, type: 2}
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 18.8, y: 4, z: 1.5}
   m_Center: {x: -0.00000011920929, y: 2, z: 0}
+--- !u!54 &3733292120916578065
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8884131756927742380}
+  serializedVersion: 2
+  m_Mass: 1000
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 0
 --- !u!1001 &2051042700879010010
 PrefabInstance:
   m_ObjectHideFlags: 0
