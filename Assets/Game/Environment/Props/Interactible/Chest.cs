@@ -5,7 +5,7 @@ using UnityEngine;
 public class Chest : MonoBehaviour {
     public float ItemSpawnRadius = 1.5f;
     public GameObject OpenVFX;
-    public int MaxSpawnItems = 3;
+    public int MaxSpawnItems = 4;
     public bool SpawnOnlyWeapons = false;
 
     private int spawnedItems;
@@ -39,26 +39,24 @@ public class Chest : MonoBehaviour {
         this.isOpen = true;
     }
 
-    public void SpawnItems() {
+    public void SpawnItems()
+    {
+        List<Vector3> spawnPositions = new List<Vector3>();
+
         for (int i = 0; i < 8; i++) {
-            if (this.spawnedItems < this.MaxSpawnItems) {
+            if (this.spawnedItems < Random.Range(1, this.MaxSpawnItems)) {
                 float angle = i * Mathf.PI * 2f / 8;
                 Vector3 newPos = new Vector3(Mathf.Cos(angle) * this.ItemSpawnRadius, -0.75f, Mathf.Sin(angle) * this.ItemSpawnRadius);
                 var spawnPos = gameObject.transform.position + newPos;
-
-                GameObject item = null;
-                if (SpawnOnlyWeapons) {
-                    var rndItemIndex = Random.Range(0, this.itemsSpawner.weapons.Length);
-                    item = Instantiate(this.itemsSpawner.weapons[rndItemIndex], spawnPos, Quaternion.identity);
-                } else {
-                    var rndItemIndex = Random.Range(0, this.itemsSpawner.powerups.Length);
-                    item = Instantiate(this.itemsSpawner.powerups[rndItemIndex], spawnPos, Quaternion.identity);
-                }
-
-
-                item.transform.Rotate(90f, 0f, 0f);
+                spawnPositions.Add(spawnPos);
                 this.spawnedItems++;
             }
+        }
+
+        var spawnedItems = itemsSpawner.SpawnPowerups(spawnPositions);
+        foreach (var item in spawnedItems)
+        {
+            Debug.Log(item.transform.rotation.x);
         }
 
         var light = GetComponentInChildren<Light>();

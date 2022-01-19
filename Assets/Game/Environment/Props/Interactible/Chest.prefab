@@ -65,7 +65,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ItemSpawnRadius: 3
   OpenVFX: {fileID: 1823190983921821680}
-  MaxSpawnItems: 3
+  MaxSpawnItems: 4
   SpawnOnlyWeapons: 0
 --- !u!95 &1823190982905752170
 Animator:
