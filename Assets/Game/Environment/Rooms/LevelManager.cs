@@ -63,7 +63,7 @@ public class LevelManager : MonoBehaviour
             {
                 foreach (var powerup in powerups)
                 {
-                    if(powerup.GetComponent<BoxCollider>().enabled)
+                    if(powerup.GetComponent<SpriteRenderer>().enabled)
                         Destroy(powerup);
                 }
             }
