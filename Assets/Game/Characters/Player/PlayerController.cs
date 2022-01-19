@@ -26,8 +26,7 @@ public class PlayerController : MonoBehaviour {
         this.zVelocity = Input.GetAxis("Vertical");
     }
 
-    public void FixedUpdate()
-    {
+    public void FixedUpdate() {
         body.velocity = new Vector3(xVelocity, 0f, zVelocity) * stats.movespeed;
     }
 
@@ -56,6 +55,7 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "PlayerProjectile") {
             Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
+            return;
         }
     }
 }
