@@ -78,6 +78,8 @@ public class BombController : Projectile {
         DecreaseLightIntensity();
 
         foreach (Collider c in enmiesInRange) {
+            if (c == null)
+                continue;
             c.GetComponent<EnemyHealth>().ReceiveDamage(playerStats.GetDamage());
 
             if (onHitEffect != null)
