@@ -47,6 +47,7 @@ public class PlayerStats : MonoBehaviour {
     public Image PlayerStatsUI;
     public Image ItemStatsUI;
     public Image WeaponStatsUI;
+    public GameObject Minimap;
 
     // Start is called before the first frame update
     void Start() {
@@ -61,20 +62,11 @@ public class PlayerStats : MonoBehaviour {
         if (Input.GetKey(KeyCode.Tab))
             ShowStatsUI();
         else {
+            Minimap.SetActive(true);
             ItemStatsUI.gameObject.SetActive(false);
             PlayerStatsUI.gameObject.SetActive(false);
             WeaponStatsUI.gameObject.SetActive(false);
         }
-        // if (Input.GetKeyDown(KeyCode.E))
-        //     TakeDamage(1);
-        // if (Input.GetKeyDown(KeyCode.R))
-        //     AddHeartContainers(1);
-        // if (Input.GetKeyDown(KeyCode.T))
-        //     AddRedHearts(1);
-        // if (Input.GetKeyDown(KeyCode.Z))
-        //     AddBlackHearts(1);
-        // if (Input.GetKeyDown(KeyCode.U))
-        //     AddSoulHearts(1);
     }
 
     public void TakeDamage(float amount) {
@@ -205,7 +197,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     private void ShowStatsUI() {
-        Debug.Log("Updating stats");
+        Minimap.SetActive(false);
         ItemStatsUI.gameObject.SetActive(true);
         PlayerStatsUI.gameObject.SetActive(true);
         WeaponStatsUI.gameObject.SetActive(true);
