@@ -138,7 +138,11 @@ public class Inventory : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.E)) {
             Powerup p = GetClosestPowerup();
             if (p != null)
+            {
+                // play sound
+                GetComponent<AudioSource>().Play();
                 p.Pickup(gameObject);
+            }
         }
     }
 
