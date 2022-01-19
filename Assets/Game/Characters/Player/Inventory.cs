@@ -18,6 +18,8 @@ public class Inventory : MonoBehaviour {
     public Image ActiveSlot;
     public Image[] PassiveSlots;
 
+    public AudioClip PickupSound;
+
     private int Money = 0;
     public Text MoneyDisplay;
 
@@ -146,8 +148,13 @@ public class Inventory : MonoBehaviour {
             Powerup p = GetClosestPowerup();
             if (p != null) {
                 // play sound
-                GetComponent<AudioSource>().Play();
-                p.Pickup(gameObject);
+                var pickedUp = p.Pickup(gameObject);
+                if (pickedUp)
+                {
+                    var audioSource = GetComponent<AudioSource>();
+                    audioSource.clip = PickupSound;
+                    audioSource.Play();
+                }
             }
         }
     }

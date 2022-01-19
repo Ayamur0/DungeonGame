@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4366756, g: 0.48427194, b: 0.5645252, a: 1}
+  m_IndirectSpecularColor: {r: 0.4366757, g: 0.48427194, b: 0.5645252, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -6199,6 +6199,18 @@ PrefabInstance:
       propertyPath: WeaponStatsUI
       value: 
       objectReference: {fileID: 396449893}
+    - target: {fileID: 1560155056196705560, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
+      propertyPath: PlayerHitsSounds.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 1560155056196705560, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
+      propertyPath: PlayerHitsSounds.Array.data[0]
+      value: 
+      objectReference: {fileID: 8300000, guid: a80dbba53d792934da99cda624e33490, type: 3}
+    - target: {fileID: 1560155056196705560, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
+      propertyPath: PlayerHitsSounds.Array.data[1]
+      value: 
+      objectReference: {fileID: 8300000, guid: f31dabe557efa294ab0eca8314239282, type: 3}
     - target: {fileID: 1560155056196705561, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
       propertyPath: heartImages.Array.size
       value: 15
@@ -6347,6 +6359,10 @@ PrefabInstance:
       propertyPath: WeaponSlot
       value: 
       objectReference: {fileID: 1534602362}
+    - target: {fileID: 1560155056196705565, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
+      propertyPath: PickupSound
+      value: 
+      objectReference: {fileID: 8300000, guid: e0adbe1cc91598645970ec95a2a0829d, type: 3}
     - target: {fileID: 1560155056196705565, guid: 9538c5b55666d7a49aae3dc5ee16c71a, type: 3}
       propertyPath: MoneyDisplay
       value: 

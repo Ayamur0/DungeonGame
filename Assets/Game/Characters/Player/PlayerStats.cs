@@ -49,6 +49,8 @@ public class PlayerStats : MonoBehaviour {
     public Image WeaponStatsUI;
     public GameObject Minimap;
 
+    public AudioClip[] PlayerHitsSounds;
+
     // Start is called before the first frame update
     void Start() {
         heartContainers = startHearts;
@@ -71,6 +73,13 @@ public class PlayerStats : MonoBehaviour {
 
     public void TakeDamage(float amount) {
         Debug.Log("Damage taken " + amount);
+        var audioSource = GetComponent<AudioSource>();
+        if (this.PlayerHitsSounds != null) {
+            if (this.PlayerHitsSounds.Length > 0) {
+                audioSource.clip = this.PlayerHitsSounds[Random.Range(0, this.PlayerHitsSounds.Length)];
+                audioSource.Play();
+            }
+        }
         while (amount > 0) {
             if (soulHearts > 0) {
                 soulHearts -= 0.5f;

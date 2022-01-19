@@ -890,7 +890,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af77140a3591be94b9f753fbd766cd9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HitSound: {fileID: 8300000, guid: da0c72ba1d43eaa40b712b57efa0f070, type: 3}
+  GetDamageSounds:
+  - {fileID: 8300000, guid: a60f5f4531bf9c74db4dfd6b93fd137d, type: 3}
+  - {fileID: 8300000, guid: 40f1f5a1e618fa44ca0c3aa98782fc82, type: 3}
 --- !u!114 &-896193857792120087
 MonoBehaviour:
   m_ObjectHideFlags: 0
