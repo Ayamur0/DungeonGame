@@ -3,29 +3,22 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour {
+public class DeathMenu : MonoBehaviour {
     private GameObject Container;
 
     void Start() {
         Container = transform.GetChild(0).gameObject;
     }
 
-    void Update() {
-        if (Input.GetKeyDown(KeyCode.Escape))
-            if (Container.activeSelf)
-                ResumeGame();
-            else
-                PauseGame();
-    }
-
-    public void PauseGame() {
+    public void Open() {
         Time.timeScale = 0;
         Container.SetActive(true);
     }
 
-    public void ResumeGame() {
+    public void RestartGame() {
         Time.timeScale = 1;
         Container.SetActive(false);
+        SceneManager.LoadScene("GameScene");
     }
 
     public void ExitGame() {

@@ -88,8 +88,7 @@ public class PlayerStats : MonoBehaviour {
             } else if (redHearts > 0) {
                 redHearts -= 0.5f;
             } else {
-                // TODO
-                // die
+                FindObjectOfType<DeathMenu>().Open();
             }
             amount -= 0.5f;
         }
