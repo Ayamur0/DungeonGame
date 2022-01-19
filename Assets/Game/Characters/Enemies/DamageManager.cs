@@ -2,61 +2,50 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyHealth : MonoBehaviour
+public class DamageManager : MonoBehaviour
 {
-    private float _health;
-    public float Health => _health;
-
-    public AudioClip HitSound;
-    private AudioSource audiosource;
+    private float damage;
 
     public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type)
     {
         switch (type)
         {
             case EnemyGenerator.EnemyType.SkeletonBasic:
-                this._health = 4;
+                this.damage = 2;
                 break;
             case EnemyGenerator.EnemyType.Archer:
-                this._health = 5;
+                this.damage = 3;
                 break;
             case EnemyGenerator.EnemyType.BigSkeleton:
-                this._health = 7;
+                this.damage = 4;
                 break;
             case EnemyGenerator.EnemyType.Mage:
-                this._health = 6;
+                this.damage = 7;
                 break;
             case EnemyGenerator.EnemyType.Wiking:
-                this._health = 8;
+                this.damage = 6;
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                this._health = 3;
+                this.damage = 5;
                 break;
         }
 
         switch (mode)
         {
             case EnemyGenerator.EnemyDifficulty.Easy:
-                _health += Random.Range(0.0f, 1.0f);
+                damage += Random.Range(0.0f, 1.0f);
                 break;
             case EnemyGenerator.EnemyDifficulty.Medium:
-                _health += Random.Range(1.0f, 2.0f);
+                damage += Random.Range(1.0f, 2.0f);
                 break;
             case EnemyGenerator.EnemyDifficulty.Hard:
-                _health += Random.Range(2.0f, 3.0f);
+                damage += Random.Range(2.0f, 3.0f);
                 break;
         }
-
-        audiosource = GetComponent<AudioSource>();
     }
-
-    public void ReceiveDamage(float damage)
+    public float GetDamage()
     {
-        _health -= damage;
-
-        //TODO: SHOW HEALTHBAR
-
-        audiosource.clip = HitSound;
-        audiosource.Play();
+        float extraDmg = (float) Random.Range(0 , 1);
+        return damage + extraDmg;
     }
 }

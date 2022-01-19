@@ -13,6 +13,6 @@ MonoBehaviour:
   m_Name: Mage_Stats
   m_EditorClassIdentifier: 
   searchRange: 10
-  attackRange: 5
+  attackRange: 7
   patrolRange: 8
   shootInterval: 0

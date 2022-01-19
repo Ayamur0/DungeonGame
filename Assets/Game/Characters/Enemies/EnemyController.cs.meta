@@ -3,7 +3,15 @@ guid: 5535203eb51004f469ff0ce1c61a6241
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - HealthStats: {instanceID: 0}
+  - DamageManager: {instanceID: 0}
+  - EnemyStats: {instanceID: 0}
+  - Agent: {instanceID: 0}
+  - Player: {instanceID: 0}
+  - m_Animator: {instanceID: 0}
+  - DeathSound: {instanceID: 0}
+  - DeathVFX: {fileID: 100004, guid: 7867af58a6ec48846ae807eb4022fbaa, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
