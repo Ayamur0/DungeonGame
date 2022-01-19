@@ -21,7 +21,7 @@ public class FireballController : Projectile {
         transform.position += transform.forward * Speed * Time.deltaTime;
     }
 
-    private void OnCollisionEnter(Collision col) {
+    private void OnTriggerEnter(Collider col) {
         GameObject other = col.gameObject;
         EnemyController enemyController = other.GetComponent<EnemyController>();
         if (enemyController != null) {

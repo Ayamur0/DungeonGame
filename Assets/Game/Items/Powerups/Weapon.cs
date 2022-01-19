@@ -8,7 +8,7 @@ public abstract class Weapon : Powerup {
     protected float cooldown = 0.5f;
     protected PlayerStats playerStats;
 
-    override protected void Update() {
+    public void UpdateWeapon() {
         if (!activated)
             return;
         timeSinceLastAttack += Time.deltaTime;

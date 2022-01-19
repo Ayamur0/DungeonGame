@@ -21,6 +21,13 @@ public class Inventory : MonoBehaviour {
     private int Money = 0;
     public Text MoneyDisplay;
 
+    void Start() {
+        PowerupSpawner itemsSpawner = FindObjectOfType<PowerupSpawner>();
+        int rndItemIndex = Random.Range(0, itemsSpawner.weapons.Length);
+        GameObject w = Instantiate(itemsSpawner.weapons[rndItemIndex], new Vector3(), Quaternion.identity);
+        w.GetComponent<Powerup>().Pickup(gameObject);
+    }
+
     // Update is called once per frame
     void Update() {
         processInputs();
@@ -137,8 +144,7 @@ public class Inventory : MonoBehaviour {
             dropPassiveItem(4);
         if (Input.GetKeyDown(KeyCode.E)) {
             Powerup p = GetClosestPowerup();
-            if (p != null)
-            {
+            if (p != null) {
                 // play sound
                 GetComponent<AudioSource>().Play();
                 p.Pickup(gameObject);

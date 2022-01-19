@@ -19,6 +19,10 @@ public class PlayerController : MonoBehaviour {
     void Update() {
         move();
         turn();
+        Weapon weapon = GetComponent<Inventory>().Weapon;
+        if (weapon != null) {
+            weapon.UpdateWeapon();
+        }
     }
 
     void move() {
@@ -55,7 +59,6 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter(Collision collision) {
         if (collision.gameObject.tag == "PlayerProjectile") {
             Physics.IgnoreCollision(collision.gameObject.GetComponent<Collider>(), GetComponent<Collider>());
-            return;
         }
     }
 }

@@ -70,6 +70,7 @@ public class PlayerStats : MonoBehaviour {
     }
 
     public void TakeDamage(float amount) {
+        Debug.Log("Damage taken " + amount);
         while (amount > 0) {
             if (soulHearts > 0) {
                 soulHearts -= 0.5f;
@@ -87,7 +88,8 @@ public class PlayerStats : MonoBehaviour {
                 }
             } else if (redHearts > 0) {
                 redHearts -= 0.5f;
-            } else {
+            }
+            if (redHearts + blackHearts + soulHearts <= 0) {
                 FindObjectOfType<DeathMenu>().Open();
                 FindObjectOfType<GameManager>().OnPlayerDied?.Invoke();
             }
