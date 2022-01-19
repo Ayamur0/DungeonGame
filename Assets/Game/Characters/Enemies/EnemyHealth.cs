@@ -38,6 +38,8 @@ public class EnemyHealth : MonoBehaviour {
                 break;
         }
 
+        if (levelManager == null)
+            levelManager = FindObjectOfType<LevelManager>();
         this._health += levelManager.CurrentStage / 2;
 
         audiosource = GetComponent<AudioSource>();
