@@ -27,7 +27,6 @@ public class EnemyGenerator : MonoBehaviour
     private int amountEnemy;
 
     [Header("Prefabs")]
-
     public GameObject skeleton_basic_prefab;
     public GameObject archer_prefab;
     public GameObject bigSkeleton_prefab;

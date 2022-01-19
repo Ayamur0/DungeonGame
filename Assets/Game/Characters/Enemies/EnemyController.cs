@@ -16,6 +16,7 @@ public class EnemyController : MonoBehaviour
     
     public State currentState;
 
+
     [Header("Scripts")]
     public EnemyHealth HealthStats;
     public DamageManager DamageManager;

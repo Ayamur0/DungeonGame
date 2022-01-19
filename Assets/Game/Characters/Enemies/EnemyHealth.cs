@@ -7,8 +7,9 @@ public class EnemyHealth : MonoBehaviour
     private float _health;
     public float Health => _health;
 
-    public AudioClip HitSound;
     private AudioSource audiosource;
+   
+    public AudioClip[] GetDamageSounds;
 
     public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type)
     {
@@ -56,7 +57,13 @@ public class EnemyHealth : MonoBehaviour
 
         //TODO: SHOW HEALTHBAR
 
-        audiosource.clip = HitSound;
-        audiosource.Play();
+        if (GetDamageSounds != null)
+        {
+            if (GetDamageSounds.Length > 0)
+            {
+                audiosource.clip = GetDamageSounds[Random.Range(0, GetDamageSounds.Length)];
+                audiosource.Play();
+            }
+        }
     }
 }
