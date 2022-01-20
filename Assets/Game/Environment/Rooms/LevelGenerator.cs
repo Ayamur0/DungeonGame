@@ -74,6 +74,9 @@ public class LevelGenerator : MonoBehaviour
             throw new Exception("Invalid Level Settings");
         }
 
+        this.currentShops = 0;
+        this.currentExplore = 0;
+
         this.maze = new Maze(settings.MapWidth, settings.MapHeight, settings.Rooms);
         this.rooms = new GameObject[settings.MapWidth, settings.MapHeight];
         var roomContainer = GameObject.FindGameObjectWithTag("RoomContainer");
