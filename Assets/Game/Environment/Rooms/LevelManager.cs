@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour {
     private TransitionManager transitionManager;
     private AudioSource audioSource;
 
-    public Action ActiveRoomChanged;
+    public Action<GameObject, GameObject> ActiveRoomChanged;
     public Action NextStageLoaded;
 
     public GameObject GetActiveRoom() {
@@ -103,11 +103,10 @@ public class LevelManager : MonoBehaviour {
             }
         }
 
+        this.ActiveRoomChanged?.Invoke(this.activeRoom, newRoom);
         this.activeRoom = newRoom;
         this.activeRoom.SetActive(true);
         EnableNeighborRooms();
-
-        this.ActiveRoomChanged?.Invoke();
     }
 
     public void EnableNeighborRooms() {

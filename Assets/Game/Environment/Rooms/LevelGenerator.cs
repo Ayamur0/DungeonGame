@@ -38,9 +38,9 @@ public class LevelGenerator : MonoBehaviour
         public int MaxExplore = 2;
         public int MapWidth = 20;
         public int MapHeight = 20;
-        public int Rooms = 40;
+        public int Rooms = 20;
 
-        public LevelSettings(int maxShops, int maxExplore, int rooms = 40, int mapWidth = 20, int mapHeight = 20)
+        public LevelSettings(int maxShops, int maxExplore, int rooms = 20, int mapWidth = 20, int mapHeight = 20)
         {
             this.MaxShops = maxShops;
             this.MaxExplore = maxExplore;
