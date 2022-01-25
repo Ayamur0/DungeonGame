@@ -27,9 +27,9 @@ public class testAIGenerator : MonoBehaviour
 
     public void testGenerate()
     {
-        var spawnPoints = generateRandomSpawnPoints();
+        var spawnPoints = room.GetRandomSpawns(5);
 
-        ai_bots = GetComponent<EnemyGenerator>().GenerateEnemies(mode, spawnPoints, room);
+        //ai_bots = GetComponent<EnemyGenerator>().GenerateEnemies(mode, spawnPoints, room);
     }
 
     private List<Transform> generateRandomSpawnPoints()

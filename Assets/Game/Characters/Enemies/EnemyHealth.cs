@@ -10,6 +10,8 @@ public class EnemyHealth : MonoBehaviour {
 
     public AudioClip[] GetDamageSounds;
 
+    private bool attacked = false;
+
     private LevelManager levelManager;
     private EnemyController controller;
 
@@ -52,6 +54,12 @@ public class EnemyHealth : MonoBehaviour {
 
         if (_health <= 0)
             controller.Die();
+
+        if (!attacked)
+        {
+            attacked = true;
+            controller.ActivateChasing();
+        }
 
         //TODO: SHOW HEALTHBAR
 
