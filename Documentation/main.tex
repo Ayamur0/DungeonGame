@@ -17,20 +17,22 @@ Für den Grafikstil haben wir uns für einen recht einfach gehaltenen Toon Grafi
 Alle 3 Teile haben wir zuerst getrennt entwickelt, bis alle in einem verwendbaren Zustand waren. Dann haben wir die Teile zu einer ersten Spielversion zusammengesetzt. Dieser erste Version haben wir dann immer weiter verbessert und mehr Features eingebaut (wie zB die Mini-Map), bis wir mit dem Prototypen zufrieden waren.
 
 \subsection{Detaillierte Planung}
-\subsubsection{Random generierte Level}
-Die Ebenen des Dungeons, sollen random generiert werden, so dass der Spieler nie dieselbe Ebene zweimal spielt. Dafür sollen verschiedene Templates für einzelne Räume gebaut werden. Dabei gibt es 5 verschiedene Raumtypen:
+\subsubsection{Zufällig generierte Level}
+Die Ebenen des Dungeons sollen zufällig generiert werden, so dass der Spieler nie dieselbe Ebene zweimal spielt. Dafür sollen verschiedene Templates für einzelne Räume gebaut werden. Dabei gibt es 5 verschiedene Raumtypen:
 \begin{itemize}
 \item Spawn Raum
-\item Raum mit Kiste ohne Gegner
-\item Raum mit Gegnern
+\item Raum zum Erkunden (Raum mit Kiste ohne Gegner)
+\item Raum mit Gegner
 \item Shop
-\item Portalraum der in die nächste Ebene führt
+\item Portalraum, der in die nächste Ebene führt
 \end{itemize}
-Aus diesen Räumen soll dann eine zusammenhängende Ebene generiert werden.
-\graphic{random-level}{Herausgezoomte Ansicht einer gesamten Ebene}
+Aus diesen Räumen soll dann eine zusammenhängende Ebene generiert werden. Wie die nachfolgende Grafik zeigt, soll die Ebene eine entsprechende Struktur besitzen.
+
+\graphic{level-generierung}{Zufällige Generierung der Ebene}
+
 Dafür muss jeder Raum verschiedene Templates mit Türen auf verschiedenen Seiten haben, damit diese korrekt zusammengesetzt werden können.\\
 Das Ziel in jeder Ebene ist es, vom Spawnraum in den Portalraum zu gelangen. Betritt man dabei einen Raum mit Gegnern, so schließen sich alle Türen dieses Raums und man muss zuerst alle Gegner besiegen, bevor man den Raum wieder verlassen kann. \\
-In Kisten können zufällige neue Items gefunden werden und in Shop kann der Spieler gezielt ein bestimmtes Item aus der zufälligen Auswahl kaufen.
+In den "Erkunden"-Räume befinden sich Kisten, die zufällige Items beinhalten. Im Shop-Raum kann der Spieler gezielt ein bestimmtes Item aus der zufälligen Auswahl kaufen.
 
 \subsubsection{AI-Design}
 %TODO AI Design Konzept
@@ -64,7 +66,26 @@ Für jeder Klasse sollen verschiedene Powerups entwickelt werden.
 \section{Umsetzung}
 
 \subsection{Level}
-%TODO Level-Umsetzung
+
+Für die zufällige Anordnung der Räume wurde ein einfacher "Maze Generation"-Algorithmus (Prim's Algorithmus) implementiert. Der Algorithmus liefert zuverlässig Positionen, an denen zunächst leere Räume platziert werden können. Hierfür muss jedoch die Ausrichtung der Räume sowie die Verbindung zwischen ihnen berücksichtigt werden.  Wie in der nachfolgenden Grafik zu sehen, bedarf es fünf unterschiedliche Raum-Vorlagen, die jeweils einen Ausgang oder mehr besitzen.
+
+\graphic{raum-templates}{Zufällige generierung einer Ebene}
+
+Durch Berücksichtigung und Ausrichtung der Nachbarräume wird der zu platzierende Raum solange gedreht, bis eine korrekte Verbindung besteht. Sobald die Generierung abgeschlossen ist, wird der jeweilige Typ der einzelnen Räume bestimmt. In der Mitte des Labyrinths befindet sich immer der Spawn-Punkt des Spielers. Anhang der Anzahl der zu generierenden Räume wird berechnet, wie viele Kampf-, Erkundungs- oder Shop-Räume auf der aktuellen Ebene existieren. Da sich bei jeder Ebene die Anzahl der Räume erhöht, muss ebenso auch die Anzahl der Shop und Erkundungs-Räume abgestimmt sein. 
+%Wie die nachfolgende Grafik zeigt, besteht eine Raum-Vorlage nur aus den Wänden und den Ein-/Ausgängen.
+
+% \graphic{empty-room}{Ein leerer Raum als Vorlage}
+
+Sobald der Typ des Raumes bestimmt wurde, wird in diese Vorlage der eigentliche Inhalt aus einer Liste von Vorlagen zufällig gewählt und in den Raum gesetzt. Hierbei wurde darauf geachtet, dass der Rauminhalt nicht den Durchgang zum nächsten Raum versperrt.
+
+\graphic{room-types}{Beispiele der Rauminhalte}
+
+Die Besonderheit des Kampf-Raumes ist es, dass dieser erfasst, ob der Spieler diesen das erste mal betreten hat. Ist das der Fall, werden automatisch die Ausgänge verschlossen, Gegner werden gespawnt und eine Kampfmusik wird abgespielt. Ebenso erhöht sich die Distanz der Kamera zum Spieler, sodass dieser eine besseren Überblick während des Kampfgeschehens hat. \\
+
+Nach vollständiger Level-Generierung wird der Spieler gespawnt und es kann begonnen werden zu spielen.
+Die nachfolgende Grafik zeigt ein komplette Ebene.
+\graphic{random-level}{Vollständige zufallsgenerierte Ebene}
+
 
 \subsection{AI}
 %TODO AI-Umsetzung
