@@ -1,0 +1,197 @@
+\section{Konzept}
+
+\subsection{Spielidee}
+Wir haben uns auf eine Spielidee geeinigt, die stark von "The Binding of Isaac" inspiriert ist. Unser Spiel findet sich damit auch im selben Genre wie "The Binding of Isaac", ein random generierter Action RPG Shooter mit Rogue-Like Elementen.\\
+Ein wichtiger Punkt bei der Entwicklung war es somit, dass die Level random generiert werden können. Die RPG Elemente äußern sich durch die Stats des Spielers, welche mithilfe von Items verbessert werden können. \\
+Das Ziel des Spiels ist es, mit jedem Versuch so weit wie möglich in den Dungeon vorzudringen und dabei so viele Gegner wie möglich zu besiegen. Durch verschiedene Waffen und Items sowie die random generierten Level, soll dabei jeder Versuch anders Ablaufen und eine neue Herausforderung bieten.\\
+Wir haben uns für diese Spielidee entschieden, da ein solches Spielkonzept auch als Prototyp bereits eine hohe Wiederspielbarkeit bietet, da jeder Versuch einzigartig ist.\\
+\graphic{graphic-example}{Grafikstil}
+Für den Grafikstil haben wir uns für einen recht einfach gehaltenen Toon Grafikstil entschieden, da dieser schnell und einfach umsetzbar ist, was für einen Prototyp wichtig ist.
+
+\subsection{Aufteilung}
+\begin{itemize}
+\item \textbf{Leveldesign:} Christian Greiner
+\item \textbf{AI-Design:} Shadrach AlrulrajahPatrick
+\item \textbf{Spieler und Items:} Tim Staudenmaier
+\end{itemize}
+Alle 3 Teile haben wir zuerst getrennt entwickelt, bis alle in einem verwendbaren Zustand waren. Dann haben wir die Teile zu einer ersten Spielversion zusammengesetzt. Dieser erste Version haben wir dann immer weiter verbessert und mehr Features eingebaut (wie zB die Mini-Map), bis wir mit dem Prototypen zufrieden waren.
+
+\subsection{Detaillierte Planung}
+\subsubsection{Random generierte Level}
+Die Ebenen des Dungeons, sollen random generiert werden, so dass der Spieler nie dieselbe Ebene zweimal spielt. Dafür sollen verschiedene Templates für einzelne Räume gebaut werden. Dabei gibt es 5 verschiedene Raumtypen:
+\begin{itemize}
+\item Spawn Raum
+\item Raum mit Kiste ohne Gegner
+\item Raum mit Gegnern
+\item Shop
+\item Portalraum der in die nächste Ebene führt
+\end{itemize}
+Aus diesen Räumen soll dann eine zusammenhängende Ebene generiert werden.
+\graphic{random-level}{Herausgezoomte Ansicht einer gesamten Ebene}
+Dafür muss jeder Raum verschiedene Templates mit Türen auf verschiedenen Seiten haben, damit diese korrekt zusammengesetzt werden können.\\
+Das Ziel in jeder Ebene ist es, vom Spawnraum in den Portalraum zu gelangen. Betritt man dabei einen Raum mit Gegnern, so schließen sich alle Türen dieses Raums und man muss zuerst alle Gegner besiegen, bevor man den Raum wieder verlassen kann. \\
+In Kisten können zufällige neue Items gefunden werden und in Shop kann der Spieler gezielt ein bestimmtes Item aus der zufälligen Auswahl kaufen.
+
+\subsubsection{AI-Design}
+%TODO AI Design Konzept
+
+\subsubsection{Spieler und Powerups}
+Der Spieler soll mittels WASD gesteuert werden können, während er gleichzeitig mit den Pfeiltasten in alle Richtungen schießen kann, unabhängig der Bewegungsrichtung. \\
+Zudem hat der Spieler eine Lebensanzeige bestehend aus Herzen. Diese soll durch Herzcontainer erweiterbar sein. Hat der Spieler kein Herz mehr in seiner Lebensanzeige, so geht der Game Over und der Versuch ist vorbei.
+\graphic{health-bar}{Lebens- und Münzenanzeige in der rechten oberen Ecke}
+Zudem soll es verschiedene besondere Herzen geben die bestimmte Effekte haben.\\
+Außerdem kann der Spieler Münzen sammeln, welche unter der Lebensanzeige angezeigt werden, um damit in Shops Items zu kaufen.\\
+Für die Items benötigt der Spieler zudem ein Inventar, welches verschiedene Slots für die verschiedenen Itemtypen bietet. Dabei soll der Spieler folgende Items gleichzeitig tragen können:
+\begin{itemize}
+\item Eine Waffe
+\item Eine Verbesserung für die Waffe
+\item Ein aktiv verwendbares Item
+\item 5 passive Items
+\end{itemize}
+Um den RPG Askepkt zu realisieren, soll der Spieler zudem verschiedene Stats haben, welche durch Items verbessert werden können.
+\bigskip
+
+Die Powerups sollen in 5 Klassen aufgeteilt sein:
+\begin{itemize}
+\item \textbf{Einmal Powerups:} Verschwinden nach dem Aufheben (zB Herzen um Energie aufzufüllen oder Münzen)
+\item \textbf{Waffen:} Das primäre Powerup, wird mittels der Pfeiltasten abgefeuert und dazu verwendet die Gegner zu besiegen
+\item \textbf{Waffen Verbesserungen:} Verleihen der Waffe zusätzliche Effekte, wie zB größere Projektile oder einen Gift Effekt
+\item \textbf{Aktive Items:} Können nach dem Aufheben mittels der Leertaste eingesetzt werden und lösen dabei einen starken Effekt aus. Diese Powerups können erst, nachdem der Spieler eine bestimmte Anzahl an neuen Räumen betreten hat, wieder verwendet werden.
+\item \textbf{Passive Items:} Verbessern die Stats des Spielers
+\end{itemize}
+Für jeder Klasse sollen verschiedene Powerups entwickelt werden.
+
+\section{Umsetzung}
+
+\subsection{Level}
+%TODO Level-Umsetzung
+
+\subsection{AI}
+%TODO AI-Umsetzung
+
+\subsection{Spieler}
+\graphic{player}{Modell des Spielers}
+\subsubsection{Steuerung}
+Durch drücken von WASD kann man seinen Charakter bewegen und mithilfe von den Pfeiltasten kann die Waffe verwendet werden und in eine beliebige Richtung geschossen werden. \\
+Kisten können mit der E-Taste geöffnet werden und auch Items im Shop werden mit 'E' gekauft. Items aus dem Inventar können mit der dem Slot entsprechenden Nummerntaste wieder abgelegt werden. \\
+Die aktuellen Stats und Beschreibungen der Items im Inventar können durch drücken von 'Tab' angezeigt werden.
+
+\subsubsection{Stats}
+Zu Beginn besitzt der Spieler 3 Herzen in seiner Lebensanzeige, sowie 0 Münzen. Außerdem hat der Spieler folgende Stats:
+\begin{itemize}
+\item Schaden
+\item Bewegungsgeschwindigkeit
+\item Cooldown zwischen den Angriffen
+\item Projektil Geschwindigkeit
+\item Reichweite
+\item Glück (benötigt um kritische Treffer und Effekte wie Gift auszulösen)
+\item Multiplikator für kritische Treffer
+\end{itemize}
+\graphic{standard-stats}{Stats zu Beginn des Spiels}
+Besitzt der Spieler Items, die feste Statboni und Multiplikatoren für Stats haben, so werden zuerst die festen Statboni verrechnet, bevor die Multiplikatoren angewendet werden.
+
+\subsection{Items}
+\subsubsection{Einmal Items}
+\newcommand\rowincludegraphics[2][]{\raisebox{-0.45\height}{\includegraphics[#1]{#2}}}
+
+\begin{atab}
+ \textbf{Icon} & \textbf{Beschreibung} \\ 
+    \rowincludegraphics[scale=1]{heart} & Füllt ein Herz der Energieleiste wieder auf \\ 
+    \rowincludegraphics[scale=1]{heart-container} & Fügt der Energieleiste ein weiteres Herz hinzu und füllt dieses auf \\ 
+    \rowincludegraphics[scale=1]{black-heart} & Falls die Energieleiste nicht voll ist, wird ein Herz mit einem schwarzen Herz aufgefüllt, ansonsten wird ein rotes Herz durch dieses ersetzt. Nimmt der Spieler Schaden und verliert dieses Herz wird an allen Gegnern in der Nähe Schaden verursacht. \\ 
+    \rowincludegraphics[scale=1]{soul-heart} & Füght der Energieleiste ein weiteres Herz hinzu und füllt dieses mit einem halben Seelenherz. Nimmt der Spieler Schaden, verliert er dieses Seelenherz, sowie den der Energieleiste hinzugefügten Herzcontainer. Erreicht der Spieler ein Portal, während er noch Seelenherzen besitzt, so werden diese in normale Herzen umgewandelt und dadurch gewonnenen Herzcontainer werden dauerhaft.
+\end{atab}
+
+\subsubsection{Waffen}
+\begin{atab}
+ \textbf{Icon} & \textbf{Beschreibung} \\ 
+    \rowincludegraphics[scale=1]{fireball} & Waffe mit hoher Reichweite, die einen Feuerball schießt. Dieser geht beim ersten Treffer kaputt und verursacht Schaden am getroffenen Gegner. \\ 
+    \rowincludegraphics[scale=1]{bomb} & Wirft Bomben mit mittlerer Reichweite. Die Bomben verursachen Flächenschaden am Einschlagsort.\\ 
+    \rowincludegraphics[scale=1]{lightning} & Beschießt Gegner mit Blitzen und zielt dabei automatisch, hat dafür aber eine kurze Reichweite. Für diese Waffe muss die Pfeiltaste zum schießen gedrückt gehalten werden.\\ 
+\end{atab}
+
+\subsubsection{Waffen Verbesserungen}
+\begin{atab}
+\textbf{Icon} & \textbf{Beschreibung} \\ 
+    \rowincludegraphics[scale=1]{mushroom} & Erhöht die Größe des Projektils und macht es somit einfacher Gegner zu treffen. Vergrößert bei der Bombe auch den Radius der Explosion. Funktioniert nicht mit der Blitz Waffe!\\ 
+    \rowincludegraphics[scale=1]{tripleshot} & Waffe feuert 3 Projektile in einem Kegel ab, anstelle von nur einem. Funktioniert nicht mit der Blitz Waffe!\\ 
+    \rowincludegraphics[scale=1]{leaf} & Fügt der Waffe einen Gift Effekt hinzu, welcher mit der Wahrscheinlichkeit des Glück Stats auftritt. Wird ein Gegner vergiftet, erleidet dieser über Zeit Schaden.\\ 
+    \rowincludegraphics[scale=1]{blue-mushroom} & Fügt der Waffe einen Verlangsamungseffekt hinzu, welcher mit der Wahrscheinlichkeit des Glück Stats auftritt. Wird ein Gegner getroffen, wird dieser für eine Sekunde um 25\% verlangsamt.\\ 
+\end{atab}
+
+\subsubsection{Aktive Items}
+Diese Items können durch drücken der Leertaste aktiviert werden. Zudem muss nach dem Benutzen dieser Items eine bestimmte Anzahl neuer Räume betreten werden, bevor das Item erneut verwendet werden kann.
+
+\begin{atab}
+\textbf{Icon} & \textbf{Beschreibung} \\ 
+    \rowincludegraphics[scale=1]{eightshot} & Feuert 8 Projektile der momentanen Waffe in alle Richtungen um den Spieler herum. Hat eine Abklingzeit von 2 Räumen. Funktioniert nicht mit der Blitz Waffe!\\ 
+\end{atab}
+
+\subsubsection{Passive Items}
+\begin{atab}
+\textbf{Icon} & \textbf{Beschreibung} \\ 
+    \rowincludegraphics[scale=1]{spoon} & x1.1 Bewegungsgeschwindigkeit\newline
+    x1.2 Cooldownreduzierung zwischen den Angriffen\newline
+    +5 Reichweite\newline
+    +5 Glück\\
+    \rowincludegraphics[scale=1]{watch} & +4 Bewegungsgeschwindigkeit\newline 
+    +0.05 Cooldownreduzierung zwischen den Angriffen\newline
+    x1.05 Cooldownreduzierung zwischen den Angriffen\newline
+    +0.02 Projektilgeschwindigkeit\\
+    \rowincludegraphics[scale=1]{knuckles} & +2 Schaden\newline 
+    -2 Reichweite\\
+    \rowincludegraphics[scale=1]{hourglass} & x0.8 Bewegungsgeschwindigkeit\newline
+    x1.25 Schaden\newline
+    +5 Reichweite\newline
+    +10 Glück \\
+    \rowincludegraphics[scale=1]{eye} & +20 Glück \newline
+    +10\% kritischer Schaden\\
+    \rowincludegraphics[scale=1]{knife} & +1 Schaden \newline
+    -5 Reichweite\newline
+    +5 Glück\newline
+    +50\% kritischer Schaden\\
+    \rowincludegraphics[scale=1]{chain} & +0.05 Projektilgeschwindigkeit \newline
+    x1.25 Projektilgeschwindigkeit \newline
+	x1.05 Schaden\newline
+    +2 Reichweite\\
+\end{atab}
+
+\subsection{UI}
+\subsubsection{Main Menu}
+%TODO UI Main Menu
+
+\subsubsection{Death Menu}
+%TODO UI Death Menu
+
+\subsubsection{Lebensanzeige}
+\graphic{ui-health}{Lebensanzeige}
+In der obigen Abbildung sieht man die Lebensanzeige des Spielers. Hier werden die aktuell verbleibenden Herzen angezeigt (hier insgesamt 5 Herzen), sowie die momentan maximal mögliche Anzahl an Herzen, die der Spieler haben kann (hier 7 Herzen). Unterhalb der Lebensanzeige findet sich die Anzahl der momentan gesammelten Münzen.
+
+\subsubsection{Inventar}
+\graphic{ui-inventory}{Inventar}
+Am unteren Bildschirmrand ist das in der Abbildung zu sehende Inventar zu finden. Hier werden alle Items, die der Spieler momentan besitzt, angezeigt. Die Slots links sind dabei für eine Waffe sowie eine Waffenverbesserung, der Slot in der Mitte für ein aktives Items und die 5 Slots rechts für 5 passive Items. \\
+Ist kein Platz mehr für ein bestimmtes Item, so kann dieses erst aufgehoben werden, nachdem im dem Item entsprechenden Slot Platz gemacht wurde, indem ein Item abgelegt wurde.
+
+\subsubsection{Stats}
+\graphic{ui-stats}{Stats}
+In dieser Abbildung ist das Stats Menü zu sehen, welches durch drücken von 'Tab' angezeigt wird. Links oben werden hier die aktuellen Stats des Spielers angezeigt.\\
+Darunter befindet sich eine Beschreibung der aktuellen Waffe, Waffen Verbesserung und Aktiven Items.\\
+Auf der rechten Seite sind die Statboni der passiven Items zu sehen.
+
+\subsubsection{Minimap}
+%TODO UI Minimap
+
+\section{Erweiterbarkeit}
+Der Prototyp bietet viele verschiedene Möglichkeiten, wie er noch erweitert werden kann, um zu einem vollständigen Spiel zu werden:
+\begin{itemize}
+\item Es kann eine \textbf{Story} eingeführt werden, die erklärt wieso sich der Spieler im Dungeon befindet und was sein Ziel dort ist. Passend dazu könnte das Spiel dann auch so erweitert werden, dass es \textbf{Missionen} im Dungeon gibt, die der Spieler erledigen muss, um in der Story fortzuschreiten.
+\item Es können \textbf{neue Gegner Variationen} eingebaut werden. Auch könnten \textbf{Bosskämpfe} eingebaut werden, die dann zB in jeder 5. Ebene auftreten und eine besondere Herausforderung gegen starke Gegner bieten
+\item Die \textbf{Auswahl an Items kann vergrößert} werden, es gibt nahezu endlose Möglichkeiten für neue Items die eingebaut werden könnten. Einige Beispiele hierfür wären: KI Helfer, Nahkampfwaffen oder Tränke.
+\item Die \textbf{Vielfalt der Räume} kann weiter erhöht werden, durch komplett neue Raumarten oder neue Varianten bereits existierender Räume.
+\item Es können \textbf{neue Charaktere} eingebaut werden. Zudem könnten für jeden Charakter \textbf{einzigartige Fähigkeiten} entwickelt werden, um die Spielweiße je nach Charakter zu verändern.
+\end{itemize}
+
+\section{Verwendete Assets}
+
+
+
