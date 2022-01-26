@@ -85,7 +85,6 @@ public class EnemyGenerator : MonoBehaviour
                     case EnemyType.Mage:
                         if (mage_prefab != null)
                         {
-                            // TODO: QUICKFIX
                             enemyObj = Instantiate(mage_prefab);
                         }
                         break;

@@ -10,6 +10,7 @@ public class FireballExplosion : MonoBehaviour
     private float Speed;
     Rigidbody body;
 
+
     public void Setup(Vector3 direction, float speed, float dmg)
     {
         this.Direction = direction;
@@ -18,7 +19,9 @@ public class FireballExplosion : MonoBehaviour
         Destroy(gameObject, 10f);
 
         body = GetComponent<Rigidbody>();
-        body.AddForce(Direction * Speed, ForceMode.Impulse);
+        body.AddForce(transform.forward * Speed, ForceMode.Impulse);
+
+        gameObject.GetComponent<AudioSource>().Play();
     }
 
 
@@ -29,14 +32,12 @@ public class FireballExplosion : MonoBehaviour
         {
             player.TakeDamage(Dmg);
             startExplosionParticle();
-            Debug.Log(other.gameObject);
         }
-        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room")
+        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room" || other.gameObject.name.Contains("Battle"))
         {
         }
         else
         {
-            Debug.Log(other.gameObject);
             startExplosionParticle();
         }
     }
@@ -50,4 +51,5 @@ public class FireballExplosion : MonoBehaviour
         GetComponent<Collider>().enabled = false;
         particles.Play();
     }
+
 }

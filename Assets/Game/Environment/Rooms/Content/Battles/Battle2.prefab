@@ -355,7 +355,7 @@ MonoBehaviour:
   bigSkeleton_prefab: {fileID: 6780709982196959223, guid: ba8c8021e80efdf458f08f724642ef44, type: 3}
   witch_prefab: {fileID: 6780709982196959223, guid: 362c4d6e6dddd894a90e48fb38d4285f, type: 3}
   wiking_prefab: {fileID: 6780709982196959223, guid: 23d447b7059f3e24e8c1abef9844f944, type: 3}
-  magician_prefab: {fileID: 6780709982196959223, guid: 4d3e9209207211a4589b22556c0ed3dd, type: 3}
+  mage_prefab: {fileID: 6780709982196959223, guid: 4d3e9209207211a4589b22556c0ed3dd, type: 3}
 --- !u!1 &5029733405854146465
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,6 +684,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: torchWall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
 --- !u!4 &1028126946858121936 stripped
@@ -745,6 +749,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
       propertyPath: m_Name
       value: wall_end_broken
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
@@ -813,6 +821,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bricks
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
 --- !u!4 &2199672204244024078 stripped
@@ -874,6 +886,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
       propertyPath: m_Name
       value: wall_end_broken (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c1f094674ab76db4a81a16c675b95592, type: 3}
@@ -1004,6 +1020,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: wall (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
 --- !u!4 &1824941103611203805 stripped
@@ -1133,6 +1153,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: torchWall (3)
       objectReference: {fileID: 0}
+    - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
 --- !u!4 &4157070727996355998 stripped
@@ -1194,6 +1218,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: b00f2635250a17a40b047ca9c036c77b, type: 3}
       propertyPath: m_Name
       value: wallCorner
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: b00f2635250a17a40b047ca9c036c77b, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b00f2635250a17a40b047ca9c036c77b, type: 3}
@@ -1262,6 +1290,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: torchWall (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
 --- !u!4 &5637425733311870019 stripped
@@ -1323,6 +1355,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
       propertyPath: m_Name
       value: bricks (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
@@ -1448,6 +1484,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: pots
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 3bc03faf326d10d4ab65bb0a76359a28, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bc03faf326d10d4ab65bb0a76359a28, type: 3}
 --- !u!4 &5850508781672818216 stripped
@@ -1509,6 +1549,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
       propertyPath: m_Name
       value: wall (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
@@ -1577,6 +1621,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bricks (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e67b18a6456f6d46911e4ec613e3279, type: 3}
 --- !u!4 &6517340265510933340 stripped
@@ -1638,6 +1686,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
       propertyPath: m_Name
       value: wall
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4f0ab061845f7334bbf367a4ec8d158e, type: 3}
@@ -1705,6 +1757,10 @@ PrefabInstance:
     - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
       propertyPath: m_Name
       value: torchWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
@@ -1829,6 +1885,10 @@ PrefabInstance:
     - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
       propertyPath: m_Name
       value: torchWall
+      objectReference: {fileID: 0}
+    - target: {fileID: 671600973024164808, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a7e225d79ea71c4ea0d54bd0b0f816f, type: 3}
@@ -2089,6 +2149,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 8761b8ee39fc49248a7aca58b1d7d7d0, type: 3}
       propertyPath: m_Name
       value: fencePost
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 8761b8ee39fc49248a7aca58b1d7d7d0, type: 3}
+      propertyPath: m_TagString
+      value: Decoration
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8761b8ee39fc49248a7aca58b1d7d7d0, type: 3}

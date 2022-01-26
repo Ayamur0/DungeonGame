@@ -14,8 +14,7 @@ public class EnemyController : MonoBehaviour {
 
     private EnemyGenerator.EnemyType EnemyType;
 
-    public State currentState;
-
+    protected State currentState;
 
     [Header("Scripts")]
     public EnemyHealth HealthStats;
@@ -38,9 +37,11 @@ public class EnemyController : MonoBehaviour {
 
     private Room activeRoom;
 
+    private int arrowCounter = 0;
+
     [Header("Effects")]
-    public AudioClip DeathSound;
-    private AudioSource audiosource;
+    public AudioClip[] NearAttackSounds;
+    private AudioSource Audiosource;
     public GameObject DeathVFX;
     private bool vfxStarted = false;
 
@@ -57,7 +58,7 @@ public class EnemyController : MonoBehaviour {
         DamageManager = GetComponent<DamageManager>();
         HealthStats.Init(this, type);
         DamageManager.Init(mode, type);
-        audiosource = GetComponent<AudioSource>();
+        Audiosource = GetComponent<AudioSource>();
 
         this.activeRoom = activeRoom;
     }
@@ -167,8 +168,20 @@ public class EnemyController : MonoBehaviour {
     private void ChasePlayer() {
         Agent.SetDestination(Player.transform.position);
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.attackRange) {
+            RaycastHit sphereHit;
+            if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
+            {
+                if (sphereHit.transform.gameObject.tag != "Player")
+                {
+                    return;
+                }
+            }
             currentState = State.Attack;
         }
+    }
+    public void ActivateChasing()
+    {
+        currentState = State.Chasing;
     }
 
     private void Attack() {
@@ -195,7 +208,14 @@ public class EnemyController : MonoBehaviour {
 
     private void SendDamage() {
         Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
-        Debug.Log(gameObject.name + "Attack!!");
+        if (NearAttackSounds != null)
+        {
+            if (NearAttackSounds.Length > 0)
+            {
+                Audiosource.clip = NearAttackSounds[Random.Range(0, NearAttackSounds.Length)];
+                Audiosource.Play();
+            }
+        }
     }
 
 
@@ -209,19 +229,61 @@ public class EnemyController : MonoBehaviour {
 
     private void ShootProjectile() {
         Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
-        GameObject projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation); //TODO: Set rotation for arrows;
+        GameObject projectileObj;
 
         switch (EnemyType) {
             case EnemyGenerator.EnemyType.Archer:
-                projectileObj.GetComponent<ArrowEffect>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
+                Debug.Log(arrowCounter);
+                if (arrowCounter > 3)
+                {
+                    projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, 30, 0));
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, -30, 0)); 
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    arrowCounter = 0;
+                    
+                }
+                else
+                {
+                    projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                }
+                arrowCounter++;
                 break;
             case EnemyGenerator.EnemyType.Mage:
-                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
+                StartCoroutine(MageShots());
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 1f, DamageManager.GetDamage());
+                projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+                //TODO change speed to 10f
+                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 25f, DamageManager.GetDamage());
                 break;
 
+        }
+    }
+
+    private IEnumerator MageShots(){
+        GameObject projectileObj;
+
+        for (int i = 0; i < 3; i++)
+        {
+            Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
+            projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+            projectileObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+            StartCoroutine(GrowFireball(projectileObj));
+            projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 7f, DamageManager.GetDamage());
+            yield return new WaitForSeconds(.7f);
+        }
+    }
+
+    private IEnumerator GrowFireball(GameObject projectileObj)
+    {
+        while (projectileObj.transform.localScale.x < 1.0f)
+        {
+            projectileObj.transform.localScale += new Vector3(1.0f, 1.0f, 1.0f) * Time.deltaTime;
+            yield return new WaitForSeconds(0);
         }
     }
 }

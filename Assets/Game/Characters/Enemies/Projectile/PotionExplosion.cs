@@ -5,11 +5,10 @@ using UnityEngine;
 
 public class PotionExplosion : MonoBehaviour
 {
-    private Vector3 Direction;
+    public Vector3 Direction;
     private float Dmg;
     private float Speed;
     Rigidbody body;
-
 
     public void Setup(Vector3 direction, float speed, float dmg)
     {
@@ -19,7 +18,7 @@ public class PotionExplosion : MonoBehaviour
         Destroy(gameObject, 5f);
 
         body = GetComponent<Rigidbody>();
-        body.AddForce(Direction * Speed, ForceMode.Impulse);
+        body.AddForce(transform.forward * Speed, ForceMode.Impulse);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -29,21 +28,23 @@ public class PotionExplosion : MonoBehaviour
         {
             player.TakeDamage(Dmg);
             startExplosionParticle();
-            Debug.Log(other.gameObject);
         }
-        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room")
+        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room" || other.gameObject.name.Contains("Battle"))
         {
         }
         else
         {
             startExplosionParticle();
-            Debug.Log(other.gameObject);
         }
     }
 
     private void startExplosionParticle()
     {
+        gameObject.GetComponent<AudioSource>().Play();
+
         Destroy(gameObject);
+
         //TODO break bottle create visible damage area
     }
+
 }

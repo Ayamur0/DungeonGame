@@ -16,7 +16,7 @@ public class LevelManager : MonoBehaviour {
     private TransitionManager transitionManager;
     private AudioSource audioSource;
 
-    public Action ActiveRoomChanged;
+    public Action<GameObject, GameObject> ActiveRoomChanged;
     public Action NextStageLoaded;
 
     public GameObject GetActiveRoom() {
@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour {
             var powerups = GameObject.FindGameObjectsWithTag("Powerup");
             if (powerups != null) {
                 foreach (var powerup in powerups) {
-                    if (powerup.GetComponent<BoxCollider>().enabled)
+                    if (powerup.GetComponent<SpriteRenderer>().enabled)
                         Destroy(powerup);
                 }
             }
@@ -103,11 +103,10 @@ public class LevelManager : MonoBehaviour {
             }
         }
 
+        this.ActiveRoomChanged?.Invoke(this.activeRoom, newRoom);
         this.activeRoom = newRoom;
         this.activeRoom.SetActive(true);
         EnableNeighborRooms();
-
-        this.ActiveRoomChanged?.Invoke();
     }
 
     public void EnableNeighborRooms() {
