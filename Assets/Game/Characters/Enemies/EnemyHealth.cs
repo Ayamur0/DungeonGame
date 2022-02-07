@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour {
     private float _health;
     public float Health => _health;
+    float maxHealth;
 
     private AudioSource audiosource;
 
@@ -15,8 +16,12 @@ public class EnemyHealth : MonoBehaviour {
     private LevelManager levelManager;
     private EnemyController controller;
 
+    EnemyUIHealthBar healthBar;
+
     void Start() {
         levelManager = FindObjectOfType<LevelManager>();
+        healthBar = GetComponentInChildren<EnemyUIHealthBar>();
+        healthBar.gameObject.SetActive(false);
     }
 
     public void Init(EnemyController controller, EnemyGenerator.EnemyType type) {
@@ -45,6 +50,7 @@ public class EnemyHealth : MonoBehaviour {
         if (levelManager == null)
             levelManager = FindObjectOfType<LevelManager>();
         this._health += levelManager.CurrentStage / 2;
+        maxHealth = _health;
 
         audiosource = GetComponent<AudioSource>();
     }
@@ -54,11 +60,13 @@ public class EnemyHealth : MonoBehaviour {
 
         if (_health <= 0)
         {
+            healthBar.gameObject.SetActive(false);
             controller.Die();
         }
         else
         {
             controller.showHitEffect();
+            healthBar.SetHealthBarPercentage(_health / maxHealth);
         }
             
 
@@ -66,9 +74,8 @@ public class EnemyHealth : MonoBehaviour {
         {
             attacked = true;
             controller.ActivateChasing();
+            healthBar.gameObject.SetActive(true);
         }
-
-        //TODO: SHOW HEALTHBAR
 
         if (GetDamageSounds != null) {
             if (GetDamageSounds.Length > 0) {
