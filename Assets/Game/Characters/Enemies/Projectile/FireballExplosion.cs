@@ -33,10 +33,7 @@ public class FireballExplosion : MonoBehaviour
             player.TakeDamage(Dmg);
             startExplosionParticle();
         }
-        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room" || other.gameObject.name.Contains("Battle"))
-        {
-        }
-        else
+        else if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "Room" && !(other.gameObject.name.Contains("Battle")))
         {
             startExplosionParticle();
         }

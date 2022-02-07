@@ -66,7 +66,6 @@ public class EnemyGenerator : MonoBehaviour
             for (int f = 1; f <= amountEnemy; f++)
             {
                 int PointRandomIndex = Random.Range(0, spawnPoints.Count - 1);
-                //Debug.Log("("+amountEnemy+") "+(amountEnemy - f)+"<"+spawnPoints.Count);
                 Transform spawnpoint = spawnPoints[PointRandomIndex];
                 spawnPoints.RemoveAt(PointRandomIndex);
                 GameObject enemyObj = null;
