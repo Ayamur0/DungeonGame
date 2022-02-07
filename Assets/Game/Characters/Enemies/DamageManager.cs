@@ -29,7 +29,7 @@ public class DamageManager : MonoBehaviour {
                 this.damage = 1f;
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                this.damage = 1f;
+                this.damage = 0.5f;
                 break;
         }
     }

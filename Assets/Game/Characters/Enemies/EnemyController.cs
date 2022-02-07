@@ -60,6 +60,11 @@ public class EnemyController : MonoBehaviour {
         DamageManager.Init(mode, type);
         Audiosource = GetComponent<AudioSource>();
 
+        if (type == EnemyGenerator.EnemyType.Witch)
+        {
+            m_Animator.SetFloat("shootingTimeMultiplier", 0.4f);
+        }
+
         this.activeRoom = activeRoom;
     }
 
@@ -256,9 +261,8 @@ public class EnemyController : MonoBehaviour {
                 StartCoroutine(MageShots());
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                //TODO change speed to 10f
-                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 25f, DamageManager.GetDamage());
+                projectileObj = Instantiate(projectile, spawnPosition, Quaternion.identity);
+                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 8f, DamageManager.GetDamage());
                 break;
 
         }
