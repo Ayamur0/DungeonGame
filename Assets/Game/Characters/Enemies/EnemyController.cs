@@ -44,6 +44,26 @@ public class EnemyController : MonoBehaviour {
     private AudioSource Audiosource;
     public GameObject DeathVFX;
     private bool vfxStarted = false;
+    Component[] EffectSkinnedMesh;
+    Component[] EffectMesh;
+
+    public class ColorItem
+    {
+        public int Index;
+        public Color Item;
+
+        public ColorItem(int i, Color color)
+        {
+            Index = i;
+            Item = color;
+        }
+    }
+
+    public List<ColorItem> Colors = new List<ColorItem>();
+    private bool HitEffectPlayed;
+    public float lightTimer;
+    public float lightDuration;
+    public float lightningIntensity;
 
     private PowerupSpawner powerupSpawner;
 
@@ -60,12 +80,42 @@ public class EnemyController : MonoBehaviour {
         DamageManager.Init(mode, type);
         Audiosource = GetComponent<AudioSource>();
 
+        EffectSkinnedMesh = GetComponentsInChildren<SkinnedMeshRenderer>();
+        EffectMesh = GetComponentsInChildren<MeshRenderer>();
+        SetListOfMeshRenderer();
+
+        lightDuration = 0.5f;
+        lightningIntensity = 10.0f;
+
         if (type == EnemyGenerator.EnemyType.Witch)
         {
             m_Animator.SetFloat("shootingTimeMultiplier", 0.4f);
         }
 
         this.activeRoom = activeRoom;
+
+    }
+
+    private void SetListOfMeshRenderer()
+    {
+        int i = 0;
+        foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+        {
+            foreach (Material mat in mesh.materials)
+            {
+                
+                Colors.Add(new ColorItem(i, mat.color));
+                i++;
+            }
+        }
+        foreach (MeshRenderer mesh in EffectMesh)
+        {
+            foreach (Material mat in mesh.materials)
+            {
+                Colors.Add(new ColorItem(i, mat.color));
+                i++;
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -102,6 +152,66 @@ public class EnemyController : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void showHitEffect()
+    {
+        lightTimer = lightDuration;
+        StartCoroutine(StartEffect(lightTimer));
+    }
+
+    private IEnumerator StartEffect(float lightTimer)
+    {
+        if (!HitEffectPlayed)
+        {
+            HitEffectPlayed = true;
+            List<ColorItem> ListColors = new List<ColorItem>(Colors);
+            while (lightTimer > 0.0f)
+            {
+                float lerp = Mathf.Clamp01(lightTimer / lightDuration);
+                float intensity = (lerp * lightningIntensity) + 1.0f;
+                foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+                {
+                    if (lightTimer >= 0.0f)
+                    {
+                        foreach (Material mat in mesh.materials)
+                        {
+                            mat.color = Color.white * intensity;
+                        }
+                    }
+                }
+                foreach (MeshRenderer mesh in EffectMesh)
+                {
+                    if (lightTimer >= 0.0f)
+                    {
+                        foreach (Material mat in mesh.materials)
+                        {
+                            mat.color = Color.white * intensity;
+                        }
+                    }
+                }
+                lightTimer -= Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+            {
+                foreach (Material mat in mesh.materials)
+                {
+                    mat.color = ListColors[0].Item;
+                    ListColors.Remove(ListColors[0]);
+                }
+            }
+            foreach (MeshRenderer mesh in EffectMesh)
+            {
+                foreach (Material mat in mesh.materials)
+                { 
+                    mat.color = ListColors[0].Item;
+                    ListColors.Remove(ListColors[0]);
+                }
+            }
+            HitEffectPlayed = false;
+            yield break;
         }
     }
 
