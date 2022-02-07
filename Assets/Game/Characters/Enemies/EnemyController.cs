@@ -37,7 +37,7 @@ public class EnemyController : MonoBehaviour {
 
     private Room activeRoom;
 
-    private int arrowCounter = 0;
+    private int arrowCounter;
 
     [Header("Effects")]
     public AudioClip[] NearAttackSounds;
@@ -348,24 +348,22 @@ public class EnemyController : MonoBehaviour {
 
         switch (EnemyType) {
             case EnemyGenerator.EnemyType.Archer:
-                Debug.Log(arrowCounter);
                 if (arrowCounter > 3)
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, 30, 0));
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, -30, 0)); 
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     arrowCounter = 0;
-                    
                 }
                 else
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
                     projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    arrowCounter++;
                 }
-                arrowCounter++;
                 break;
             case EnemyGenerator.EnemyType.Mage:
                 StartCoroutine(MageShots());
@@ -379,16 +377,21 @@ public class EnemyController : MonoBehaviour {
     }
 
     private IEnumerator MageShots(){
-        GameObject projectileObj;
-
-        for (int i = 0; i < 3; i++)
+        if (!waitForTimeout)
         {
-            Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
-            projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-            projectileObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            StartCoroutine(GrowFireball(projectileObj));
-            projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 7f, DamageManager.GetDamage());
-            yield return new WaitForSeconds(.7f);
+            GameObject projectileObj;
+
+            waitForTimeout = true;
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
+                projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+                projectileObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                StartCoroutine(GrowFireball(projectileObj));
+                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 7f, DamageManager.GetDamage());
+                yield return new WaitForSeconds(.7f);
+            }
+            waitForTimeout = false;
         }
     }
 
