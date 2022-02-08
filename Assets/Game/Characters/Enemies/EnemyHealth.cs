@@ -66,7 +66,7 @@ public class EnemyHealth : MonoBehaviour {
         }
         else
         {
-            controller.showHitEffect(Color.white);
+            controller.showHitEffect(new Color(185,0,0));
             healthBar.SetHealthBarPercentage(_health / maxHealth);
         }
             
