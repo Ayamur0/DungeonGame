@@ -125,7 +125,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     // Update is called once per frame
-    void Update() {
+    void FixedUpdate() {
         if (!alive)
             return;
         switch (currentState) {
@@ -270,10 +270,15 @@ public class EnemyController : MonoBehaviour {
         return transform.position + walkingPoint;
     }
 
+
+
     private void DetectPlayer() {
-        if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.searchRange) {
+        if (Vector3.Distance(Player.transform.position, transform.position) < EnemyStats.searchRange) {
             RaycastHit hit;
-            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out hit, EnemyStats.searchRange))
+            Vector3 originPosition = transform.position + new Vector3(0,1,0);
+            Vector3 PlayerPosition = Player.transform.position + new Vector3(0,1,0);
+            Debug.DrawRay(originPosition, PlayerPosition - originPosition, Color.black);
+            if (Physics.Raycast(originPosition, PlayerPosition - originPosition, out hit, EnemyStats.searchRange))
             {
                 if (hit.transform.gameObject.tag != "Player")
                 {
@@ -287,10 +292,11 @@ public class EnemyController : MonoBehaviour {
 
     private void ChasePlayer() {
         Agent.SetDestination(Player.transform.position);
-        if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.attackRange) {
+        if (Vector3.Distance(Player.transform.position, transform.position) < EnemyStats.attackRange) {
             RaycastHit sphereHit;
-            //if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
-            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.attackRange))
+            Vector3 originPosition = transform.position + new Vector3(0, 1, 0);
+            Vector3 PlayerPosition = Player.transform.position + new Vector3(0, 1, 0);
+            if (Physics.Raycast(originPosition, PlayerPosition - originPosition, out sphereHit, EnemyStats.attackRange))
             {
                 if (sphereHit.transform.gameObject.tag != "Player")
                 {
