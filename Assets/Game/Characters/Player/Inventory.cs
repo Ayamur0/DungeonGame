@@ -151,12 +151,17 @@ public class Inventory : MonoBehaviour {
                 // play sound
                 var pickedUp = p.Pickup(gameObject);
                 if (pickedUp) {
-                    var audioSource = GetComponent<AudioSource>();
-                    audioSource.clip = PickupSound;
-                    audioSource.Play();
+                    PlayerPickupSound();
                 }
             }
         }
+    }
+
+    public void PlayerPickupSound()
+    {
+        var audioSource = GetComponent<AudioSource>();
+        audioSource.clip = PickupSound;
+        audioSource.Play();
     }
 
     private Powerup GetClosestPowerup() {

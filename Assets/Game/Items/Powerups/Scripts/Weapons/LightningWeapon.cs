@@ -7,7 +7,7 @@ public class LightningWeapon : Weapon {
     private bool lightningActive;
     private GameObject currentTarget;
     private GameObject projectileInstance;
-    private float damageModifier = 0.5f;
+    private float damageModifier = 0.75f;
     private List<System.Type> disabledWeaponMods = new List<System.Type> { typeof(TripleShot), typeof(BigProjectile) };
     private List<GameObject> projectileList;
     private bool soundPlaying = false;
@@ -70,8 +70,7 @@ public class LightningWeapon : Weapon {
         projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().enabled = lightningActive;
         if (!lightningActive) {
             // stop sound
-            if (soundPlaying)
-            {
+            if (soundPlaying) {
                 GetComponent<AudioSource>().Stop();
                 soundPlaying = false;
             }
@@ -92,18 +91,15 @@ public class LightningWeapon : Weapon {
         }
 
         // play sound
-        if (!soundPlaying)
-        {
+        if (!soundPlaying) {
             GetComponent<AudioSource>().Play();
             soundPlaying = true;
         }
 
 
         projectileInstance.GetComponent<DigitalRuby.LightningBolt.LightningBoltScript>().EndObject = nearestEnemy.gameObject;
-        if (LightHitVfx != null)
-        {
-            if (time >= interpolationPeriod)
-            {
+        if (LightHitVfx != null) {
+            if (time >= interpolationPeriod) {
                 time -= interpolationPeriod;
                 var lightvfxObj = Instantiate(LightHitVfx, nearestEnemy.gameObject.transform.position, Quaternion.identity);
                 var scale = 3.5f;
