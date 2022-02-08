@@ -157,13 +157,4 @@ public class LevelManager : MonoBehaviour {
 
         return rooms;
     }
-
-    public void Update() {
-        if (Input.GetKeyDown(KeyCode.L)) {
-            var room = this.activeRoom.GetComponent<Room>();
-            if (room.Type == RoomType.Battle) {
-                room.RoomCleared();
-            }
-        }
-    }
 }
