@@ -135,7 +135,7 @@ public class EnemyController : MonoBehaviour {
                     Agent.SetDestination(NextMovingPoint);
                     m_Animator.SetTrigger("walking");
                     playerDistance = Vector3.Distance(transform.position, NextMovingPoint);
-                    if (playerDistance < 1f) {
+                    if (playerDistance < 1.5f) {
                         MovePointisValid = false;
                         NextMovingPoint = ChooseNextMovingPoint();
                     }
@@ -219,6 +219,8 @@ public class EnemyController : MonoBehaviour {
         this.alive = false;
         Agent.ResetPath();
 
+        GetComponent<CapsuleCollider>().enabled = false;
+
         m_Animator.ResetTrigger("walking");
         m_Animator.ResetTrigger("attacking");
         m_Animator.SetTrigger("defeated");
@@ -270,12 +272,10 @@ public class EnemyController : MonoBehaviour {
 
     private void DetectPlayer() {
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.searchRange) {
-            RaycastHit sphereHit;
-            // if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f)) {
-            //Debug.DrawRay(transform.position, Player.transform.position, Color.Red);
-            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.searchRange))
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out hit, EnemyStats.searchRange))
             {
-                if (sphereHit.transform.gameObject.tag != "Player")
+                if (hit.transform.gameObject.tag != "Player")
                 {
                     return;
                 }
@@ -328,8 +328,6 @@ public class EnemyController : MonoBehaviour {
     }
 
     private void SendNearAttackDamage() {
-        if (Vector3.Distance(transform.position, Player.transform.position) <= EnemyStats.attackRange + 0.1f)
-        {
             Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
             if (NearAttackSounds != null)
             {
@@ -339,7 +337,6 @@ public class EnemyController : MonoBehaviour {
                     Audiosource.Play();
                 }
             }
-        }
     }
 
 
