@@ -155,13 +155,13 @@ public class EnemyController : MonoBehaviour {
         }
     }
 
-    public void showHitEffect()
+    public void showHitEffect(Color color)
     {
         lightTimer = lightDuration;
-        StartCoroutine(StartEffect(lightTimer));
+        StartCoroutine(StartEffect(lightTimer, color));
     }
 
-    private IEnumerator StartEffect(float lightTimer)
+    private IEnumerator StartEffect(float lightTimer, Color EffectColor)
     {
         if (!HitEffectPlayed)
         {
@@ -177,7 +177,7 @@ public class EnemyController : MonoBehaviour {
                     {
                         foreach (Material mat in mesh.materials)
                         {
-                            mat.color = Color.white * intensity;
+                            mat.color = EffectColor * intensity;
                         }
                     }
                 }
@@ -187,7 +187,7 @@ public class EnemyController : MonoBehaviour {
                     {
                         foreach (Material mat in mesh.materials)
                         {
-                            mat.color = Color.white * intensity;
+                            mat.color = EffectColor * intensity;
                         }
                     }
                 }

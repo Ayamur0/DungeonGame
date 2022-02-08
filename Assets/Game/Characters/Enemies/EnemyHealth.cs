@@ -17,6 +17,7 @@ public class EnemyHealth : MonoBehaviour {
     private EnemyController controller;
 
     EnemyUIHealthBar healthBar;
+    private float lastMultiplier = 1;
 
     void Start() {
         levelManager = FindObjectOfType<LevelManager>();
@@ -65,7 +66,7 @@ public class EnemyHealth : MonoBehaviour {
         }
         else
         {
-            controller.showHitEffect();
+            controller.showHitEffect(Color.white);
             healthBar.SetHealthBarPercentage(_health / maxHealth);
         }
             
@@ -83,5 +84,50 @@ public class EnemyHealth : MonoBehaviour {
                 audiosource.Play();
             }
         }
+    }
+
+    public void ReceivePoisonDamage(float damage)
+    {
+        _health -= damage;
+
+        if (_health <= 0)
+        {
+            healthBar.gameObject.SetActive(false);
+            controller.Die();
+        }
+        else
+        {
+            controller.showHitEffect(Color.green);
+            healthBar.SetHealthBarPercentage(_health / maxHealth);
+        }
+
+
+        if (!attacked)
+        {
+            attacked = true;
+            controller.ActivateChasing();
+            healthBar.gameObject.SetActive(true);
+        }
+
+        if (GetDamageSounds != null)
+        {
+            if (GetDamageSounds.Length > 0)
+            {
+                audiosource.clip = GetDamageSounds[Random.Range(0, GetDamageSounds.Length)];
+                audiosource.Play();
+            }
+        }
+    }
+
+    public void SlowEnemy(float multiplier)
+    {
+        controller.Agent.speed *= multiplier;
+        lastMultiplier = multiplier;
+    }
+
+    public void ResetSlowness()
+    {
+        controller.Agent.speed *= 1 / lastMultiplier;
+        lastMultiplier = 1;
     }
 }

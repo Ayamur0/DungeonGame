@@ -17,7 +17,7 @@ public class OnHitPoison : WeaponMod {
     public IEnumerator PoisonEffectRoutine(GameObject target) {
         for (int i = 0; i < 5; i++) {
             yield return new WaitForSeconds(0.25f);
-            // deal damage to target
+            target.GetComponent<EnemyHealth>().ReceivePoisonDamage(1.0f);
         }
     }
 

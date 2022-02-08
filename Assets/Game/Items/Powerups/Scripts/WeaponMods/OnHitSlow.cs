@@ -15,10 +15,13 @@ public class OnHitSlow : WeaponMod {
     }
 
     public IEnumerator SlowEffectRoutine(GameObject target) {
-        yield return new WaitForSeconds(0);
-        // slow target
-        yield return new WaitForSeconds(1);
-        // remove slow
+        if(target != null && target.GetComponent<EnemyHealth>() != null)
+        {
+            yield return new WaitForSeconds(0);
+            target.GetComponent<EnemyHealth>().SlowEnemy((float)0.75);
+            yield return new WaitForSeconds(1);
+            target.GetComponent<EnemyHealth>().ResetSlowness();
+        }
     }
 
     public override string GetDescription() {
