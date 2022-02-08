@@ -363,17 +363,17 @@ public class EnemyController : MonoBehaviour {
                 if (arrowCounter > 3)
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 15f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, 30, 0));
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 15f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, -30, 0)); 
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 15f, DamageManager.GetDamage());
                     arrowCounter = 0;
                 }
                 else
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 15f, DamageManager.GetDamage());
                     arrowCounter++;
                 }
                 break;
