@@ -271,11 +271,16 @@ public class EnemyController : MonoBehaviour {
     private void DetectPlayer() {
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.searchRange) {
             RaycastHit sphereHit;
-            if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f)) {
-                if (sphereHit.transform.gameObject.tag != "Player") {
+            // if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f)) {
+            //Debug.DrawRay(transform.position, Player.transform.position, Color.Red);
+            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.searchRange))
+            {
+                if (sphereHit.transform.gameObject.tag != "Player")
+                {
                     return;
                 }
             }
+            else return;
             currentState = State.Chasing;
         }
     }
@@ -284,7 +289,8 @@ public class EnemyController : MonoBehaviour {
         Agent.SetDestination(Player.transform.position);
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.attackRange) {
             RaycastHit sphereHit;
-            if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
+            //if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
+            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.attackRange))
             {
                 if (sphereHit.transform.gameObject.tag != "Player")
                 {
@@ -321,14 +327,17 @@ public class EnemyController : MonoBehaviour {
         waitForTimeout = false;
     }
 
-    private void SendDamage() {
-        Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
-        if (NearAttackSounds != null)
+    private void SendNearAttackDamage() {
+        if (Vector3.Distance(transform.position, Player.transform.position) <= EnemyStats.attackRange + 0.1f)
         {
-            if (NearAttackSounds.Length > 0)
+            Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
+            if (NearAttackSounds != null)
             {
-                Audiosource.clip = NearAttackSounds[Random.Range(0, NearAttackSounds.Length)];
-                Audiosource.Play();
+                if (NearAttackSounds.Length > 0)
+                {
+                    Audiosource.clip = NearAttackSounds[Random.Range(0, NearAttackSounds.Length)];
+                    Audiosource.Play();
+                }
             }
         }
     }
