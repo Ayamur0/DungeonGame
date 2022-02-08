@@ -43,7 +43,6 @@ public class Shop : MonoBehaviour {
     }
 
     void SetCurrentTrigger(int id) {
-        Debug.Log("Trigger set to " + id);
         currentTrigger = id;
     }
 
@@ -58,6 +57,8 @@ public class Shop : MonoBehaviour {
             return;
         }
         boughtItems.Add(currentTrigger);
+        player.GetComponent<Inventory>().PlayerPickupSound();
+
     }
 
     private IEnumerator DisplayErrorMessage(string message) {
