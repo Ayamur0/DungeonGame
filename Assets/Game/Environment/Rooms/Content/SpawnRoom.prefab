@@ -436,7 +436,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1885464898962857206}
-  - {fileID: 5018165741375043479}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2718,76 +2717,6 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 7f1df8644c2605d43948dbf48f4bdf35, type: 3}
   m_PrefabInstance: {fileID: 6003451689216696783}
-  m_PrefabAsset: {fileID: 0}
---- !u!1001 &6694985321013796351
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 1885464899623854681}
-    m_Modifications:
-    - target: {fileID: 1823190982905752166, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 526e1ff34be2cf24e976267ba19b0199, type: 3}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_RootOrder
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.82
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -15.37
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752169, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: SpawnOnlyWeapons
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1823190982905752171, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-      propertyPath: m_Name
-      value: Chest
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
---- !u!4 &5018165741375043479 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1823190982905752168, guid: 18f2a8f1a4867ff4fa2190f5fa85e019, type: 3}
-  m_PrefabInstance: {fileID: 6694985321013796351}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7480178937434597485
 PrefabInstance:
