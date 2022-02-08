@@ -37,13 +37,33 @@ public class EnemyController : MonoBehaviour {
 
     private Room activeRoom;
 
-    private int arrowCounter = 0;
+    private int arrowCounter;
 
     [Header("Effects")]
     public AudioClip[] NearAttackSounds;
     private AudioSource Audiosource;
     public GameObject DeathVFX;
     private bool vfxStarted = false;
+    Component[] EffectSkinnedMesh;
+    Component[] EffectMesh;
+
+    public class ColorItem
+    {
+        public int Index;
+        public Color Item;
+
+        public ColorItem(int i, Color color)
+        {
+            Index = i;
+            Item = color;
+        }
+    }
+
+    public List<ColorItem> Colors = new List<ColorItem>();
+    private bool HitEffectPlayed;
+    public float lightTimer;
+    public float lightDuration;
+    public float lightningIntensity;
 
     private PowerupSpawner powerupSpawner;
 
@@ -60,7 +80,42 @@ public class EnemyController : MonoBehaviour {
         DamageManager.Init(mode, type);
         Audiosource = GetComponent<AudioSource>();
 
+        EffectSkinnedMesh = GetComponentsInChildren<SkinnedMeshRenderer>();
+        EffectMesh = GetComponentsInChildren<MeshRenderer>();
+        SetListOfMeshRenderer();
+
+        lightDuration = 0.5f;
+        lightningIntensity = 10.0f;
+
+        if (type == EnemyGenerator.EnemyType.Witch)
+        {
+            m_Animator.SetFloat("shootingTimeMultiplier", 0.4f);
+        }
+
         this.activeRoom = activeRoom;
+
+    }
+
+    private void SetListOfMeshRenderer()
+    {
+        int i = 0;
+        foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+        {
+            foreach (Material mat in mesh.materials)
+            {
+                
+                Colors.Add(new ColorItem(i, mat.color));
+                i++;
+            }
+        }
+        foreach (MeshRenderer mesh in EffectMesh)
+        {
+            foreach (Material mat in mesh.materials)
+            {
+                Colors.Add(new ColorItem(i, mat.color));
+                i++;
+            }
+        }
     }
 
     // Start is called before the first frame update
@@ -97,6 +152,66 @@ public class EnemyController : MonoBehaviour {
                 break;
             default:
                 break;
+        }
+    }
+
+    public void showHitEffect()
+    {
+        lightTimer = lightDuration;
+        StartCoroutine(StartEffect(lightTimer));
+    }
+
+    private IEnumerator StartEffect(float lightTimer)
+    {
+        if (!HitEffectPlayed)
+        {
+            HitEffectPlayed = true;
+            List<ColorItem> ListColors = new List<ColorItem>(Colors);
+            while (lightTimer > 0.0f)
+            {
+                float lerp = Mathf.Clamp01(lightTimer / lightDuration);
+                float intensity = (lerp * lightningIntensity) + 1.0f;
+                foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+                {
+                    if (lightTimer >= 0.0f)
+                    {
+                        foreach (Material mat in mesh.materials)
+                        {
+                            mat.color = Color.white * intensity;
+                        }
+                    }
+                }
+                foreach (MeshRenderer mesh in EffectMesh)
+                {
+                    if (lightTimer >= 0.0f)
+                    {
+                        foreach (Material mat in mesh.materials)
+                        {
+                            mat.color = Color.white * intensity;
+                        }
+                    }
+                }
+                lightTimer -= Time.deltaTime;
+                yield return new WaitForEndOfFrame();
+            }
+            foreach (SkinnedMeshRenderer mesh in EffectSkinnedMesh)
+            {
+                foreach (Material mat in mesh.materials)
+                {
+                    mat.color = ListColors[0].Item;
+                    ListColors.Remove(ListColors[0]);
+                }
+            }
+            foreach (MeshRenderer mesh in EffectMesh)
+            {
+                foreach (Material mat in mesh.materials)
+                { 
+                    mat.color = ListColors[0].Item;
+                    ListColors.Remove(ListColors[0]);
+                }
+            }
+            HitEffectPlayed = false;
+            yield break;
         }
     }
 
@@ -156,11 +271,16 @@ public class EnemyController : MonoBehaviour {
     private void DetectPlayer() {
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.searchRange) {
             RaycastHit sphereHit;
-            if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f)) {
-                if (sphereHit.transform.gameObject.tag != "Player") {
+            // if (Physics.SphereCast(transform.position, EnemyStats.searchRange, transform.forward, out sphereHit, 0.1f)) {
+            //Debug.DrawRay(transform.position, Player.transform.position, Color.Red);
+            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.searchRange))
+            {
+                if (sphereHit.transform.gameObject.tag != "Player")
+                {
                     return;
                 }
             }
+            else return;
             currentState = State.Chasing;
         }
     }
@@ -169,7 +289,8 @@ public class EnemyController : MonoBehaviour {
         Agent.SetDestination(Player.transform.position);
         if (Vector3.Distance(transform.position, Player.transform.position) < EnemyStats.attackRange) {
             RaycastHit sphereHit;
-            if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
+            //if (Physics.SphereCast(transform.position, EnemyStats.attackRange, transform.forward, out sphereHit, 0.1f))
+            if (Physics.Raycast(transform.position, Player.transform.position - transform.position, out sphereHit, EnemyStats.attackRange))
             {
                 if (sphereHit.transform.gameObject.tag != "Player")
                 {
@@ -206,14 +327,17 @@ public class EnemyController : MonoBehaviour {
         waitForTimeout = false;
     }
 
-    private void SendDamage() {
-        Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
-        if (NearAttackSounds != null)
+    private void SendNearAttackDamage() {
+        if (Vector3.Distance(transform.position, Player.transform.position) <= EnemyStats.attackRange + 0.1f)
         {
-            if (NearAttackSounds.Length > 0)
+            Player.GetComponent<PlayerAPI>().TakeDamage(DamageManager.GetDamage());
+            if (NearAttackSounds != null)
             {
-                Audiosource.clip = NearAttackSounds[Random.Range(0, NearAttackSounds.Length)];
-                Audiosource.Play();
+                if (NearAttackSounds.Length > 0)
+                {
+                    Audiosource.clip = NearAttackSounds[Random.Range(0, NearAttackSounds.Length)];
+                    Audiosource.Play();
+                }
             }
         }
     }
@@ -233,48 +357,50 @@ public class EnemyController : MonoBehaviour {
 
         switch (EnemyType) {
             case EnemyGenerator.EnemyType.Archer:
-                Debug.Log(arrowCounter);
                 if (arrowCounter > 3)
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, 30, 0));
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation * Quaternion.Euler(0, -30, 0)); 
-                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 13f, DamageManager.GetDamage());
                     arrowCounter = 0;
-                    
                 }
                 else
                 {
                     projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
                     projectileObj.GetComponentInChildren<ArrowEffect>().Setup(Player.transform.position, 10f, DamageManager.GetDamage());
+                    arrowCounter++;
                 }
-                arrowCounter++;
                 break;
             case EnemyGenerator.EnemyType.Mage:
                 StartCoroutine(MageShots());
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-                //TODO change speed to 10f
-                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 25f, DamageManager.GetDamage());
+                projectileObj = Instantiate(projectile, spawnPosition, Quaternion.identity);
+                projectileObj.GetComponent<PotionExplosion>().Setup(Player.transform.position, 8f, DamageManager.GetDamage());
                 break;
 
         }
     }
 
     private IEnumerator MageShots(){
-        GameObject projectileObj;
-
-        for (int i = 0; i < 3; i++)
+        if (!waitForTimeout)
         {
-            Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
-            projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
-            projectileObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-            StartCoroutine(GrowFireball(projectileObj));
-            projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 7f, DamageManager.GetDamage());
-            yield return new WaitForSeconds(.7f);
+            GameObject projectileObj;
+
+            waitForTimeout = true;
+            for (int i = 0; i < 3; i++)
+            {
+                Vector3 spawnPosition = transform.position + transform.forward + new Vector3(0, 1.5f, 0);
+                projectileObj = Instantiate(projectile, spawnPosition, gameObject.transform.rotation);
+                projectileObj.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+                StartCoroutine(GrowFireball(projectileObj));
+                projectileObj.GetComponent<FireballExplosion>().Setup(Player.transform.position, 7f, DamageManager.GetDamage());
+                yield return new WaitForSeconds(.7f);
+            }
+            waitForTimeout = false;
         }
     }
 

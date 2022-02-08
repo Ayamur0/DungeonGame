@@ -18,8 +18,8 @@ public class ArrowEffect : MonoBehaviour
         Destroy(gameObject.transform.parent.gameObject, 10f);
 
         body = GetComponent<Rigidbody>();
-        body.AddForce(-transform.up * Speed, ForceMode.Impulse);
-
+        body.AddRelativeForce(-transform.forward * Speed, ForceMode.Impulse);
+        
         gameObject.GetComponent<AudioSource>().Play();
     }
 
@@ -33,10 +33,7 @@ public class ArrowEffect : MonoBehaviour
             player.TakeDamage(Dmg);
             FreezeArrow(other);
         }
-        else if (other.gameObject.tag == "Enemy" || other.gameObject.tag == "Room" || other.gameObject.name.Contains("Battle"))
-        {
-        }
-        else
+        else if (other.gameObject.tag != "Enemy" && other.gameObject.tag != "Room" && !(other.gameObject.name.Contains("Battle")) && other.gameObject.tag != "PlayerProjectile")
         {
             FreezeArrow(other);
         }
@@ -47,6 +44,7 @@ public class ArrowEffect : MonoBehaviour
         body.velocity = Vector3.zero;
         body.angularVelocity = Vector3.zero;
         body.isKinematic = true;
+        GetComponentInChildren<BoxCollider>().enabled = false;
         if (other.gameObject.tag == "Player")
         {
             gameObject.transform.parent.SetParent(other.transform);
