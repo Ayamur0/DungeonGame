@@ -1,12 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class LevelManager : MonoBehaviour {
     public bool HideRooms = true;
 
     public int CurrentStage = 1;
 
+    public Text StageMessage;
     public GameObject SpawnVFX;
     public AudioClip SpawnSfx;
 
@@ -28,6 +31,9 @@ public class LevelManager : MonoBehaviour {
         this.levelGenerator = this.GetComponent<LevelGenerator>();
         this.transitionManager = FindObjectOfType<TransitionManager>();
         this.audioSource = this.GetComponent<AudioSource>();
+
+
+        StartCoroutine(DisplayCurrentStageMessage());
     }
 
     public void LoadNextState() {
@@ -49,6 +55,8 @@ public class LevelManager : MonoBehaviour {
 
             this.levelGenerator.GenerateLevel(lvlSettings);
             this.CurrentStage++;
+
+            StartCoroutine(DisplayCurrentStageMessage());
 
             // convert soulhearts to red hearts
             var playerStats = FindObjectOfType<PlayerStats>();
@@ -94,6 +102,13 @@ public class LevelManager : MonoBehaviour {
         NextStageLoaded?.Invoke();
     }
 
+    private IEnumerator DisplayCurrentStageMessage()
+    {
+        StageMessage.text = "Stage " + this.CurrentStage;
+        StageMessage.enabled = true;
+        yield return new WaitForSeconds(3);
+        StageMessage.enabled = false;
+    }
     public void SetActiveRoom(GameObject newRoom) {
         if (this.activeRoom && HideRooms) {
             if (this.activeRooms.Count > 0) {
