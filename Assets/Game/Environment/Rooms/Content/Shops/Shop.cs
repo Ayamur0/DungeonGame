@@ -1,10 +1,13 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Shop : MonoBehaviour {
     public List<GameObject> ItemSlots = new List<GameObject>();
     public List<GameObject> Trigger = new List<GameObject>();
 
+    private Text ErrorMessage;
     private GameObject player;
     private List<GameObject> items;
     private int currentTrigger = -1;
@@ -12,6 +15,7 @@ public class Shop : MonoBehaviour {
 
     // Start is called before the first frame update
     private void Start() {
+        ErrorMessage = GameObject.Find("ShopErrorMessage").GetComponent<Text>();
         player = FindObjectOfType<PlayerAPI>().gameObject;
         List<Vector3> positions = new List<Vector3>();
         foreach (var slot in ItemSlots) {
@@ -44,12 +48,22 @@ public class Shop : MonoBehaviour {
     }
 
     private void BuyItem() {
-        if (!player.GetComponent<PlayerAPI>().Pay(100))
+        if (!player.GetComponent<PlayerAPI>().Pay(100)) {
+            StartCoroutine(DisplayErrorMessage("You need 100 coins to buy this"));
             return;
+        }
         if (!items[currentTrigger].GetComponent<Powerup>().Pickup(player)) {
+            StartCoroutine(DisplayErrorMessage("You don't have enough space in your inventory to buy this"));
             player.GetComponent<PlayerAPI>().Pay(-100);
             return;
         }
         boughtItems.Add(currentTrigger);
+    }
+
+    private IEnumerator DisplayErrorMessage(string message) {
+        ErrorMessage.text = message;
+        ErrorMessage.enabled = true;
+        yield return new WaitForSeconds(2);
+        ErrorMessage.enabled = false;
     }
 }
