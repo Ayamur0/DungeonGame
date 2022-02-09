@@ -111,7 +111,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sprite: {fileID: 0}
   inventory: {fileID: 0}
-  flatMoveSpeed: 4
+  flatMoveSpeed: 2
   percentMoveSpeed: 1
   flatAttackSpeed: 0.05
   percentAttackSpeed: 1.05
