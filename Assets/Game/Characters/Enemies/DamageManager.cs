@@ -11,7 +11,7 @@ public class DamageManager : MonoBehaviour {
         levelManager = FindObjectOfType<LevelManager>();
     }
 
-    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type) {
+    public void Init(EnemyGenerator.EnemyType type) {
         switch (type) {
             case EnemyGenerator.EnemyType.SkeletonBasic:
                 this.damage = 0.5f;
