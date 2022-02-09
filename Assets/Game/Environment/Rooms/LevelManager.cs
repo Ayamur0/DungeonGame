@@ -10,6 +10,7 @@ public class LevelManager : MonoBehaviour {
     public int CurrentStage = 1;
 
     public Text StageMessage;
+    public Text CurrentStageInfo;
     public GameObject SpawnVFX;
     public AudioClip SpawnSfx;
 
@@ -58,6 +59,8 @@ public class LevelManager : MonoBehaviour {
 
             StartCoroutine(DisplayCurrentStageMessage());
 
+            CurrentStageInfo.text = "Stage: " + this.CurrentStage + "\nRooms: " + this.levelGenerator.Settings.Rooms;
+
             // convert soulhearts to red hearts
             var playerStats = FindObjectOfType<PlayerStats>();
             if (playerStats != null) {
@@ -104,7 +107,7 @@ public class LevelManager : MonoBehaviour {
 
     private IEnumerator DisplayCurrentStageMessage()
     {
-        StageMessage.text = "Stage " + this.CurrentStage;
+        StageMessage.text = "Stage " + this.CurrentStage + "\nRooms: " + this.levelGenerator.Settings.Rooms;
         StageMessage.enabled = true;
         yield return new WaitForSeconds(3);
         StageMessage.enabled = false;
