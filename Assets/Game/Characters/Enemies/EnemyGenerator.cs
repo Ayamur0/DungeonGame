@@ -8,10 +8,10 @@ public class EnemyGenerator : MonoBehaviour
     public enum EnemyType
     {
         SkeletonBasic,
-        Archer,
+        Wiking,
         BigSkeleton,
         Mage,
-        Wiking,
+        Archer,
         Witch,
     }
 
@@ -40,14 +40,22 @@ public class EnemyGenerator : MonoBehaviour
         List<GameObject> returnList = new List<GameObject>();
         EnemyDifficulty mode_difficulty = (EnemyDifficulty)mode;
         List<EnemyType> spawnType = new List<EnemyType>( (IEnumerable<EnemyType>) System.Enum.GetValues(typeof(EnemyType)));
-
-        int spawnRate = Random.Range(1, 3);
+        bool chooseMelee = false;
 
         do
         {
-            int TypeRandomIndex = Random.Range(0, spawnType.Count);
+            int TypeRandomIndex;
+            if (chooseMelee)
+            {
+                TypeRandomIndex = Random.Range(0, 2);
+            }
+            else
+            {
+                TypeRandomIndex = Random.Range(3, spawnType.Count);
+            }
+
+            chooseMelee = !chooseMelee;
             enemies = spawnType[TypeRandomIndex];
-            spawnType.RemoveAt(TypeRandomIndex);
 
             switch (mode_difficulty)
             {
@@ -103,10 +111,9 @@ public class EnemyGenerator : MonoBehaviour
                 }
                 else Destroy(enemyObj);
 
-                spawnRate--;
             }
 
-        } while (spawnPoints.Count > 0 || spawnRate > 0);
+        } while (spawnPoints.Count > 0);
         return returnList;
     }
 
