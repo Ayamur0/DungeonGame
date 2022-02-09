@@ -35,10 +35,9 @@ public class EnemyGenerator : MonoBehaviour
     public GameObject mage_prefab;
 
 
-    public List<GameObject> GenerateEnemies(float mode, List<Transform> spawnPoints, Room activeRoom)
+    public List<GameObject> GenerateEnemies(List<Transform> spawnPoints, Room activeRoom)
     {
         List<GameObject> returnList = new List<GameObject>();
-        EnemyDifficulty mode_difficulty = (EnemyDifficulty)mode;
         List<EnemyType> spawnType = new List<EnemyType>( (IEnumerable<EnemyType>) System.Enum.GetValues(typeof(EnemyType)));
         bool chooseMelee = false;
 
@@ -57,18 +56,7 @@ public class EnemyGenerator : MonoBehaviour
             chooseMelee = !chooseMelee;
             enemies = spawnType[TypeRandomIndex];
 
-            switch (mode_difficulty)
-            {
-                case EnemyDifficulty.Easy:
-                    amountEnemy = Random.Range(Mathf.Min(2, spawnPoints.Count), Mathf.Min(4, spawnPoints.Count));
-                    break;
-                case EnemyDifficulty.Medium:
-                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count), Mathf.Min(5, spawnPoints.Count));
-                    break;
-                case EnemyDifficulty.Hard:
-                    amountEnemy = Random.Range(Mathf.Min(3, spawnPoints.Count), Mathf.Min(6, spawnPoints.Count));
-                    break;
-            }
+            amountEnemy = Random.Range(Mathf.Min(2, spawnPoints.Count), Mathf.Min(4, spawnPoints.Count));
 
 
             for (int f = 1; f <= amountEnemy; f++)
@@ -105,7 +93,7 @@ public class EnemyGenerator : MonoBehaviour
 
                 if (enemyObj != null)
                 {
-                    enemyObj.GetComponent<EnemyController>().Init(mode_difficulty, enemies, activeRoom);
+                    enemyObj.GetComponent<EnemyController>().Init(enemies, activeRoom);
                     enemyObj.GetComponent<NavMeshAgent>().Warp(spawnpoint.position);
                     returnList.Add(enemyObj);
                 }

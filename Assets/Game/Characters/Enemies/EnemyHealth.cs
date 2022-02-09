@@ -29,22 +29,22 @@ public class EnemyHealth : MonoBehaviour {
         this.controller = controller;
         switch (type) {
             case EnemyGenerator.EnemyType.SkeletonBasic:
-                this._health = 4;
+                this._health = 5;
                 break;
             case EnemyGenerator.EnemyType.Archer:
-                this._health = 2;
+                this._health = 3;
                 break;
             case EnemyGenerator.EnemyType.BigSkeleton:
                 this._health = 6;
                 break;
             case EnemyGenerator.EnemyType.Mage:
-                this._health = 3;
+                this._health = 4;
                 break;
             case EnemyGenerator.EnemyType.Wiking:
-                this._health = 5;
+                this._health = 7;
                 break;
             case EnemyGenerator.EnemyType.Witch:
-                this._health = 3;
+                this._health = 4;
                 break;
         }
 

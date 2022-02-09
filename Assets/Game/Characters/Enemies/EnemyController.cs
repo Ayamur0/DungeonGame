@@ -67,7 +67,7 @@ public class EnemyController : MonoBehaviour {
 
     private PowerupSpawner powerupSpawner;
 
-    public void Init(EnemyGenerator.EnemyDifficulty mode, EnemyGenerator.EnemyType type, Room activeRoom) {
+    public void Init(EnemyGenerator.EnemyType type, Room activeRoom) {
         this.EnemyType = type;
         Player = GameObject.FindGameObjectWithTag("Player");
         Agent = GetComponent<NavMeshAgent>();
@@ -77,7 +77,7 @@ public class EnemyController : MonoBehaviour {
         HealthStats = GetComponent<EnemyHealth>();
         DamageManager = GetComponent<DamageManager>();
         HealthStats.Init(this, type);
-        DamageManager.Init(mode, type);
+        DamageManager.Init(type);
         Audiosource = GetComponent<AudioSource>();
 
         EffectSkinnedMesh = GetComponentsInChildren<SkinnedMeshRenderer>();

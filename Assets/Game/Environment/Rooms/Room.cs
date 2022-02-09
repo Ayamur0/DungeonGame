@@ -172,10 +172,32 @@ public class Room : MonoBehaviour
         {
             player.GetComponent<PlayerAPI>().DecreaseActiveItemCooldown();
             var enemyGenerator = this.Content.GetComponent<EnemyGenerator>();
-            if(enemyGenerator != null)
+            int amountSpawn = 5;
+            if (enemyGenerator != null)
             {
-                var spawns = this.Content.GetRandomSpawns(5);
-                this.spawnedEnemies = enemyGenerator.GenerateEnemies(0, spawns, this);
+                if (LevelManager != null)
+                {
+                    int x = LevelManager.CurrentStage;
+                    
+                    if (x <= 1)
+                    {
+                        amountSpawn = 3;
+                    }
+                    else if (2 <= x && x <= 5)
+                    {
+                        amountSpawn = 5;
+                    }
+                    else if (6 <= x && x <= 8)
+                    {
+                        amountSpawn = 7;
+                    }
+                    else
+                    {
+                        amountSpawn = 10;
+                    }
+                }
+                var spawns = this.Content.GetRandomSpawns(amountSpawn);
+                this.spawnedEnemies = enemyGenerator.GenerateEnemies(spawns, this);
             }
 
             if (this.Type == RoomType.Battle)
