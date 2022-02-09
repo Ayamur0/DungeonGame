@@ -235,7 +235,7 @@ public class EnemyController : MonoBehaviour {
             Destroy(gameObject, 1f);
         }
 
-        int r = Random.Range(0, 6);
+        int r = Random.Range(0, 5);
         if (r == 0) {
             if (powerupSpawner == null)
                 powerupSpawner = FindObjectOfType<PowerupSpawner>();
