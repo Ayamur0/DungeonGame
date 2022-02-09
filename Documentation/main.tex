@@ -3,7 +3,7 @@
 \subsection{Spielidee}
 Wir haben uns auf eine Spielidee geeinigt, die stark von "The Binding of Isaac" inspiriert ist. Unser Spiel findet sich damit auch im selben Genre wie "The Binding of Isaac", ein random generierter Action RPG Shooter mit Rogue-Like Elementen.\\
 Ein wichtiger Punkt bei der Entwicklung war es somit, dass die Level random generiert werden können. Die RPG Elemente äußern sich durch die Stats des Spielers, welche mithilfe von Items verbessert werden können. \\
-Das Ziel des Spiels ist es, mit jedem Versuch so weit wie möglich in den Dungeon vorzudringen und dabei so viele Gegner wie möglich zu besiegen. Durch verschiedene Waffen und Items sowie die random generierten Level, soll dabei jeder Versuch anders Ablaufen und eine neue Herausforderung bieten.\\
+Das Ziel des Spiels ist es, mit jedem Versuch so weit wie möglich in den Dungeon vorzudringen und dabei so viele Gegner wie möglich zu besiegen. Durch verschiedene Waffen und Items, sowie die random generierten Level, soll dabei jeder Versuch anders ablaufen und eine neue Herausforderung bieten.\\
 Wir haben uns für diese Spielidee entschieden, da ein solches Spielkonzept auch als Prototyp bereits eine hohe Wiederspielbarkeit bietet, da jeder Versuch einzigartig ist.\\
 \graphic{graphic-example}{Grafikstil}
 Für den Grafikstil haben wir uns für einen recht einfach gehaltenen Toon Grafikstil entschieden, da dieser schnell und einfach umsetzbar ist, was für einen Prototyp wichtig ist.
@@ -50,7 +50,7 @@ Für die Items benötigt der Spieler zudem ein Inventar, welches verschiedene Sl
 \item Ein aktiv verwendbares Item
 \item 5 passive Items
 \end{itemize}
-Um den RPG Askepkt zu realisieren, soll der Spieler zudem verschiedene Stats haben, welche durch Items verbessert werden können.
+Um den RPG Aspekt zu realisieren, soll der Spieler zudem verschiedene Stats haben, welche durch Items verbessert werden können.
 \bigskip
 
 Die Powerups sollen in 5 Klassen aufgeteilt sein:
@@ -120,7 +120,7 @@ Besitzt der Spieler Items, die feste Statboni und Multiplikatoren für Stats hab
     \rowincludegraphics[scale=1]{heart} & Füllt ein Herz der Energieleiste wieder auf \\ 
     \rowincludegraphics[scale=1]{heart-container} & Fügt der Energieleiste ein weiteres Herz hinzu und füllt dieses auf \\ 
     \rowincludegraphics[scale=1]{black-heart} & Falls die Energieleiste nicht voll ist, wird ein Herz mit einem schwarzen Herz aufgefüllt, ansonsten wird ein rotes Herz durch dieses ersetzt. Nimmt der Spieler Schaden und verliert dieses Herz wird an allen Gegnern in der Nähe Schaden verursacht. \\ 
-    \rowincludegraphics[scale=1]{soul-heart} & Füght der Energieleiste ein weiteres Herz hinzu und füllt dieses mit einem halben Seelenherz. Nimmt der Spieler Schaden, verliert er dieses Seelenherz, sowie den der Energieleiste hinzugefügten Herzcontainer. Erreicht der Spieler ein Portal, während er noch Seelenherzen besitzt, so werden diese in normale Herzen umgewandelt und dadurch gewonnenen Herzcontainer werden dauerhaft.
+    \rowincludegraphics[scale=1]{soul-heart} & Fügt der Energieleiste ein weiteres Herz hinzu und füllt dieses mit einem halben Seelenherz. Nimmt der Spieler Schaden, verliert er dieses Seelenherz, sowie den der Energieleiste hinzugefügten Herzcontainer. Erreicht der Spieler ein Portal, während er noch Seelenherzen besitzt, so werden diese in normale Herzen umgewandelt und dadurch gewonnenen Herzcontainer werden dauerhaft.
 \end{atab}
 
 \subsubsection{Waffen}
@@ -179,10 +179,17 @@ Diese Items können durch drücken der Leertaste aktiviert werden. Zudem muss na
 
 \subsection{UI}
 \subsubsection{Main Menu}
-%TODO UI Main Menu
+\graphic{mainMenu}{Hauptmenü des Spiels}
+Im Hauptmenü finden sich zwei Buttons:
+\begin{itemize}
+\item \textbf{Start Game} startet ein neues Spiel
+\item \textbf{Exit} schließt das Spiel
+\end{itemize}
 
 \subsubsection{Death Menu}
-%TODO UI Death Menu
+\graphic{deathMenu}{Menü nachdem der Spieler gestorben ist}
+Im Todesmenü werden verschiedene Stats angezeigt. Der Spieler kann hier sehen, wie viele Gegner er getötet hat, in welcher Ebene er sich zum Zeitpunkt des Todes befand und wie viele Münzen gesammelt wurden.\\
+Auch in diesem Menü finden sich zwei Buttons. Der Restart-Button startet ein neues Spiel und der Exit-Button bringt den Spieler zurück ins Hauptmenü.
 
 \subsubsection{Lebensanzeige}
 \graphic{ui-health}{Lebensanzeige}
@@ -221,10 +228,21 @@ Der Prototyp bietet viele verschiedene Möglichkeiten, wie er noch erweitert wer
 \item Es können \textbf{neue Gegner Variationen} eingebaut werden. Auch könnten \textbf{Bosskämpfe} eingebaut werden, die dann zB in jeder 5. Ebene auftreten und eine besondere Herausforderung gegen starke Gegner bieten
 \item Die \textbf{Auswahl an Items kann vergrößert} werden, es gibt nahezu endlose Möglichkeiten für neue Items die eingebaut werden könnten. Einige Beispiele hierfür wären: KI Helfer, Nahkampfwaffen oder Tränke.
 \item Die \textbf{Vielfalt der Räume} kann weiter erhöht werden, durch komplett neue Raumarten oder neue Varianten bereits existierender Räume.
-\item Es können \textbf{neue Charaktere} eingebaut werden. Zudem könnten für jeden Charakter \textbf{einzigartige Fähigkeiten} entwickelt werden, um die Spielweiße je nach Charakter zu verändern.
+\item Es können \textbf{neue Charaktere} eingebaut werden. Zudem könnten für jeden Charakter \textbf{einzigartige Fähigkeiten} entwickelt werden, um die Spielweise je nach Charakter zu verändern.
 \end{itemize}
 
 \section{Verwendete Assets}
 
+Als Grundlage für unser Spiel dienen die Assets Packs von \textbf{KayKit}. In unserem Spiel werden Assets aus allen Assets Paketen von KayKit verwendet.\\
+\begin{itemize}
+\item \textbf{Minigame-Pack:} https://kaylousberg.itch.io/kay-kit-mini-game-variety-pack
+\item \textbf{Spooktober-Pack:} https://kaylousberg.itch.io/kaykit-spooktober
+\item \textbf{Dungeon-Pack:} https://kaylousberg.itch.io/kaykit-dungeon
+\item \textbf{Animations-Pack:} https://kaylousberg.itch.io/kaykit-animations
+\item \textbf{Skeletons-Pack:} https://kaylousberg.itch.io/kaykit-skeletons
+\end{itemize}
 
+Die Sprites für die Item-Icons wurden aus einem Texture-Pack für The Binding of Isaac entnommen: https://www.mediafire.com/file/7fero69jzm677w8/rebirth-r26_b24.rar/file
+
+%TODO Sound + Particle sources
 
