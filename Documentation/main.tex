@@ -35,7 +35,32 @@ Das Ziel in jeder Ebene ist es, vom Spawnraum in den Portalraum zu gelangen. Bet
 In den "Erkunden"-Räume befinden sich Kisten, die zufällige Items beinhalten. Im Shop-Raum kann der Spieler gezielt ein bestimmtes Item aus der zufälligen Auswahl kaufen.
 
 \subsubsection{AI-Design}
-%TODO AI Design Konzept
+
+Ein wichtiges Fundament für die Spielidee ist es, abwechslungsreiches Gameplay zu bieten. Diese Anforderung gilt auch für die AI in diesem Spiel und wurde erfüllt, indem unterschiedliche Typen an Computern mit unterschiedlichen Waffen implementiert wurden. Sie sollen den Gegner jeweils mit einer eigener Strategie angreifen.
+
+Da die AI die simple Aufgabe hat, den Spieler in ihrer Sichtweise zu erkennen und dann unaufhörlich zu verfolgen und ab einer bestimmten Nähe anzugreifen, konnte man die allgemeine Funktionsweise der Gegner mit Zuständen steuern. Die genauen Reichweiten zur Erkennung oder zum Angreifen des Spielers sollen für jeden Typ unterschiedlich sein. 
+
+Die Kampfstrategien kann man in Fern- und Nahkampf grob aufteilen. Dafür wurden jeweils drei verschiedene Gegner entwickelt:
+
+\begin{itemize}
+\item Basic Skeleton
+\item Big Skeleton
+\item Wiking (Wikinger)
+\end{itemize}
+
+\begin{itemize}
+\item Archer (Bogenschütze)
+\item Witch (Hexe)
+\item Mage (Magier)
+\end{itemize}
+
+Während die zuerst gelisteten Nahkämpfer alle trivialerweise den Spieler von Nahem angreifen und sich lediglich in ihrer Laufgeschwindigkeit und Lebenspunkte unterscheiden, zwingen die Fernschützen mit unterschiedlichen Waffen den Spieler zum Ausweichen. als Waffen werden folgende Projektile, die vom Gegner abgefeuert werden, bezeichnet:
+
+\begin{itemize}
+\item Pfeile/Salvenschuss (Archer)
+\item Giftflasche/Giftwolke (Witch)
+\item Feuerbälle (Mage)
+\end{itemize}
 
 \subsubsection{Spieler und Powerups}
 Der Spieler soll mittels WASD gesteuert werden können, während er gleichzeitig mit den Pfeiltasten in alle Richtungen schießen kann, unabhängig der Bewegungsrichtung. \\
@@ -88,7 +113,49 @@ Die nachfolgende Grafik zeigt ein komplette Ebene.
 
 
 \subsection{AI}
-%TODO AI-Umsetzung
+
+\subsubsection{Generierung der AI im Battle-Raum}
+
+Bevor es um die eigentliche Arbeitsweise der Gegner geht, wird in diesem Abschnitt behandelt, wie die AIs genau gespawnt werden. Die Gegner spawnen ausschließlich im Battle-Raum. Der Battle-Raum ruft im \textit{Enemy-Generator}-Skript die Funktion \textit{GenerateEnemies} auf und übergibt dabei die Spawnpunkte. Diese Funktion sucht sich dann einen zufälligen Nah- oder Fernkämpfer aus und spawnt dabei eine bestimmte Anzahl davon. Dies wird solange gemacht, bis es keine Spawnpunkte mehr gibt. Je tiefer man in den Dungeon kommt, der mehr erhöht sich die Anzahl von Enemies, wobei es eine Obergrenze von 10 Enemies pro Raum gibt. \\
+
+\subsubsection{Allgemeine Funktionsweise}
+
+Sobald die AIs gespawnt werden, bringt das \textit{EnemyController}-Skript das Model in Bewegung. Dieses Skript bildet die zentrale Komponente und funktioniert zustandsbasiert. Lebenspunkte und der grundlegende Schaden werden festgelegt, wobei mit jeder Ebene, die der Spieler meistert, die Punkte auch zunehmen. \\
+
+Der nächste Zustand \textit{Chasing} wird ausgelöst, falls sich der Spieler in der Search Range des Models befindet. Sollte der Gegner den Spieler direkt sehen können, ohne das ein Hindernis dazwischen liegt, wird er in diesem Zustand wechseln und auch verbleiben, bis er stirbt oder der Spieler das Spiel verliert. \\
+
+Die AI wechselt dabei zwischen diesem Zustand und dem folgenden Zustand \textit{Attacking}. Letzteres wird ausgelöst, falls sich der Spieler in der Attack Range des Gegner aufhält. Dadurch wird dann die Attacke auf den Spieler ausgeführt. Dabei gibt es Unterschiede in der Vorgehensweise. \\
+
+\graphic{ranges-ai}{Die Search Range (gelb) und die Attack Range (rot) des Archers}
+
+Für die Attacke wird schlichtweg eine Animation ausgeführt, die ab einem bestimmten Punkt ein Event auslöst, wobei hier für Nah- und Fernkämpfer verschiedene Animationen abgespielt werden. In den unterschiedlichen Animationen wird jeweils für die zwei Sorten zwei verschiedene Events aufgerufen. \\
+
+Bei den Nahkämpfern wird direkt die Funktion \textit{SendNearAttackDamage} aufgerufen, die beim Spieler Schaden verursacht. \\
+Bei den Fernkämpfern wird zunächst das Projektil erzeugt, welches von Model zu Model anders ist. Dann wird die jeweilige Skript-Komponente des Projektils aufgerufen, indem das Projektil in Bewegung gesetzt wird. Die detaillierte Beschreibung erfolgt später bei den Typen.
+
+\subsubsection{Typen / Waffen}
+
+Für jeden Kämpfer gibt es ein \textit{Scriptable Object}, indem die jeweiligen Werte für die Ranges festgehalten werden. Der Vorteil von \textit{Scriptable Objects} besteht darin, dass alle Instanzen von einem Kämpfertyp dieses Objekt teilen. Dadurch kann man bei einer großen Anzahl von Kämpfer sehr effektiv Speicherplatz sparen kann. \\
+
+\textbf{Nahkämpfer} \\
+
+Die Nahkämpfer unterscheiden sich jeweils nur in ihren Statistiken. Dabei hat der \textbf{Basic Skeleton} zwar weniger Lebenspunkte und verursacht weniger Schaden, ist aber um so einiges schneller als seine beiden Nachgänger. Diese Schnelligkeit zeichnet ihn aus und zwingt den Gegner zum direkten Angreifen oder Weglaufen. Der \textbf{Wikinger} und der \textbf{Big Skeleton} spielen eher die Rolle des Tanks und fangen den Schaden ab. \\
+
+\graphic{nahkaempfer}{Die verschiedenene Nahkämpfer}
+
+\textbf{Fernkämpfer} \\
+
+Beim Archer werden jeweils Pfeile erzeugt und mit relativ schneller Geschwindigkeit abgeschossen. Sobald er mit einem Gegenstand wie dem Spieler oder der Wand in Berührung kommt, bleibt er stecken und löst sich nach paar Sekunden auf. Außerdem erzeugt er nach jedem 3 Schuss eine Salve aus drei Pfeilen und schießt sie in jeweils unterschiedlichen Richtungen ab. Die Pfeile können dabei jeweils die Projektile des Gegners ignorieren und überwinden.\\
+
+\graphic{archer}{Der Salvenschuss}
+
+Die Hexe feuert aus etwas größeren Entfernung Glasflaschen mit Giftgas in einem Halbbogen im Umfeld vom Spieler ab. Sobald die Flaschen auf dem Boden auflandet, zerbricht sie und die Giftwolke breitet sich aus. Dabei wird dem Spieler für jede Sekunde, indem er sich in dieser Giftwolke befindet, einen bestimmten Schaden hinzugefügt. Diese Giftwolke löst sich ebenfalls nach paar Sekunden auf.\\
+
+\graphic{hexe}{Flaschenwurf der Hexe (Kurve wird mit mehreren Flaschen sichtbar gemacht)}
+
+Zuletzt gibt es den Magier, der Feuerbälle abschießt, die sich von den Feuerbällen des Spielers in der Farbe unterscheidet. Jeder Schuss besteht aus einer Welle von 3 lila Feuerbällen, die dabei in Richtung des Spielers abgefeuert werden. Trefft dabei ein Feuerball auf ein Projektil vom Spieler, explodiert dieser Feuerball.\\
+
+\graphic{magier}{Die Feuerbälle des Magiers}
 
 \subsection{Spieler}
 \graphic{player}{Modell des Spielers}
