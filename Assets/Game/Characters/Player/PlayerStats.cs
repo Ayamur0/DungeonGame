@@ -48,6 +48,7 @@ public class PlayerStats : MonoBehaviour {
     public Image ItemStatsUI;
     public Image WeaponStatsUI;
     public GameObject Minimap;
+    public GameObject StageText;
 
     public AudioClip[] PlayerHitsSounds;
 
@@ -65,6 +66,7 @@ public class PlayerStats : MonoBehaviour {
             ShowStatsUI();
         else {
             Minimap.SetActive(true);
+            StageText.SetActive(true);
             ItemStatsUI.gameObject.SetActive(false);
             PlayerStatsUI.gameObject.SetActive(false);
             WeaponStatsUI.gameObject.SetActive(false);
@@ -209,6 +211,7 @@ public class PlayerStats : MonoBehaviour {
 
     private void ShowStatsUI() {
         Minimap.SetActive(false);
+        StageText.SetActive(false);
         ItemStatsUI.gameObject.SetActive(true);
         PlayerStatsUI.gameObject.SetActive(true);
         WeaponStatsUI.gameObject.SetActive(true);
