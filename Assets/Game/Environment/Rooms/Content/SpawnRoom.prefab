@@ -324,6 +324,7 @@ GameObject:
   - component: {fileID: 1885464899325402447}
   - component: {fileID: 1885464899325402446}
   - component: {fileID: 367281692584230532}
+  - component: {fileID: 1080465497966176409}
   m_Layer: 0
   m_Name: pillar (2)
   m_TagString: Untagged
@@ -408,6 +409,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6099999, y: 4, z: 1.6099999}
   m_Center: {x: 0, y: 2, z: -0.0000005662441}
+--- !u!54 &1080465497966176409
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885464899325402440}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &1885464899623854680
 GameObject:
   m_ObjectHideFlags: 0
@@ -548,6 +565,7 @@ GameObject:
   - component: {fileID: 1885464900098714554}
   - component: {fileID: 1885464900098714533}
   - component: {fileID: 2164133980483882821}
+  - component: {fileID: 2716149505085502630}
   m_Layer: 0
   m_Name: pillar (1)
   m_TagString: Untagged
@@ -632,6 +650,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6099999, y: 4, z: 1.6099999}
   m_Center: {x: 0, y: 2, z: -0.0000005662441}
+--- !u!54 &2716149505085502630
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885464900098714535}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &1885464900127997579
 GameObject:
   m_ObjectHideFlags: 0
@@ -741,6 +775,7 @@ GameObject:
   - component: {fileID: 1885464900136804100}
   - component: {fileID: 1885464900136804103}
   - component: {fileID: 8636338112784463234}
+  - component: {fileID: 4194653437588403311}
   m_Layer: 0
   m_Name: pillar
   m_TagString: Untagged
@@ -825,6 +860,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6099999, y: 4, z: 1.6099999}
   m_Center: {x: 0, y: 2, z: -0.0000005662441}
+--- !u!54 &4194653437588403311
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885464900136804097}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &1885464900319055211
 GameObject:
   m_ObjectHideFlags: 0
@@ -1015,6 +1066,7 @@ GameObject:
   - component: {fileID: 1885464900723164963}
   - component: {fileID: 1885464900723164962}
   - component: {fileID: 4093030083563753303}
+  - component: {fileID: 9138882117508486117}
   m_Layer: 0
   m_Name: pillar (3)
   m_TagString: Untagged
@@ -1099,6 +1151,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1.6099999, y: 4, z: 1.6099999}
   m_Center: {x: 0, y: 2, z: -0.0000005662441}
+--- !u!54 &9138882117508486117
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1885464900723164972}
+  serializedVersion: 2
+  m_Mass: 100
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 1
+  m_Constraints: 126
+  m_CollisionDetection: 1
 --- !u!1 &1885464900934802185
 GameObject:
   m_ObjectHideFlags: 0
